@@ -144,5 +144,4 @@ DOMAIN_SELECTORS = {
 ```
 
 ## License
-
-MIT
+GPL-3.0 License
