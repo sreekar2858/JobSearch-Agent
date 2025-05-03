@@ -1,0 +1,159 @@
+[
+   {
+     "job_title": "CFD Engineer",
+     "company_name": "Skytree",
+     "job_responsibilities": [
+       "Develop and run CFD simulations to support development of carbon capture technologies.",
+       "Collaborate with multidisciplinary teams to improve the efficiency of air purification systems.",
+       "Contribute to the innovation of climate technologies through applied fluid dynamics.",
+       "Analyze simulation data and provide actionable insights for product development."
+     ],
+     "job_requirements": [
+       "Proficiency in CFD tools and methodologies.",
+       "Strong background in fluid dynamics and numerical modeling.",
+       "Excellent analytical and problem-solving skills.",
+       "Ability to work effectively in a collaborative and fast-paced environment.",
+       "Experience or interest in climate tech is a plus."
+     ],
+     "job_location": "Amsterdam, Noord-Holland, Netherlands",
+     "posting_date": "2025-03",
+     "job_type": "Full-time, Onsite only",
+     "experience_level": "Mid-level to Senior",
+     "skills_required": ["CFD simulation", "fluid dynamics", "climate tech", "teamwork", "analytical skills"],
+     "contact_person": "Not specified",
+     "contact_email_or_linkedin": "Apply via company careers page",
+     "salary_info": "Not specified",
+     "language_requirements": ["English", "German"],
+     "keywords": ["CFD", "climate tech", "CO2 capture", "fluid dynamics"],
+     "company_website": "https://skytree.eu",
+     "job_url": "https://climatetechlist.com/job/skytree-cfd-engineer-nl-O1ujG88aLcr4wn"
+   },
+   {
+     "job_title": "Thermal Development Engineer",
+     "company_name": "HE Space",
+     "job_responsibilities": [
+       "Conduct thermal analysis for space systems, including satellites and instruments.",
+       "Perform sanity checks and manual calculations to support and verify simulation results.",
+       "Assist in developing the thermal control system and selecting/designing thermal components.",
+       "Participate in and monitor thermal vacuum and thermal balance testing.",
+       "Manage project costs, risks, and timelines related to thermal development activities.",
+       "Utilize SYSTEMA/Thermica and ESATAN-TMS for modeling and analysis.",
+       "Design and develop thermal hardware such as heat pipes and thermal straps.",
+       "Document models, simulation results, test outcomes, and all engineering activities."
+     ],
+     "job_requirements": [
+       "Master’s degree in a relevant engineering field.",
+       "Experience with SYSTEMA/Thermica and ESATAN-TMS software tools.",
+       "Proficiency in thermal analysis methods and hardware design.",
+       "Knowledge of CFD tools and programming in Python is advantageous.",
+       "Strong documentation and communication skills.",
+       "Fluency in English; knowledge of another European language is an asset."
+     ],
+     "job_location": "Immenstaad, Germany",
+     "posting_date": "2024-01-06",
+     "job_type": "Full-time",
+     "experience_level": "Mid-level (Master’s degree + relevant experience)",
+     "skills_required": ["Thermal analysis", "SYSTEMA/Thermica", "ESATAN-TMS", "Python", "hardware design", "CFD tools"],
+     "contact_person": "Vicente Gracia",
+     "contact_email_or_linkedin": "Apply via company website",
+     "salary_info": "Not specified",
+     "language_requirements": "English (fluency required), other European language an advantage",
+     "keywords": ["Thermal engineering", "satellites", "CFD", "heat pipes", "ESATAN-TMS"],
+     "company_website": "https://hespace.com",
+     "job_url": "https://hespace.com/vacancies/thermal-development-engineer-1"
+   },
+   {
+     "job_title": "CFD Specialist Yacht Building",
+     "company_name": "Van Storm",
+     "job_responsibilities": [
+       "Coordinate the CFD scope of work across multiple yacht design projects.",
+       "Provide technical support and mentorship to junior CFD engineers.",
+       "Conduct and interpret complex CFD simulations for custom mega yacht designs (80m+).",
+       "Collaborate with naval architects to optimize hydrodynamic performance.",
+       "Present CFD results and design recommendations to project stakeholders."
+     ],
+     "job_requirements": [
+       "At least 5 years of experience in CFD within the maritime industry.",
+       "Advanced knowledge of STAR CCM+ and maritime hydrodynamics.",
+       "Strong skills in simulation setup, analysis, and result interpretation.",
+       "Ability to manage multiple projects and work cross-functionally.",
+       "Excellent communication skills and a collaborative mindset."
+     ],
+     "job_location": "Hoofddorp, Netherlands",
+     "posting_date": "2024-10-03",
+     "job_type": "Full-time",
+     "experience_level": "Senior",
+     "skills_required": ["CFD", "STAR CCM+", "maritime hydrodynamics", "simulation", "project coordination"],
+     "contact_person": "Recruitment Partner Consultant",
+     "contact_email_or_linkedin": "Apply via company website",
+     "salary_info": "Not specified",
+     "language_requirements": ["English", "German"],
+     "keywords": ["CFD", "yacht", "STAR CCM+", "maritime", "simulation"],
+     "company_website": "https://vanstorm.nl",
+     "job_url": "https://vanstorm.nl/careers/vacancy-cfd-specialist-yacht-building-hoofddorp~V-00000388"
+   },
+   {
+     "job_title": "Fluid Dynamics CFD / Turbomachinery Air System and Thermal Engineer",
+     "company_name": "Siemens Energy",
+     "job_responsibilities": [
+       "Interface with Mechanical Design and Integrity teams to assess component life.",
+       "Model and analyze turbomachinery air systems under varying conditions.",
+       "Perform root cause and decision analysis, and design of experiments.",
+       "Calibrate simulation models using test data and real-world performance.",
+       "Define component and engine test specifications.",
+       "Support production and monitor performance metrics.",
+       "Contribute to process improvement and documentation efforts."
+     ],
+     "job_requirements": [
+       "Experience in CFD and turbomachinery air system modeling.",
+       "Strong analytical modeling and data interpretation skills.",
+       "Proficiency in documenting findings and reporting.",
+       "Familiarity with test calibration and process improvement methodologies.",
+       "Ability to work independently and as part of an engineering team."
+     ],
+     "job_location": "Lincoln, United Kingdom",
+     "posting_date": "2025-03-31",
+     "job_type": "Full-time, Hybrid",
+     "experience_level": "Not defined (likely mid to senior)",
+     "skills_required": ["CFD", "turbomachinery", "air systems", "analytical modeling", "report writing", "process improvement"],
+     "contact_person": "Not specified",
+     "contact_email_or_linkedin": "Apply via Siemens Energy jobs portal",
+     "salary_info": "Not specified",
+     "language_requirements": "English",
+     "keywords": ["CFD", "turbomachinery", "air systems", "Siemens Energy"],
+     "company_website": "https://jobs.siemens-energy.com",
+     "job_url": "https://jobs.siemens-energy.com/en_US/jobs/FolderDetail/Fluid-Dynamics-CFD-Turbomachinery-air-system-and-thermal-engineer/272310"
+   },
+   {
+     "job_title": "Thermal Fluid Engineer",
+     "company_name": "Siemens Energy",
+     "job_responsibilities": [
+       "Model and analyze secondary air systems for gas turbines using simulation tools.",
+       "Evaluate heating and expansion under transient operational conditions.",
+       "Determine optimal assembly tolerances based on thermal results.",
+       "Support new product development and service upgrades.",
+       "Analyze operational findings and performance issues from the field.",
+       "Work collaboratively with international teams on design and testing."
+     ],
+     "job_requirements": [
+       "Bachelor's or Master’s degree in Mechanical or Aerospace Engineering (or similar).",
+       "Minimum 2 years’ experience with thermal/fluid simulations and gas turbine systems.",
+       "Proficiency with Ansys, Abaqus, StarCCM+, and CAD tools like NX.",
+       "Programming experience (e.g., Visual Basic, C++, C#, Fortran) for simulation workflows.",
+       "Strong understanding of heat transfer, fluid flow, and mechanical system dynamics."
+     ],
+     "job_location": "Orlando, FL, USA",
+     "posting_date": "2025-03-26",
+     "job_type": "Full-time",
+     "experience_level": "Entry to senior (Bachelor's/Master's + 2 years minimum)",
+     "skills_required": ["Heat transfer", "fluid dynamics", "gas turbines", "Ansys", "Abaqus", "NX", "StarCCM+", "Visual Basic", "C++", "C#", "Fortran"],
+     "contact_person": "Not specified",
+     "contact_email_or_linkedin": "Apply via Siemens Energy jobs portal",
+     "salary_info": "Not specified",
+     "language_requirements": "English",
+     "keywords": ["Thermal fluids", "gas turbines", "CFD", "secondary air system"],
+     "company_website": "https://siemens-energy.com",
+     "job_url": "https://linkedin.com/jobs/view/thermal-fluid-engineer-at-siemens-energy-4161713220"
+   }
+ ]
+ 

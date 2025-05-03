@@ -1,0 +1,23 @@
+# Core dependencies
+google-adk
+python-dotenv
+pyyaml
+pandas
+requests
+beautifulsoup4
+python-docx
+
+# Langchain dependencies for search
+langchain
+langchain-community
+tavily-python
+
+# Scraping and parsing
+beautifulsoup4
+lxml
+html5lib
+nest_asyncio
+
+# Utilities
+tqdm
+colorama
