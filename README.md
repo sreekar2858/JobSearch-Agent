@@ -17,6 +17,10 @@ The Job Findr Agent utilizes a clever approach to search for jobs without needin
 2. **Scraping Pipeline**: Extracts complete job details from the search results
 3. **CV Customization**: Generates tailored CVs for each job using the Google ADK agent system
 
+<p align="center">
+<img src="assets/Job-Findr_Agent.png" alt="drawing" width="600"/>
+</p>
+
 ## Project Structure
 
 ```
