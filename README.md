@@ -1,7 +1,48 @@
-# Currently, the project is in development and not ready for production use.
-# Job Findr Agent (will be ready for production use on May 13, 2025)
+# Job Findr Agent
+<!-- center align the badges -->
+<p align="center">
+  <a href="https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/">
+    <img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+">
+    </a>
+    <a href="https://img.shields.io/badge/License-GPLv3-blue.svg">
+    <img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3">
+    </a>
+    <a href="https://img.shields.io/github/checks-status/sreekar2858/JobSearch-Agent/main">
+    <img src="https://img.shields.io/github/checks-status/sreekar2858/JobSearch-Agent/main" alt="GitHub branch status">
+    </a>
+    <a href="https://img.shields.io/github/issues/sreekar2858/JobSearch-Agent">
+    <img src="https://img.shields.io/github/issues/sreekar2858/JobSearch-Agent" alt="GitHub issues">
+    </a>
+</p>
 
-An agentic job search and CV preparation application using Google ADK.
+---
+
+## Project Status
+
+🚧 **This project is in active development and not ready for production use.**
+
+Planned production release: **May 13, 2025**
+
+---
+
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [How it Works](#how-it-works)
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Terminal Progress Tracking](#terminal-progress-tracking)
+- [Extending](#extending)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Overview
+
+Job Findr Agent is an agentic job search and CV preparation application using Google ADK. It automates job search, scraping, and CV customization for multiple job platforms.
 
 ## Features
 
@@ -19,16 +60,28 @@ The Job Findr Agent utilizes a clever approach to search for jobs without needin
 3. **CV Customization**: Generates tailored CVs for each job using the Google ADK agent system
 
 <p align="center">
-<img src="assets/Job-Findr_Agent.png" alt="drawing" width="600"/>
+<img src="assets/CVWritr_Agent.png" alt="drawing" width="600"/>
 </p>
+
+<p align="center" style="display: flex; justify-content: center;">
+<img src="assets/JobDetailsParsr_Agent.png" alt="drawing" width="600"/>
+<img src="assets/JobSearchr_Agent.png" alt="drawing" width="600"/>
+</p>
+
 
 ## Project Structure
 
 ```
-Job_Findr_Agent/
+JobSearch-Agent/
 ├── main.py                # Main entry point for batch processing jobs
+├── job_search_cli.py      # Command line interface for job search
+├── requirements.txt       # Dependencies list
 ├── config/                # Configuration files
-│   └── config.yaml        # Main configuration settings
+│   ├── cv_app_agent_config.yaml         # CV agent config
+│   ├── file_config.yaml               # File paths config
+│   ├── job_app_agent_config.yaml      # Job parser agent config
+│   ├── jobsearch_config.yaml          # Job search parameters
+│   └── litellm_config.yaml            # LLM config settings
 ├── data/                  # Document templates
 │   ├── SajjalaSreekarReddy_CV.docx      # CV template
 │   └── CoverLetter_Template.docx        # Cover letter template
@@ -39,19 +92,24 @@ Job_Findr_Agent/
 ├── src/                   # Source code modules
 │   ├── agents/            # AI agent implementations
 │   │   ├── cv_writer.py   # CV generation pipeline
-│   │   ├── cv_prompts.py  # LLM prompts for CV pipeline
-│   │   └── search_agents.py # Job search agents
+│   │   ├── job_details_parser.py      # Job details parser
+│   │   └── search_agents.py           # Job search agents
+│   ├── prompts/           # LLM prompt templates
+│   │   ├── cv_prompts.py              # CV generation prompts
+│   │   └── job_parsr_prompts.py       # Job parsing prompts
 │   └── utils/             # Utility functions
 │       ├── file_utils.py  # File and config handling
 │       ├── scraper.py     # Web scraping utilities
-│       └── exit_conditions.py # Loop exit conditions
+│       ├── job_search_pipeline.py     # Complete search workflow
+│       └── exit_conditions.py         # Loop exit conditions
 └── README.md
 ```
 
 ## Prerequisites
 
 - Python 3.10+
-- Dependencies: Google ADK, python-docx, scrapy, pyyaml, python-dotenv
+- Dependencies: Google ADK, python-docx, scrapy, pyyaml, python-dotenv, beautifulsoup4, requests
+- Access to Google Search
 
 ## Installation
 
@@ -84,6 +142,18 @@ Options:
 - `-m, --max-jobs`: Maximum jobs per site/location (default: 3)
 - `-c, --generate-cv`: Generate custom CVs for all found jobs
 
+Example output:
+```
+🔎 Searching for: Python Developer
+📍 Locations: Remote, London
+💼 Job type: full-time
+📊 Experience level: mid-level
+🔢 Max jobs per site/location: 5
+...
+✅ Job search completed successfully!
+💾 Results saved to: jobs/job_postings_YYYYMMDD_HHMMSS.json
+```
+
 ### Process Existing Jobs
 
 Process jobs from a JSON file to generate custom CVs:
@@ -92,9 +162,9 @@ Process jobs from a JSON file to generate custom CVs:
 python main.py
 ```
 
-### Configuration
+## Configuration
 
-Edit `config/config.yaml` to set default search parameters:
+Edit `config/jobsearch_config.yaml` to set default search parameters:
 
 ```yaml
 keywords: "Software Developer"
@@ -114,13 +184,6 @@ The application shows detailed progress in the terminal with emojis indicating e
 - 🔍 Query: site:linkedin.com/jobs Software Engineer Remote
 - 📝 Generating initial CV draft...
 - ✅ Job search completed. Found 12 job postings!
-
-## Requirements
-
-- Python 3.9+
-- Google ADK
-- Access to Google Search
-- BeautifulSoup4 and Requests for web scraping
 
 ## Extending
 
@@ -144,5 +207,13 @@ DOMAIN_SELECTORS = {
 }
 ```
 
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for improvements or bug fixes.
+
 ## License
 GPL-3.0 License
+
+## Contact
+
+For questions or support, please open an issue on GitHub or contact the maintainer at [sreekar2858@gmail.com](mailto:sreekar2858@gmail.com).

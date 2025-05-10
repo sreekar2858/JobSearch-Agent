@@ -218,7 +218,7 @@ class JobParsr(BaseAgent):
         logger.info(f"[{self.name}] Job Parsing Agent completed successfully.")
         
 # Import prompts to keep this file cleaner
-from src.agents.job_parsr_prompts import (  # noqa: E402
+from src.prompts.job_parsr_prompts import (  # noqa: E402
     decide_parser_prompt,
     json_verify_prompt,
     json_validation_prompt,

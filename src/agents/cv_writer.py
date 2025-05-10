@@ -129,7 +129,7 @@ class CVWriter(BaseAgent):
 
 
 # Import prompts to keep this file cleaner
-from src.agents.cv_prompts import (  # noqa: E402
+from src.prompts.cv_prompts import (  # noqa: E402
     initial_draft_prompt, 
     critic_prompt,
     fact_check_prompt,
