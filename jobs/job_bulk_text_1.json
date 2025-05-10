@@ -1,0 +1,49 @@
+{
+  "job_title": "Engineer Modeling & Validation of Wind Turbine Simulation Models",
+  "company_name": "Fraunhofer Institute for Wind Energy Systems IWES",
+  "job_responsibilities": [
+    "Develop validation methods for offshore wind turbines, research suitable methods, implement them in Python, and evaluate them on test benches.",
+    "Model and simulate offshore wind turbines.",
+    "Contribute to further development of existing MoWiT (Modelica Library for Wind Turbines) models.",
+    "Be responsible for the setup (including design basis and design load cases) and evaluation of MoWiT simulations.",
+    "Generate synthetic simulation data and compare it with measurement data from test benches and wind turbines.",
+    "Document findings and results in academic publications and present them at conferences and trade fairs.",
+    "Support project acquisitions by conducting research."
+  ],
+  "job_requirements": [
+    "Completed diploma or master\u2019s degree with a focus on wind energy.",
+    "Experience in wind turbine simulation, modeling, and programming (e.g., Modelica, Python, or C) from studies or practical work placements.",
+    "Knowledge in offshore wind turbines, such as hydrodynamics and wave theories, is a plus.",
+    "Knowledge of methods for verification and validation, ideally in offshore wind energy, is desired but not mandatory."
+  ],
+  "job_location": "Bremerhaven, Germany (Fraunhofer IWES site); option for remote work",
+  "posting_date": "2025-10-05",
+  "job_type": "Fixed-term (3 years), Full-time or Part-time (preferably close to full-time), 39 hours/week, Public-sector collective wage agreement (TV\u00f6D), Remote work possible",
+  "experience_level": "Entry-level to Intermediate (recent graduates with practical experience encouraged)",
+  "skills_required": [
+    "Wind energy engineering",
+    "Wind turbine simulation",
+    "Modeling",
+    "Programming (Modelica, Python, C)",
+    "Validation and verification methods",
+    "Data analysis"
+  ],
+  "contact_person": "Ms. Madeleine Gra\u00dfmann",
+  "contact_email_or_linkedin": "personal@iwes.fraunhofer.de",
+  "salary_info": "Appointment, remuneration and social security benefits based on the public-sector collective wage agreement (TV\u00f6D). Performance-based variable remuneration components may be granted.",
+  "language_requirements": "Good command of German and English",
+  "keywords": [
+    "wind energy",
+    "offshore wind turbines",
+    "simulation",
+    "validation",
+    "Modelica",
+    "Python",
+    "hardware-in-the-loop",
+    "MoWiT",
+    "renewable energy",
+    "research"
+  ],
+  "company_website": "https://www.fraunhofer.com",
+  "job_url": "https://s.fhg.de/5ei"
+}

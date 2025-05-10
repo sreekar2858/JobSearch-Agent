@@ -16,7 +16,8 @@ import re
 
 from src.utils.file_utils import load_config
 
-config = load_config("config/config.yaml")
+jobsearch_config = load_config("config/jobsearch_config.yaml")
+file_config = load_config("config/file_config.yaml")
 
 # --- Specialized Job Search Functions ---
 
@@ -34,16 +35,16 @@ def generate_targeted_query(job_title, location, site):
 
 # --- Google Search Agent with Progress Tracking ---
 google_search_agent = LlmAgent(
-    model=config['models']["gemini_2.5_flash"],
+    model=jobsearch_config['models']["gemini_2.5_flash"],
     name="google_search_agent",
     description="Finds job postings and extracts complete information from the job page.",
     instruction=(
         f"You are a job search assistant. Use Google search to find job postings for roles that match:\n"
-        f"- Keywords: {config['keywords']}\n"
-        f"- Locations: {', '.join(config['locations'])}\n"
-        f"- Job type: {config['job_type']}\n"
-        f"- Experience level: {config['experience_level']}\n"
-        f"- Posted in the last {config['posting_within']}\n\n"
+        f"- Keywords: {jobsearch_config['keywords']}\n"
+        f"- Locations: {', '.join(jobsearch_config['locations'])}\n"
+        f"- Job type: {jobsearch_config['job_type']}\n"
+        f"- Experience level: {jobsearch_config['experience_level']}\n"
+        f"- Posted in the last {jobsearch_config['posting_within']}\n\n"
 
         "IMPORTANT: Use these specialized search techniques:\n"
         "1. First search LinkedIn with: site:linkedin.com/jobs [JOB TITLE] [LOCATION]\n"
@@ -84,17 +85,17 @@ google_search_agent = LlmAgent(
 # --- Multi-Site Job Search Agent ---
 multi_site_search_agent = LlmAgent(
     name="multi_site_job_search",
-    model=config['models']["gemini_2.5_flash"],
+    model=jobsearch_config['models']["gemini_2.5_flash"],
     description="Advanced agent that searches multiple job sites in sequence",
     instruction=(
         "You are a multi-site job search specialist. Your goal is to find job listings from multiple sources.\n\n"
         
         f"Target job criteria:\n"
-        f"- Job titles: {config['keywords']}\n"
-        f"- Locations: {', '.join(config['locations'])}\n"
-        f"- Job type: {config['job_type']}\n"
-        f"- Experience: {config['experience_level']}\n"
-        f"- Recent postings: {config['posting_within']}\n\n"
+        f"- Job titles: {jobsearch_config['keywords']}\n"
+        f"- Locations: {', '.join(jobsearch_config['locations'])}\n"
+        f"- Job type: {jobsearch_config['job_type']}\n"
+        f"- Experience: {jobsearch_config['experience_level']}\n"
+        f"- Recent postings: {jobsearch_config['posting_within']}\n\n"
         
         "SEARCH PROCESS:\n"
         "1. First announce: '🔍 Searching LinkedIn jobs...'\n"
@@ -146,7 +147,7 @@ adk_tavily_tool = LangchainTool(tool=tavily_tool_instance)
 # Define the ADK agent for job searching
 tavily_search_agent = LlmAgent(
     name="job_search_agent",
-    model=LiteLlm(model=f"{config['models']['gpt_4o']}"),
+    model=LiteLlm(model=f"{jobsearch_config['models']['gpt_4o']}"),
     description="Agent that searches for jobs online using keywords and a specified time frame.",
     instruction=(
         "You are an expert job search assistant. When given keywords and a time frame, "
@@ -202,11 +203,11 @@ def run_search_pipeline(keywords, locations=None, job_type=None, experience=None
     print("🚀 Starting job search pipeline...")
     
     if locations is None:
-        locations = config['locations']
+        locations = jobsearch_config['locations']
     if job_type is None:
-        job_type = config['job_type']
+        job_type = jobsearch_config['job_type']
     if experience is None:
-        experience = config['experience_level']
+        experience = jobsearch_config['experience_level']
         
     print(f"🔎 Searching for: {keywords} in {', '.join(locations)}")
     

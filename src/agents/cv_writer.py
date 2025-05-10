@@ -21,29 +21,27 @@ from google.adk.sessions import InMemorySessionService
 from google.adk.runners import Runner
 from google.genai import types
 
-from src.utils.file_utils import load_config, load_docx_template
+from src.utils.file_utils import load_config, load_docx_template, load_text_file
 from src.utils.exit_conditions import ExitConditionAgent
 
 # --- Initial Setup -----------------------------------------------------------
 # Load environment variables and YAML configuration
 dotenv.load_dotenv()
-config = load_config("config/config.yaml")
+agent_config = load_config("config/cv_app_agent_config.yaml")
+file_config = load_config("config/file_config.yaml")
 
 # Validate and load Word template
-cv_template_path: str = config['templates']['cv']
-coverletter_template_path: str = config['templates']['cover_letter']
+cv_template_path: str = file_config['templates']['cv']
+coverletter_template_path: str = file_config['templates']['cover_letter']
 
 logger = logging.getLogger(__name__)
-logger.setLevel(config.get("logging_level", logging.INFO))
-
-# Preload template for initial validation
-cv_doc, cv_text = load_docx_template(cv_template_path)
+logger.setLevel(agent_config.get("logging_level", logging.INFO))
 
 # --- Pipeline Constants ------------------------------------------------------
-APP_NAME: str = "CVApp"
-USER_ID: str = "dev_user_01"
-SESSION_ID: str = "session_01"
-MAX_LOOP_ITERATIONS: int = config.get("max_loop_iterations", 5)
+APP_NAME: str = agent_config.get("app_name", "CVWriter")
+USER_ID: str = agent_config.get("user_id", "user_01")
+SESSION_ID: str = agent_config.get("session_id", "session_01")
+MAX_LOOP_ITERATIONS: int = agent_config.get("max_loop_iterations", 5)
 
 # --- Agent Definitions -------------------------------------------------------
 class CVWriter(BaseAgent):
@@ -143,9 +141,9 @@ from src.agents.cv_prompts import (  # noqa: E402
 # --- LlmAgent Instantiation --------------------------------------------------
 initial_draft = LlmAgent(
     name="InitialDraftGenerator",
-    model=(config['models']['gemini_2.5_flash'] 
-            if 'gemini' in config.get('initial_draft_model') 
-            else LiteLlm(model=config['models'][config.get('final_draft_model')])),
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('initial_draft_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('initial_draft_model')])),
     instruction=initial_draft_prompt,
     input_schema=None,
     output_key="current_draft",
@@ -153,9 +151,9 @@ initial_draft = LlmAgent(
 
 critic = LlmAgent(
     name="Critic",
-    model=(config['models']['gemini_2.5_flash'] 
-            if 'gemini' in config.get('critic_model') 
-            else LiteLlm(model=config['models'][config.get('critic_model')])),
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('critic_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('critic_model')])),
     instruction=critic_prompt,
     input_schema=None,
     output_key="critic_feedback",
@@ -163,9 +161,9 @@ critic = LlmAgent(
 
 fact_check = LlmAgent(
     name="FactChecker",
-    model=(config['models']['gemini_2.5_flash'] 
-            if 'gemini' in config.get('fact_check_model') 
-            else LiteLlm(model=config['models'][config.get('fact_check_model')])),
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('fact_check_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('fact_check_model')])),
     instruction=fact_check_prompt,
     input_schema=None,
     output_key="fact_check_report",
@@ -173,9 +171,9 @@ fact_check = LlmAgent(
 
 reviser = LlmAgent(
     name="Reviser",
-    model=(config['models']['gemini_2.5_flash'] 
-            if 'gemini' in config.get('reviser_model') 
-            else LiteLlm(model=config['models'][config.get('reviser_model')])),
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('reviser_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('reviser_model')])),
     instruction=reviser_prompt,
     input_schema=None,
     output_key="current_draft",
@@ -183,9 +181,9 @@ reviser = LlmAgent(
 
 grammar_check = LlmAgent(
     name="GrammarChecker",
-    model=(config['models']['gemini_2.5_flash'] 
-            if 'gemini' in config.get('grammar_check_model') 
-            else LiteLlm(model=config['models'][config.get('grammar_check_model')])),
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('grammar_check_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('grammar_check_model')])),
     instruction=grammar_check_prompt,
     input_schema=None,
     output_key="grammar_corrections",
@@ -193,9 +191,9 @@ grammar_check = LlmAgent(
 
 final_draft = LlmAgent(
     name="FinalDraftGenerator",
-    model=(config['models']['gemini_2.5_flash'] 
-            if 'gemini' in config.get('final_draft_model') 
-            else LiteLlm(model=config['models'][config.get('final_draft_model')])),
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('final_draft_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('final_draft_model')])),
     instruction=final_draft_prompt,
     input_schema=None,
     output_key="final_draft",
@@ -220,7 +218,7 @@ session = session_service.create_session(
 )
 runner = Runner(agent=root_agent, app_name=APP_NAME, session_service=session_service)
 
-def call_agent(job_details: str) -> Tuple[str, str, str]:
+def call_cv_agent(job_details: str) -> Tuple[str, str, str]:
     """
     1. Reload and validate the DOCX template.
     2. Construct a user prompt embedding `template_text` and `job_details`.
@@ -229,7 +227,13 @@ def call_agent(job_details: str) -> Tuple[str, str, str]:
     5. Save the filled document and return paths along with state.
     """
     print("🔄 Loading CV template...")
-    doc, tmpl_text = load_docx_template(cv_template_path)
+    if cv_template_path and cv_template_path.endswith('.docx'):
+        doc, tmpl_text = load_docx_template(cv_template_path)
+    elif cv_template_path and cv_template_path.endswith('.txt'):
+        tmpl_text = load_text_file(cv_template_path) # dumps the bulk text into a string
+    else:
+        raise ValueError("Unsupported template format. Only .docx and .txt are supported.")
+
     prompt = f"TEMPLATE:\n{tmpl_text}\n\nJOB: {job_details}"  
     content = types.Content(role='user', parts=[types.Part(text=prompt)])
 
@@ -263,20 +267,30 @@ def call_agent(job_details: str) -> Tuple[str, str, str]:
             final_text = evt.content.parts[0].text
     
     print("📄 Applying content to CV template...")
-    # Inject lines into Word template
-    lines = final_text.split("\n")
-    for idx, paragraph in enumerate(doc.paragraphs):
-        if idx < len(lines):
-            paragraph.text = lines[idx]
-    output_path = f"output/filled_cv_{SESSION_ID}.docx"
-    doc.save(output_path)
-    print(f"💾 CV document saved to {output_path}")
+    if cv_template_path.endswith('.docx'):
+        # Inject lines into Word template
+        lines = final_text.split("\n")
+        for idx, paragraph in enumerate(doc.paragraphs):
+            if idx < len(lines):
+                paragraph.text = lines[idx]
+        output_path = f"output/filled_cv_{SESSION_ID}.docx"
+        doc.save(output_path)
+        print(f"💾 CV document saved to {output_path}")
+
+    elif cv_template_path.endswith('.txt'):
+        # Save as text file
+        output_path = f"output/filled_cv_{SESSION_ID}.txt"
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(final_text)
+        print(f"💾 CV document saved to {output_path}")
+    else:
+        raise ValueError("Unsupported template format. Only .docx and .txt are supported.")
 
     return final_text, json.dumps(session.state, indent=2), output_path
 
 if __name__ == "__main__":
     # Example run
     query = "Principal Software Engineer at InnovateX with 5+ yrs experience in cloud and microservices."
-    cv_text, state_json, docx_path = call_agent(query)
+    cv_text, state_json, docx_path = call_cv_agent(query)
     print(cv_text)
     logger.info(f"Final CV document saved to {docx_path}")

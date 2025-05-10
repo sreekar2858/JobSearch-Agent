@@ -1,0 +1,14 @@
+# Job search parameters
+keywords: "machine learning engineer"
+locations:
+  - "Germany"
+  - "Netherlands"
+job_type: "full-time"
+experience_level: "entry-level"
+posting_within: "2 weeks"
+
+models:
+  gemini_2.5_flash: "gemini-2.5-flash-preview-04-17"
+  gemini_2.0_flash: "gemini-2.0-flash"
+  gpt_4o: "github/gpt-4o"
+  gpt_41: "github/gpt-4.1"

@@ -11,6 +11,7 @@ import dotenv
 import yaml
 from typing import List, Tuple
 from docx import Document
+from typing import Union
 
 def load_config(config_path: str) -> dict:
     """
@@ -129,3 +130,29 @@ def ensure_dir_exists(directory_path: str) -> None:
     """
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
+
+def load_text_file(file_path: str, readlines: bool=False) -> Union[str, List[str]]:
+    """
+    Load text from a file.
+    
+    Args:
+        file_path: Path to the text file
+        
+    Returns:
+        Contents of the text file in a string or list of lines if readlines is True
+    
+    Raises:
+        FileNotFoundError: If the file does not exist
+    """
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File not found: {file_path}")
+
+    if readlines:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return f.readlines()
+    else:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return f.read()
+        
+
+

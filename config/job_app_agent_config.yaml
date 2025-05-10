@@ -1,0 +1,20 @@
+# App settings
+app_name: "JobParsrAgent"
+user_id: "dev_user_01"
+session_id: "session_01"
+
+models:
+  gemini_2.5_flash: "gemini-2.5-flash-preview-04-17"
+  gemini_2.0_flash: "gemini-2.0-flash"
+  gpt_4o: "github/gpt-4o"
+  gpt_41: "github/gpt-4.1"
+
+# Agent settings
+decidingParser_model: "gemini_2.5_flash"
+parseBulkText_model: "gpt_41"
+verifyJson_model: "gpt_4o"
+validateJob_model: "gemini_2.5_flash"
+decidingScraper_model: "gemini_2.5_flash"
+
+max_loop_iterations: 5
+logging_level: "INFO"

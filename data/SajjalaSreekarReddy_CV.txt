@@ -1,0 +1,61 @@
+Sreekar Reddy Sajjala
+Mechanical Engineer Blending CAE & AI Expertise to Drive R&D Advancements
+Aachen, Germany
+sreekar2858@gmail.com
+linkedin.com/in/sreekar2858
+sreekar2858.github.io  
+  
+Work Experience
+Siemens Energy 	Mulheim an der Ruhr, Germany
+Aero-design Engineer [Internship + Thesis] 	Oct 2023 - Jul 2024
+•	Objective: Minimize boundary layer flashback in a 100% hydrogen fueled industrial gas turbine using Generative AI
+•	Collaborated with cross-functional teams to develop an AI model that predicts combustion results, achieving a 95% match with full-scale simulations
+•	Automated Star-CCM+ combustion workflows using Python and Java, cutting simulation runtimes by 12x (from hours to minutes) and accelerating design iterations
+•	Successfully deployed two generative AI models on cloud to create novel design configurations, effectively reducing flashback propensity to below 5%
+RWTH	Aachen, Germany
+Graduate Student Research Assistant 	Aug 2021 - Dec 2024
+•	Created an adjoint-based topology optimization solver in OpenFOAM for thermal CFD and integrated surrogate AI model cutting the solver runtime from ~3hrs to ~6secs
+•	Implemented a parallel DLCA algorithm in C++ for aerogel geometry creation, achieving over 3x performance improvements with better accuracy. Automated FEM simulations on ABAQUS with python scripts
+•	Modernized examination software by migrating it to Python, significantly enhancing functionality and user experience
+Volocopter GmbH↗ 	Bruchsal, Germany
+Thermal/ Thermo-Mechanical Engineer [Intern] 	 Feb 2023 - Aug 2023
+•	Optimized CFRP components and battery pack using high-fidelity simulations, achieving weight reduction and improved thermal efficiency with Optistruct & STAR-CCM+
+•	Enhanced battery pack stability and vibration resistance by refining natural frequencies through modal analysis, lowering deviation by 7Hz
+•	Advanced safety and regulatory compliance by assessing thermal runaway stresses across multiple battery configurations that align with EU regulations
+Digital Additive Production 	Aachen, Germany
+Academic Researcher 	Jun 2022 - Feb 2023
+•	Aim: Design a topology-agnostic Graph Neural Network (GNN) model to predict flow fields with accuracy analogous to OpenFOAM simulations
+•	Derived a GNN architecture for 3D flow field prediction on tetrahedral and hexahedral meshes, ensuring geometry independence
+•	Reduced error rates by 18% through hyperparameter tuning, enhancing model generalization and reliability
+•	Achieved 92% accuracy, with predictions close to high-fidelity turbulent flow simulations
+Upwork 	Remote
+CAE Engineer 	Mar 2019 – Aug 2020
+•	Spearheaded design, simulation, and toolchain development for 28 industrial projects, consistently meeting tight deadlines
+•	Collaborated with clients all across the world to refine product designs and CAE analysis (FEM, CFD, and FSI), ensuring solutions met precise project specifications
+ 
+Skills
+Design & Simulation Software
+Siemens NX, Catia, HyperMesh, ABAQUS, NX-TMG, OpenFOAM, Star-CCM+, Ansys Mechanical/ Fluent/ CFX
+Programming Languages
+Python, C/ C++, JAVA, MATLAB, VBA
+Libraries & Frameworks
+PyTorch, TensorFlow, Scikit-learn, OpenCV, MLflow, Hadoop
+Git, Docker, Kubernetes, Jenkins, 
+Linux HPC, Azure ML
+
+Publications
+Patient-specific CFD simulation of aerodynamics for nasal pathology: A combined computational and experimental study [DOI]
+CFD simulation of direct chill casting process of magnesium alloy billets [DOI]
+
+Education
+RWTH Aachen University
+Master of Science in Computer-Aided Mechanical Engineering
+
+Languages
+English 	Fluent (C2)
+German 	B1 Actively Improving
+
+Extra-Curricular
+-	Hackathon winner ICNAP: Schaffler AG
+-	Team Lead ENKRC, Eco-Kart, BAJA
+-	Top 30 OpenCV Perspective Challenge

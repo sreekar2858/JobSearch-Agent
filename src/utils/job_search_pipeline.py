@@ -17,7 +17,8 @@ from src.utils.file_utils import load_config
 from src.utils.scraper import JobScraper, extract_job_links_from_google_results
 
 # Load configuration
-config = load_config("config/config.yaml")
+jobsearch_config = load_config("config/jobsearch_config.yaml")
+file_config = load_config("config/file_config.yaml")
 
 class JobSearchPipeline:
     """
@@ -44,9 +45,9 @@ class JobSearchPipeline:
             output_dir: Directory to save results
         """
         self.keywords = keywords
-        self.locations = locations or config.get('locations', ["remote"])
-        self.job_type = job_type or config.get('job_type', "full-time")
-        self.experience_level = experience_level or config.get('experience_level', "mid-level")
+        self.locations = locations or jobsearch_config.get('locations', ["remote"])
+        self.job_type = job_type or jobsearch_config.get('job_type', "full-time")
+        self.experience_level = experience_level or jobsearch_config.get('experience_level', "mid-level")
         self.max_jobs_per_site = max_jobs_per_site
         self.output_dir = output_dir
         

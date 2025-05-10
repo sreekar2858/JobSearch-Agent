@@ -1,0 +1,28 @@
+Synera GmbH
+Bremen, Germany
+
+Cover Letter
+
+Aachen, 08-04-2025
+
+Dear Hiring Manager,
+
+I am writing to express my keen interest in the Solution Engineer (f/m/d) position at Synera. With a robust background in computational and mechanical engineering, combined with extensive hands-on experience in leveraging AI to design innovative toolchains, I am excited to bring my expertise to a team that is transforming engineering processes for global leaders.
+
+At Synera, your process automation platform is revolutionizing how engineers build complex automations quickly using intuitive UI and shareable templates. This vision resonates with my proven track record of accelerating workflows and improving efficiency through automation. For instance, during my tenure at Siemens Energy, I spearheaded the development and deployment of generative AI models that not only predicted combustion outcomes with 95% accuracy but also automated critical simulation workflows with Python and Java - cutting simulation runtimes from hours to few minutes. This experience emphasizes my ability to translate advanced computational techniques into tangible, fast-paced engineering solutions.
+
+Moreover, while interning with Volocopter, I honed my skills in managing high-pressure project environments. At Volocopter, I optimized structural parts and battery packs through detailed high-fidelity simulations and refined thermal stability parameters to meet rigorous safety and regulatory standards. This role demanded a rapid response to evolving challenges and an unwavering focus on delivering precise, impactful solutions - capabilities that I am eager to bring to Synera’s dynamic team.
+
+In addition to my industry experience, my academic and research roles have provided me with substantial expertise in developing AI-driven toolchains and automating complex engineering simulations. Whether it was creating an adjoint-based topology optimization solver at RWTH Aachen University or devising a graph neural network model for predicting 3D flow and temperature fields, my work consistently demonstrates a commitment to integrating AI with traditional engineering methods to produce breakthrough results. My journey from fast-paced student assistant roles to impactful internships has instilled in me the agility, creative problem-solving skills, and passion for innovation that is essential in a demanding and rapidly evolving work environment.
+
+Synera’s culture of continuous learning, collaboration, and customer-centric innovation is a perfect match for my professional ethos. I am eager to contribute to crafting and presenting state-of-the-art workflows that not only streamline operations but also drive significant value for your diverse clientele. I constantly strive to learn and stay ahead of ever-growing technological advances, ensuring that my skills and insights remain at the forefront of industry developments.
+
+I am particularly excited by the prospect of working on challenging customer projects and deploying innovative AI workflows that push the boundaries of traditional engineering.
+
+Thank you for considering my application. I look forward to the opportunity to further discuss how my background, rapid adaptability from past experiences, and my passion for automation can contribute to the transformative work at Synera.
+
+Best regards,
+Sreekar Reddy Sajjala
++49-17647085664
+sreekar2858@gmail.com
+https://sreekar2858.github.io

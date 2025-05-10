@@ -1,0 +1,83 @@
+Engineer Modeling & Validation of Wind Turbine Simulation Models
+The Fraunhofer-Gesellschaft (www.fraunhofer.com) currently operates 76 institutes and research units throughout Germany and is a leading applied research organization. Around 32 000 employees work with an annual research budget of 3.4 billion euros. 
+
+
+Who we are ...
+At the Fraunhofer Institute for Wind Energy Systems IWES, the energy transition becomes a reality every day. Our focus topics are: offshore wind energy, hydrogen, test infrastructure and digitization. More than 400 employees – including around 100 students – from over 50 countries work at nine locations in scientific and non-scientific teams on the development of innovative methods to accelerate the expansion of the wind energy and hydrogen economy, minimize risks, and increase cost efficiency. Do you want to join us in shaping a sustainable future?
+ 
+
+This team is looking for you ...
+You will join our »Global Turbine Dynamics« group at our site in Bremerhaven. The group researches methods for the simulation and validation of wind turbines. Its work involves the development of the Modelica Library for Wind Turbines (MoWiT) simulation model, which is used for real-time simulations in a hardware-in-the-loop environment as well as for the automated simulation and optimization of wind turbines. At present, the team consists of four employees and several students. We support each other irrespective of our projects and backgrounds. A culture of open exchange and cooperation, even beyond team boundaries and sites, are particularly important to us.
+
+ 
+
+What you will do
+
+
+These duties await you ...
+You will develop validation methods for offshore wind turbines. This includes researching suitable methods that you will implement in Python, before evaluating their added value and usability on our test benches. In addition, you will also model and simulate offshore wind turbines, be involved in the further development of existing MoWiT models, and be responsible for the setup (incl. design basis and design load cases) and evaluation of MoWiT simulations. Is that still not enough?
+ 
+
+No two days at work are ever the same!
+To validate the models, you will independently generate synthetic simulation data and compare it with measurement data from the test benches and wind turbines. You will document your findings and results in academic publications and present them at conferences and specialist trade fairs. Furthermore, you will assist us with project acquisitions, for example by doing research.
+
+ 
+
+What you bring to the table
+
+
+What is your specialist background?
+You should have completed your diploma or master’s degree with a focus on wind energy. In the scope of your studies or practical work placements, you have gained experience in wind turbine simulation, modeling and programing (e.g. in Modelica, Python, or C). Do you also have further knowledge of offshore wind turbines (e.g. in the field of hydrodynamics and wave theories)? Great, then you should definitely keep reading!
+ 
+
+Your profile is complemented by ...
+It would be great if you also have knowledge of the use of methods for verification and validation, ideally in the context of offshore wind energy, but that is not a prerequisite. So do not worry if you do not have all those skills just yet, you can get your career off to a flying start with us, too! Here at IWES, we operate on an international level – a good command of German and English will make your day-to-day work easier.
+
+ 
+
+What you can expect
+
+
+How would you like to develop?
+We support you on your professional journey. Whether personally, professionally, or methodically, we find the right qualification measures for you. It is also possible to be responsible for your own doctorate here. We offer you our full support! Do you want to immerse yourself in additional fields and work independently to drive new topics forward? With us, you get to shape your range of duties actively!
+
+ 
+
+What we can offer you ...
+Our flextime and core time system allows you to plan your working day flexibly. In addition, you also have the option to work remotely. Not sure who can look after your children in an emergency? We help by offering emergency childcare. Interested in employee discounts for events, clothes, vacations, etc.? With us, you can select from a varied range of offers and easily take advantage of them for yourself via an app. For sustainable mobility, you can also benefit from the Deutschland-Ticket as a job ticket.
+
+ 
+
+We set store by diversity and equality!
+Our open institute culture as well as mutual tolerance and respect ensure that every person feels comfortable with us from the start. We achieve this, for example, through our onboarding program for new employees as well as by raising awareness of and providing training on diversity and equal opportunity issues. We firmly believe that diversity is key to our success. Join us and experience this for yourself! 
+
+ 
+
+Eager to learn more?
+If you would like to find out more information about the IWES, our research aspects, and your future colleagues, please visit our career website: https://s.fhg.de/5ei
+
+ 
+
+We value and promote the diversity of our employees' skills and therefore welcome all applications - regardless of age, gender, nationality, ethnic and social origin, religion, ideology, disability, sexual orientation and identity. Severely disabled persons are given preference in the event of equal suitability.
+
+ 
+
+The position is limited to 3 years. The weekly working time is 39 hours. This position is also available on a part-time basis, preferably close to full-time. Appointment, remuneration and social security benefits based on the public-sector collective wage agreement (TVöD). Additionally Fraunhofer may grant performance-based variable remuneration components.
+
+ 
+
+With its focus on developing key technologies that are vital for the future and enabling the commercial utilization of this work by business and industry, Fraunhofer plays a central role in the innovation process. As a pioneer and catalyst for groundbreaking developments and scientific excellence, Fraunhofer helps shape society now and in the future.
+
+ 
+
+Interested? Apply online now. We look forward to getting to know you!
+
+Publishing Date: 10/05/2025 
+
+
+If you have any further questions, please contact:
+Ms. Madeleine Graßmann
+People & Development
+The entire team is on hand to assist you further.
+E-mail: personal@iwes.fraunhofer.de 
+Phone: +49 471 14 290-230
