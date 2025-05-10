@@ -1,4 +1,5 @@
-# Job Findr Agent
+# Currently, the project is in development and not ready for production use.
+# Job Findr Agent (will be ready for production use on May 13, 2025)
 
 An agentic job search and CV preparation application using Google ADK.
 
