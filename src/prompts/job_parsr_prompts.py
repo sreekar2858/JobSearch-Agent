@@ -94,22 +94,22 @@ bulk_text_parser_prompt = """
 **Output Format:**
     - `parsed_data` (string): The structured JSON data containing job details as key-value pairs.
     - The JSON should include the following fields:
-        `job_title`, 
-        `company_name`, 
-        `job_responsibilities`,
-        `job_requirements`,
-        `job_location`,
-        `posting_date`,
-        `job_type`,
-        `experience_level`,
-        `skills_required`,
-        `contact_person`,
-        `contact_email_or_linkedin`,
-        `salary_info`,
-        `language_requirements`,
-        `keywords`,
-        `company_website`,
-        `job_url`
+        `job_title`, (eg. "Thermodynamics Engineer", "Frontend Engineer")
+        `company_name`, (eg. "ABC Corp", "XYZ Inc")
+        `job_responsibilities`, (bullet points defining the job)
+        `job_requirements`, (bullet points defining the requirements)
+        `job_location`, (eg. "New York, NY", "Remote")
+        `posting_date`, (eg. "2023-10-01", "YYYY-MM-DD")
+        `job_type`, (eg. "Full-time", "Part-time")
+        `experience_level`, (eg. "Entry-level", "Mid-level", "Senior")
+        `skills_required`, (eg. "Python, TensorFlow", "React, Node.js")
+        `contact_person`, (eg. "John Doe", "Jane Smith")
+        `contact_email_linkedin`, (eg. ["john.doe@test.com, "linkedin.com/in/janedoe"], ["jane.smith@hello.com"])
+        `salary_info`, (eg. "$80,000 - $100,000", "Competitive salary")
+        `language_requirements`, (eg. {"English":"fluent", "German":"beginner"}, {"German":"fluent", "English":"fluent"})
+        `keywords`, (eg. ["thermodynamics", "heat transfer"], ["frontend", "UI/UX"])
+        `company_website`, (eg. "www.abccorp.com", "www.xyzinc.com")
+        `job_url` (eg. "www.abccorp.com/careers/thermodynamics-engineer", "www.xyzinc.com/jobs/frontend-engineer")
     - If the parsing fails, provide a list of errors found during parsing.
 """
 
@@ -134,21 +134,21 @@ webpage_parser_prompt = """
 **Output Format:**
     - `parsed_json` (string): The structured JSON data containing job details as key-value pairs.
     - The JSON should include the following fields:
-        `job_title`, 
-        `company_name`, 
-        `job_responsibilities`,
-        `job_requirements`,
-        `job_location`,
-        `posting_date`,
-        `job_type`,
-        `experience_level`,
-        `skills_required`,
-        `contact_person`,
-        `contact_email_or_linkedin`,
-        `salary_info`,
-        `language_requirements`,
-        `keywords`,
-        `company_website`,
-        `job_url`
+        `job_title`, (eg. "Thermodynamics Engineer", "Frontend Engineer")
+        `company_name`, (eg. "ABC Corp", "XYZ Inc")
+        `job_responsibilities`, (bullet points defining the job)
+        `job_requirements`, (bullet points defining the requirements)
+        `job_location`, (eg. "New York, NY", "Remote")
+        `posting_date`, (eg. "2023-10-01", "YYYY-MM-DD")
+        `job_type`, (eg. "Full-time", "Part-time")
+        `experience_level`, (eg. "Entry-level", "Mid-level", "Senior")
+        `skills_required`, (eg. "Python, TensorFlow", "React, Node.js")
+        `contact_person`, (eg. "John Doe", "Jane Smith")
+        `contact_email_linkedin`, (eg. ["john.doe@test.com, "linkedin.com/in/janedoe"], ["jane.smith@hello.com"])
+        `salary_info`, (eg. "$80,000 - $100,000", "Competitive salary")
+        `language_requirements`, (eg. {"English":"fluent", "German":"beginner"}, {"German":"fluent", "English":"fluent"})
+        `keywords`, (eg. ["thermodynamics", "heat transfer"], ["frontend", "UI/UX"])
+        `company_website`, (eg. "www.abccorp.com", "www.xyzinc.com")
+        `job_url` (eg. "www.abccorp.com/careers/thermodynamics-engineer", "www.xyzinc.com/jobs/frontend-engineer")
     - If the parsing fails, provide a list of errors found during parsing.
 """

@@ -10,11 +10,11 @@ This module implements the complete job search pipeline:
 import json
 import os
 import time
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any
 from google.adk.tools import google_search
 
 from src.utils.file_utils import load_config
-from src.utils.scraper import JobScraper, extract_job_links_from_google_results
+from src.scraper.crawl.scraper import JobScraper, extract_job_links_from_google_results
 
 # Load configuration
 jobsearch_config = load_config("config/jobsearch_config.yaml")

@@ -14,22 +14,22 @@ initial_draft_prompt = """
 **Inputs:**
   - `template_text` (string): An example CV curated for a different role but with similar skills.
   - `job_description` (string): A detailed description of the job with keys like 
-    `job_title`, 
-    `company_name`, 
-    `job_responsibilities`,
-    `job_requirements`,
-    `job_location`,
-    `posting_date`,
-    `job_type`,
-    `experience_level`,
-    `skills_required`,
-    `contact_person`,
-    `contact_email_or_linkedin`,
-    `salary_info`,
-    `language_requirements`,
-    `keywords`,
-    `company_website`,
-    `job_url`
+    `job_title`, (eg. "Thermodynamics Engineer", "Frontend Engineer")
+    `company_name`, (eg. "ABC Corp", "XYZ Inc")
+    `job_responsibilities`, (bullet points defining the job)
+    `job_requirements`, (bullet points defining the requirements)
+    `job_location`, (eg. "New York, NY", "Remote")
+    `posting_date`, (eg. "2023-10-01", "YYYY-MM-DD")
+    `job_type`, (eg. "Full-time", "Part-time")
+    `experience_level`, (eg. "Entry-level", "Mid-level", "Senior")
+    `skills_required`, (eg. "Python, TensorFlow", "React, Node.js")
+    `contact_person`, (eg. "John Doe", "Jane Smith")
+    `contact_email_linkedin`, (eg. ["john.doe@test.com, "linkedin.com/in/janedoe"], ["jane.smith@hello.com"])
+    `salary_info`, (eg. "$80,000 - $100,000", "Competitive salary")
+    `language_requirements`, (eg. {"English":"fluent", "German":"beginner"}, {"German":"fluent", "English":"fluent"})
+    `keywords`, (eg. ["thermodynamics", "heat transfer"], ["frontend", "UI/UX"])
+    `company_website`, (eg. "www.abccorp.com", "www.xyzinc.com")
+    `job_url` (eg. "www.abccorp.com/careers/thermodynamics-engineer", "www.xyzinc.com/jobs/frontend-engineer")
 
 **Tasks:**
   1. Parse `template_text` to identify places that need to be modified to create a best possible CV for the `job_description`.

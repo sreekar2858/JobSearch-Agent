@@ -1,0 +1,2 @@
+- Extract the messages of intermediate agents from outside the _run_async_impl function
+- Add a test to check that the messages are correctly extracted

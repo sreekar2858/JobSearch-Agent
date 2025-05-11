@@ -13,6 +13,11 @@ from typing import List, Tuple
 from docx import Document
 from typing import Union
 
+
+def slugify(text: str) -> str:
+    """Create filesystem-safe folder names."""
+    return "".join(c if c.isalnum() else "_" for c in text)
+
 def load_config(config_path: str) -> dict:
     """
     Load configuration from a YAML file.
