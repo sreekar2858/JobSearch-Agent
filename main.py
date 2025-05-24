@@ -22,7 +22,11 @@ from src.agents.coverLetter_writer import call_cover_letter_agent
 from src.agents.job_details_parser import call_job_parsr_agent
 from src.utils.job_search_pipeline import run_job_search
 
-def process_jobs(json_path: str, output_dir: str = "output", generate_cv: bool = True, generate_cover_letter: bool = False) -> None:
+def process_jobs(json_path: str,
+                 output_dir: str = "output",
+                 generate_cv: bool = False,
+                 generate_cover_letter: bool = False
+                 ) -> None:
     """
     Load jobs from a JSON file and generate CVs and/or cover letters for each job.
     
@@ -53,8 +57,8 @@ def process_jobs(json_path: str, output_dir: str = "output", generate_cv: bool =
         print(f"📁 Created folder: {folder_name}")
         
         # Save job details
-        print(f"💾 Saving job details to {folder_name}/details.json")
-        with open(os.path.join(folder_name, 'details.json'), 'w', encoding='utf-8') as detail_file:
+        print(f"💾 Saving job details to {folder_name}/{company}_{job_title}_metadata.json")
+        with open(os.path.join(folder_name, f'{company}_{job_title}_metadata.json'), 'w', encoding='utf-8') as detail_file:
             json.dump(job, detail_file, indent=2)
         
         job_details_str = json.dumps(job)
@@ -65,8 +69,8 @@ def process_jobs(json_path: str, output_dir: str = "output", generate_cv: bool =
             try:
                 cv_text, state_json, cv_path = call_cv_agent(job_details_str)
                 # Save the CV text
-                print(f"📄 Saving CV text to {folder_name}/custom_cv.txt")
-                with open(os.path.join(folder_name, 'custom_cv.txt'), 'w', encoding='utf-8') as cv_file:
+                print(f"📄 Saving CV text to {folder_name}/{company}_{job_title}_cv.txt")
+                with open(os.path.join(folder_name, f'{company}_{job_title}_cv.txt'), 'w', encoding='utf-8') as cv_file:
                     cv_file.write(cv_text)
             except Exception as e:
                 print(f"❌ Error generating CV for {folder_name}: {e}")
@@ -76,14 +80,14 @@ def process_jobs(json_path: str, output_dir: str = "output", generate_cv: bool =
             print(f"📝 Starting cover letter generation for {job_title}...")
             try:
                 cover_letter_text, cl_state_json, cl_path = call_cover_letter_agent(job_details_str)
-                print(f"📄 Saving cover letter to {folder_name}/cover_letter.txt")
-                with open(os.path.join(folder_name, 'cover_letter.txt'), 'w', encoding='utf-8') as cl_file:
+                print(f"📄 Saving cover letter to {folder_name}/{company}_{job_title}.txt")
+                with open(os.path.join(folder_name, f'{company}_{job_title}.txt'), 'w', encoding='utf-8') as cl_file:
                     cl_file.write(cover_letter_text)
             except Exception as e:
                 print(f"❌ Error generating cover letter for {folder_name}: {e}")
                 # Fallback to placeholder if generation fails
                 cover_letter_text = f"Cover letter placeholder for {job_title} at {company}\n"
-                with open(os.path.join(folder_name, 'cover_letter.txt'), 'w', encoding='utf-8') as cl_file:
+                with open(os.path.join(folder_name, f'{company}_{job_title}.txt'), 'w', encoding='utf-8') as cl_file:
                     cl_file.write(cover_letter_text)
         
     print("\n✅ All jobs processed successfully!")
@@ -106,6 +110,13 @@ def parse_job_postings(text:str=None, **kwargs) -> None:
     
     # Save the parsed job postings to a JSON file
     output_file = kwargs.get('output_file', None)
+    # if the output file specified is not in the output directory, create the directory
+    if output_file and not os.path.exists(os.path.dirname(output_file)):
+        os.makedirs(os.path.dirname(output_file), exist_ok=True)
+        print(f"📂 Created output directory: {os.path.dirname(output_file)}")
+    # if the output file is not specified, use the default name
+    if not output_file:
+        output_file = os.path.join("output", f"{input_file}_parsed.json")
     if output_file:
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(json.loads(job_postings), f, indent=2)
@@ -212,27 +223,6 @@ def parse_arguments():
     parse_parser.add_argument(
         '-t', '--text',
         help='Direct text to parse instead of input file'
-    )
-      # Single job command
-    single_parser = subparsers.add_parser('single', help='Process a single custom job')
-    single_parser.add_argument('title', help='Job title')
-    single_parser.add_argument('company', help='Company name')
-    single_parser.add_argument('description', help='Job description')
-    single_parser.add_argument(
-        '-c', '--generate-cv',
-        action='store_true',
-        default=True,
-        help='Generate a custom CV (default: True)'
-    )
-    single_parser.add_argument(
-        '-cl', '--generate-cover-letter',
-        action='store_true',
-        help='Generate a cover letter'
-    )
-    single_parser.add_argument(
-        '--no-cv',
-        action='store_true',
-        help='Skip CV generation'
     )
     
     return parser.parse_args()

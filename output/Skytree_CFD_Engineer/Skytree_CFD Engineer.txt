@@ -1,0 +1,30 @@
+```text
+Skytree
+Amsterdam, Noord-Holland, Netherlands
+
+Cover Letter
+
+Aachen, 08-04-2025
+
+Dear Hiring Manager,
+
+I am writing to express my keen interest in the CFD Engineer position at Skytree. With a robust background in computational and mechanical engineering, combined with extensive hands-on experience in leveraging simulation and data analysis to design innovative engineering solutions, I am excited to bring my expertise to a team that is innovating in climate technology, particularly in CO2 capture.
+
+Skytree's mission to develop cutting-edge solutions for capturing CO2 and purifying air deeply resonates with my passion for applying advanced engineering to address critical global challenges. Your focus on developing climate technologies through applied fluid dynamics aligns perfectly with my proven track record of accelerating workflows and improving efficiency through computational methods. For instance, during my tenure at Siemens Energy, I spearheaded the development and deployment of advanced simulation models that not only predicted complex physical outcomes with high accuracy but also automated critical simulation workflows with Python and Java - significantly cutting simulation runtimes. This experience emphasizes my ability to translate advanced computational techniques into tangible, fast-paced engineering solutions relevant to complex flow analysis and system optimization.
+
+Moreover, while interning with Volocopter, I honed my skills in managing high-pressure project environments focused on high-fidelity simulation and optimization. At Volocopter, I optimized structural parts and battery packs through detailed high-fidelity simulations and refined thermal stability parameters to meet rigorous safety and regulatory standards. This role demanded a rapid response to evolving challenges and an unwavering focus on delivering precise, impactful solutions in complex engineering contexts - capabilities that are directly applicable and valuable for a CFD Engineer working on cutting-edge climate technology at Skytree.
+
+In addition to my industry experience, my academic and research roles have provided me with substantial expertise in developing advanced numerical methods and automating complex engineering simulations. Whether it was creating an adjoint-based topology optimization solver grounded in numerical methods and sensitivity analysis at RWTH Aachen University or devising a graph neural network model for predicting 3D flow and temperature fields relevant to computational fluid dynamics and data analysis, my work consistently demonstrates a commitment to integrating advanced computational methods with traditional engineering to produce breakthrough results. My journey from fast-paced student assistant roles to impactful internships has instilled in me the agility, creative problem-solving skills, and passion for innovation that is essential in a demanding and rapidly evolving work environment like Skytree.
+
+Skytree’s pioneering work in climate technology, alongside a culture that I imagine values innovation, collaboration (especially in multidisciplinary teams), and continuous learning, is a perfect match for my professional ethos. I am eager to contribute my CFD expertise to developing robust simulation models, analyzing data to optimize system efficiency, and supporting product development efforts for your CO2 capture technologies. I constantly strive to learn and stay ahead of ever-growing technological advances, ensuring that my skills and insights remain at the forefront of industry developments.
+
+I am particularly excited by the prospect of working on complex CFD challenges related to CO2 capture and contributing to the innovation of applied fluid dynamics within the climate technology sector.
+
+Thank you for considering my application. I look forward to the opportunity to further discuss how my background in simulation and analysis, rapid adaptability from past experiences, and my passion for computational engineering can contribute to the pioneering work at Skytree.
+
+Best regards,
+Sreekar Reddy Sajjala
++49-17647085664
+sreekar2858@gmail.com
+https://sreekar2858.github.io
+```

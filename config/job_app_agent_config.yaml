@@ -17,4 +17,4 @@ validateJob_model: "gemini_2.5_flash"
 decidingScraper_model: "gemini_2.5_flash"
 
 max_loop_iterations: 5
-logging_level: "INFO"
+logging_level: "WARNING"

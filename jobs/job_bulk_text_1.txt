@@ -1,3 +1,5 @@
+City:  Bremerhaven
+Date:  Apr 30, 2025
 Engineer Modeling & Validation of Wind Turbine Simulation Models
 The Fraunhofer-Gesellschaft (www.fraunhofer.com) currently operates 76 institutes and research units throughout Germany and is a leading applied research organization. Around 32 000 employees work with an annual research budget of 3.4 billion euros. 
 
@@ -72,7 +74,7 @@ With its focus on developing key technologies that are vital for the future and 
 
 Interested? Apply online now. We look forward to getting to know you!
 
-Publishing Date: 10/05/2025 
+ 
 
 
 If you have any further questions, please contact:
@@ -81,3 +83,18 @@ People & Development
 The entire team is on hand to assist you further.
 E-mail: personal@iwes.fraunhofer.de 
 Phone: +49 471 14 290-230
+
+ 
+
+Only online applications via the portal can be considered.
+Please note that we observe the provisions of the valid General Data Protection Regulation when processing applications.
+
+ 
+
+Fraunhofer Institute for Wind Energy Systems 
+
+www.iwes.fraunhofer.de 
+
+ 
+
+Requisition Number: 79510                Application Deadline: 05/15/2025

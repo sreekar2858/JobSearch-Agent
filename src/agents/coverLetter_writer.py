@@ -206,87 +206,145 @@ def call_cover_letter_agent(job_details: str) -> Tuple[str, str, str]:
     5. Save the filled document and return paths along with state.
     """
     
-    # --- Pipeline Assembly & Execution ------------------------------------------
-    root_agent = CoverLetterWriter(
-        name="CoverLetterWriter",
-        initial_draft=initial_draft,
-        critic=critic,
-        fact_check=fact_check,
-        reviser=reviser,
-        grammar_check=grammar_check,
-        final_draft=final_draft,
-    )
+    try:
+        # --- Pipeline Assembly & Execution ------------------------------------------
+        root_agent = CoverLetterWriter(
+            name="CoverLetterWriter",
+            initial_draft=initial_draft,
+            critic=critic,
+            fact_check=fact_check,
+            reviser=reviser,
+            grammar_check=grammar_check,
+            final_draft=final_draft,
+        )
 
-    session_service = InMemorySessionService()
-    session = session_service.create_session(
-        app_name=APP_NAME,
-        user_id=USER_ID,
-        session_id=SESSION_ID,
-    )
-    runner = Runner(agent=root_agent, app_name=APP_NAME, session_service=session_service)
+        session_service = InMemorySessionService()
+        session = session_service.create_session(
+            app_name=APP_NAME,
+            user_id=USER_ID,
+            session_id=SESSION_ID,
+        )
+        runner = Runner(agent=root_agent, app_name=APP_NAME, session_service=session_service)
 
-    print("🔄 Loading cover letter template...")
-    if coverletter_template_path and coverletter_template_path.endswith('.docx'):
-        doc, tmpl_text = load_docx_template(coverletter_template_path)
-    elif coverletter_template_path and coverletter_template_path.endswith('.txt'):
-        tmpl_text = load_text_file(coverletter_template_path) # dumps the bulk text into a string
-    else:
-        raise ValueError("Unsupported template format. Only .docx and .txt are supported.")
+        print("🔄 Loading cover letter template...")
+        if coverletter_template_path and coverletter_template_path.endswith('.docx'):
+            doc, tmpl_text = load_docx_template(coverletter_template_path)
+        elif coverletter_template_path and coverletter_template_path.endswith('.txt'):
+            tmpl_text = load_text_file(coverletter_template_path) # dumps the bulk text into a string
+        else:
+            raise ValueError("Unsupported template format. Only .docx and .txt are supported.")
 
-    prompt = f"TEMPLATE:\n{tmpl_text}\n\nJOB: {job_details}"  
-    content = types.Content(role='user', parts=[types.Part(text=prompt)])
+        prompt = f"TEMPLATE:\n{tmpl_text}\n\nJOB: {job_details}"  
+        content = types.Content(role='user', parts=[types.Part(text=prompt)])
 
-    print("🚀 Starting cover letter generation pipeline...")
-    print("⏳ This may take a few minutes, please wait...")
-    
-    current_agent = ""
-    events = runner.run(user_id=USER_ID, session_id=SESSION_ID, new_message=content)
-    final_text: str = ""
-    for evt in events:
-        # Track which agent is currently working
-        if hasattr(evt, 'author') and evt.author != current_agent:
-            current_agent = evt.author
-            if current_agent == "InitialDraftGenerator":
-                print("📝 Generating initial cover letter draft...")
-            elif current_agent == "Critic":
-                print("🔍 Evaluating draft for improvements...")
-            elif current_agent == "FactChecker":
-                print("🧐 Validating factual accuracy...")
-            elif current_agent == "Reviser":
-                print("✏️ Implementing revisions...")
-            elif current_agent == "ExitConditionChecker":
-                print("🔄 Checking if revisions are complete...")
-            elif current_agent == "GrammarChecker":
-                print("🔤 Polishing grammar and style...")
-            elif current_agent == "FinalDraftGenerator":
-                print("✨ Finalizing cover letter content...")
+        print("🚀 Starting cover letter generation pipeline...")
+        print("⏳ This may take a few minutes, please wait...")
         
-        if evt.is_final_response() and evt.content:
-            print("✅ Cover letter generation complete!")
-            final_text = evt.content.parts[0].text
-    
-    print("📄 Applying content to cover letter template...")
-    if coverletter_template_path.endswith('.docx'):
-        # Inject lines into Word template
-        lines = final_text.split("\n")
-        for idx, paragraph in enumerate(doc.paragraphs):
-            if idx < len(lines):
-                paragraph.text = lines[idx]
-        
-        # Save the document to output folder
-        output_path = f"output/custom_cover_letter.docx"
-        doc.save(output_path)
-        return final_text, json.dumps(session.state, indent=2), output_path
+        try:
+            current_agent = ""
+            events = runner.run(user_id=USER_ID, session_id=SESSION_ID, new_message=content)
+            final_text: str = ""
+            for evt in events:
+                # Track which agent is currently working
+                if hasattr(evt, 'author') and evt.author != current_agent:
+                    current_agent = evt.author
+                    if current_agent == "InitialDraftGenerator":
+                        print("📝 Generating initial cover letter draft...")
+                    elif current_agent == "Critic":
+                        print("🔍 Evaluating draft for improvements...")
+                    elif current_agent == "FactChecker":
+                        print("🧐 Validating factual accuracy...")
+                    elif current_agent == "Reviser":
+                        print("✏️ Implementing revisions...")
+                    elif current_agent == "ExitConditionChecker":
+                        print("🔄 Checking if revisions are complete...")
+                    elif current_agent == "GrammarChecker":
+                        print("🔤 Polishing grammar and style...")
+                    elif current_agent == "FinalDraftGenerator":
+                        print("✨ Finalizing cover letter content...")
+                
+                if evt.is_final_response() and evt.content:
+                    print("✅ Cover letter generation complete!")
+                    final_text = evt.content.parts[0].text
+            
+            if not final_text:
+                raise Exception("Failed to generate cover letter content")
+                
+            print("📄 Applying content to cover letter template...")
+            if coverletter_template_path.endswith('.docx'):
+                # Inject lines into Word template
+                lines = final_text.split("\n")
+                for idx, paragraph in enumerate(doc.paragraphs):
+                    if idx < len(lines):
+                        paragraph.text = lines[idx]
+                return final_text, json.dumps(session.state, indent=2), doc
+            elif coverletter_template_path.endswith('.txt'):
+                return final_text, json.dumps(session.state, indent=2), final_text
+            else:
+                raise ValueError("Unsupported template format. Only .docx and .txt are supported.")
+                
+        except Exception as e:
+            print(f"⚠️ Error during cover letter generation: {e}")
+            print("⚠️ Falling back to simple cover letter generation...")
+            return generate_simple_cover_letter(job_details, coverletter_template_path)
+            
+    except Exception as e:
+        print(f"⚠️ Error setting up cover letter generation: {e}")
+        print("⚠️ Falling back to simple cover letter generation...")
+        return generate_simple_cover_letter(job_details, coverletter_template_path)
 
-    elif coverletter_template_path.endswith('.txt'):
-        # Save the text to output folder
-        output_path = f"output/custom_cover_letter.txt"
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.write(final_text)
-        return final_text, json.dumps(session.state, indent=2), output_path
+
+def generate_simple_cover_letter(job_details: str, template_path: str) -> Tuple[str, str, str]:
+    """
+    A fallback function that generates a simple cover letter without using the complex agent system.
+    This is used when the main agent system fails due to API issues.
+    """
+    print("🔄 Using fallback cover letter generation...")
     
-    else:
-        raise ValueError("Unsupported template format. Only .docx and .txt are supported.")
+    try:        # Parse job details
+        job_data = json.loads(job_details)
+        job_title = job_data.get('job_title', 'Unknown Position')
+        company = job_data.get('company_name', 'Unknown Company')
+        responsibilities = job_data.get('job_responsibilities', [])
+        # Get requirements but we don't use them directly in this simple version
+        skills = job_data.get('skills_required', [])
+        
+        # Create a simple cover letter
+        today_date = "May 11, 2025"
+        
+        cover_letter = f"""
+{today_date}
+
+Dear Hiring Manager,
+
+I am writing to express my interest in the {job_title} position at {company}. After reviewing the job description, I believe that my skills and experience align well with what you are seeking in a candidate.
+
+With experience in {', '.join(skills[:3]) if skills else 'areas relevant to this position'}, I am confident in my ability to contribute effectively to your team. I have successfully {'delivered projects requiring ' + responsibilities[0] if responsibilities else 'handled responsibilities similar to those described in the job posting'}.
+
+What particularly interests me about {company} is your focus on {'innovation and development' if not responsibilities else responsibilities[0]}. I am eager to bring my expertise in {skills[0] if skills else 'relevant areas'} to contribute to your continued success.
+
+I look forward to the opportunity to discuss how my background, skills, and experiences would be a good match for this position. Thank you for your time and consideration.
+
+Sincerely,
+[Your Name]
+[Your Contact Information]
+        """
+        
+        # Return the simple cover letter
+        state = {"simple_fallback": True}
+        if template_path.endswith('.txt'):
+            return cover_letter, json.dumps(state), cover_letter
+        else:
+            # For docx templates, we'd need more complex handling here
+            # For now, just return the text
+            return cover_letter, json.dumps(state), cover_letter
+            
+    except Exception as e:
+        # If all else fails, return a very basic template
+        print(f"⚠️ Error in fallback cover letter generation: {e}")
+        basic_letter = "Cover Letter\n\nDear Hiring Manager,\n\nThis is a placeholder cover letter generated due to technical issues with the full cover letter generation system.\n\nPlease try again later or contact support.\n\nSincerely,\n[Your Name]"
+        state = {"error": str(e)}
+        return basic_letter, json.dumps(state), basic_letter
 
 if __name__ == "__main__":
     # Example run

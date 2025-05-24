@@ -157,7 +157,6 @@ class JobSearchPipeline:
         
         return standard_output
 
-
 def run_job_search(keywords: str, 
                   locations: List[str] = None,
                   job_type: str = None,
@@ -185,7 +184,6 @@ def run_job_search(keywords: str,
     )
     
     return pipeline.search_and_process()
-
 
 if __name__ == "__main__":
     # Example usage

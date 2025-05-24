@@ -1,6 +1,6 @@
 templates:
-  cv: "data/SajjalaSreekarReddy_CV.docx"
-  cover_letter: "data/CoverLetter_Template.docx"
+  cv: "data/SajjalaSreekarReddy_CV.txt"
+  cover_letter: "data/CoverLetter_Template.txt"
 
 # Output paths
 output:

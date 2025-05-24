@@ -18,6 +18,12 @@ lxml
 html5lib
 nest_asyncio
 
+# API requirements
+fastapi
+uvicorn
+websockets
+pydantic
+
 # Utilities
 tqdm
 colorama

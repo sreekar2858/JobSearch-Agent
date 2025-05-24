@@ -1,0 +1,45 @@
+{
+  "job_title": "Engineer Modeling & Validation of Wind Turbine Simulation Models",
+  "company_name": "Fraunhofer Institute for Wind Energy Systems (IWES)",
+  "job_responsibilities": [
+    "Develop validation methods for offshore wind turbines, including research, implementation in Python, and evaluation on test benches.",
+    "Model and simulate offshore wind turbines and contribute to the further development of MoWiT models.",
+    "Be responsible for the setup (incl. design basis and design load cases) and evaluation of MoWiT simulations.",
+    "Independently generate synthetic simulation data and compare with measurement data from test benches and wind turbines.",
+    "Document findings and results in academic publications and present at conferences and trade fairs.",
+    "Assist with project acquisitions, such as background research."
+  ],
+  "job_requirements": [
+    "Completed diploma or master\u2019s degree with a focus on wind energy.",
+    "Experience in wind turbine simulation, modeling and programming (in Modelica, Python, or C).",
+    "Knowledge of offshore wind turbines, ideally including hydrodynamics and wave theories (preferred but not mandatory).",
+    "Knowledge of verification and validation methods, ideally in offshore wind energy (beneficial, not required).",
+    "Good command of German and English."
+  ],
+  "job_location": "Bremerhaven, Germany",
+  "posting_date": "2025-04-30",
+  "job_type": "Full-time or Part-time (preferably close to full-time), Fixed-term (3 years)",
+  "experience_level": "Entry-level or Mid-level",
+  "skills_required": "Wind turbine simulation, Modeling, Python, Modelica, C, Verification and validation methods, German, English",
+  "contact_person": "Ms. Madeleine Gra\u00dfmann",
+  "contact_email_linkedin": [
+    "personal@iwes.fraunhofer.de"
+  ],
+  "salary_info": "Based on the public-sector collective wage agreement (TV\u00f6D), with possible performance-based variable remuneration",
+  "language_requirements": {
+    "German": "good command",
+    "English": "good command"
+  },
+  "keywords": [
+    "wind turbine",
+    "simulation",
+    "validation",
+    "Modelica",
+    "Python",
+    "offshore wind energy",
+    "MoWiT",
+    "engineering"
+  ],
+  "company_website": "www.iwes.fraunhofer.de",
+  "job_url": "https://s.fhg.de/5ei"
+}

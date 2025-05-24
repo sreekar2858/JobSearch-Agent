@@ -10,12 +10,12 @@ models:
   gpt_41: "github/gpt-4.1"
 
 # Agent settings
-initial_draft_model: "gpt_41"
-critic_model: "gpt_4o"
+initial_draft_model: "gemini"  # Changed from gpt_41 to gemini
+critic_model: "gemini"  # Changed from gpt_4o to gemini
 fact_check_model: "gemini"
-reviser_model: "gpt_4o"
+reviser_model: "gemini"  # Changed from gpt_4o to gemini
 grammar_check_model: "gemini"
-final_draft_model: "gpt_41"
+final_draft_model: "gemini"  # Changed from gpt_41 to gemini
 
 max_loop_iterations: 5
-logging_level: "INFO"
+logging_level: "WARNING"
