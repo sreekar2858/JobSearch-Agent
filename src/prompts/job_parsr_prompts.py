@@ -93,6 +93,7 @@ bulk_text_parser_prompt = """
 
 **Output Format:**
     - `parsed_data` (string): The structured JSON data containing job details as key-value pairs.
+    - If a value is not found, it should be set to `null`.
     - The JSON should include the following fields:
         `job_title`, (eg. "Thermodynamics Engineer", "Frontend Engineer")
         `company_name`, (eg. "ABC Corp", "XYZ Inc")
