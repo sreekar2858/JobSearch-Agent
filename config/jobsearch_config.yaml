@@ -7,6 +7,11 @@ job_type: "full-time"
 experience_level: "entry-level"
 posting_within: "2 weeks"
 
+# Scraper settings
+use_local_scraper: true # Whether to use the local Firefox scraper
+headless_browser: false # Whether to run the browser in headless mode
+max_search_pages: 5 # Maximum number of pages to scrape per search
+
 models:
   gemini_2.5_flash: "gemini-2.5-flash-preview-04-17"
   gemini_2.0_flash: "gemini-2.0-flash"

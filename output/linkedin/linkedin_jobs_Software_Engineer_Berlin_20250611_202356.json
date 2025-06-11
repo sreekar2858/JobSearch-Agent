@@ -1,0 +1,50 @@
+{
+  "search_params": {
+    "keywords": "Software Engineer",
+    "location": "Berlin",
+    "max_pages": 1,
+    "max_jobs": 2,
+    "experience_levels": null,
+    "date_posted": null,
+    "with_details": true
+  },
+  "timestamp": "20250611_202356",
+  "total_jobs": 2,
+  "jobs": [
+    {
+      "source": "linkedin",
+      "scraped_at": "2025-06-11T20:22:29.856561",
+      "title": "Software Engineer",
+      "company": "Durlston Partners",
+      "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQFuuhTCF5UhNw/company-logo_100_100/company-logo_100_100/0/1630461162788/durlston_partners_llp_logo?e=1755129600&v=beta&t=xvPulp9EXRredEYWMAa5icsnDtU9wyiYU_0qJ2-5oow",
+      "description": "About the job\nSoftware Engineer – Low-Latency Trading Systems\n\nLocation: Remote | Open to candidates based in the UK, Europe, Hong Kong, Singapore, or Australia\n\nA leading digital asset trading firm is seeking talented Software Engineer (Jnr up to Team Lead) to join their low-latency trading systems team. Operating across more than 10 global locations and connected to over 50 trading venues, they are one of the most active participants in the cryptocurrency markets—facilitating 3-4% of global daily trading volume.\n\nThe firm is known not just for its scale, but for its engineering-driven culture. They hire exceptional people and empower them to take ownership, move quickly, and solve meaningful problems. With a flat structure and fast feedback loops, this is an opportunity to contribute directly to the design and performance of world-class trading systems.\n\nThe Opportunity\nThis role involves developing and optimizing the low-latency infrastructure that underpins the firm’s high-performance trading operations. Candidates will work closely with traders and other engineers to evolve a system capable of processing millions of transactions per day across centralized and decentralized platforms. The core stack includes C++ and Python, and systems are designed to operate at microsecond latencies under heavy load.\n\nKey Responsibilities\nDesign, implement, and optimize components of the firm’s low-latency trading infrastructure in C++ and Python \nCollaborate with traders, middle office, and engineering stakeholders to understand requirements and deliver effective solutions in both CeFi and DeFi environments\nOwn deployment and monitoring of trading system components in production\nInvestigate and resolve production issues with a focus on uptime and performance\nIdentify architectural and algorithmic improvements to reduce latency and increase throughput\nContribute to technical discussions, design reviews, and code reviews\n\nCandidate Profile\n5+ years of experience developing performant, production-grade software\nAt least 3 years of professional experience in both C++ and Python\nDeep understanding of algorithms, data structures, and systems programming\nDemonstrated ability to build low-latency, high-throughput systems\nComfortable balancing rapid feature delivery with system robustness and reliability\nWilling to support the systems they build in a production environment\nStrong communicator, capable of articulating technical ideas clearly\nHolds a degree in Computer Science, Software Engineering, or a related field with strong academic results\nInterest in financial systems, market microstructure, or cryptocurrency trading is a plus\n\nWhat They Offer\nThe opportunity to work at the forefront of digital asset trading and contribute to critical low-latency infrastructure\nA fully remote and flexible working environment\nHigh degree of autonomy and the ability to influence both technical direction and business outcomes\nA collaborative, high-performance culture focused on solving hard problems at speed and scale\n\nCandidates who are excited about tackling real-time systems challenges in a dynamic, high-stakes environment are encouraged to apply.",
+      "location": "European Union",
+      "date_posted": "2 weeks ago",
+      "job_insights": [
+        "Remote Full-time",
+        "See how you compare to over 100 other applicants. Try Premium for €0"
+      ],
+      "easy_apply": true,
+      "apply_info": "Easy Apply",
+      "job_id": "4236310740",
+      "url": "https://www.linkedin.com/jobs/view/4236310740/?eBP=CwEAAAGXYDqQr3qAp1Dsa73WxtFVkHpJ9v9ST-Mtv_iqwxaH6aP8_c2MyIAtmubMTdj4UYH50sVvVptl5cB4JEBIV0PLCal7KunZWuiMCzUs9NVQGWSOB8jPyFmNzzabktSPymeiGpu01zSzA0KjiqEgakBJUa8QPtuDy9o3zKemvlvjoUC3qZRpHNS76Y9r-F4FI3TCk4tfKGJEkwVP85O9IfC8juGuPPZKFxfI0-TyzI74jQC6n_KrRyJpKDJdH6dj-41Fhw_s-BahSDRMcAAxX_ZH1YTMAOOwth8ycRZYZbO2wBxRSZYWtBhz9tq7gDei6ySMqr3he82SpdTvrrgd-fIAquPfhnQIcgo1ifftdV8NyYCpR1oFatxqkPIEe4K5bMpEwT1aMILP_TDB3Zt2TvLyi-_-RzUo7W6oF0wNN6D-QT2mTV_441o54heV_xxvqtqaGcFCab8VhQ1Ee-IVwbRPUkiYHbWl&refId=KVyqJApKVD2Bl9Rvos5rnQ%3D%3D&trackingId=%2BKfoxVNkNzVeZUBxOE%2BrWQ%3D%3D&trk=flagship3_search_srp_jobs"
+    },
+    {
+      "source": "linkedin",
+      "scraped_at": "2025-06-11T20:22:39.988554",
+      "title": "Software Engineer",
+      "company": "Digital Turbine",
+      "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQFuuhTCF5UhNw/company-logo_100_100/company-logo_100_100/0/1630461162788/durlston_partners_llp_logo?e=1755129600&v=beta&t=xvPulp9EXRredEYWMAa5icsnDtU9wyiYU_0qJ2-5oow",
+      "description": "About the job\nSoftware engineers at Digital Turbine ship features that affect millions of user’s mobile experiences. You will be creating cutting edge internal and external-facing tools to help analyze billions of events on millions of mobile devices. Each engineering team works with a clear mission in mind, taking accountability for every part of the system from deployment to production.\n\nThis Software Engineer position is for our DT growth product line. You can read more here . Our Engineering hub is built on professionalism. You can see more about our culture and our tech here\n\nYour Role\n\nWork together with our team creating highly scalable and fault tolerant technical solutions\nWork on developing various backend low latency, high availability services\nDevelop and implement data pipelines that extracts, transforms and loads data into an information product that helps to inform the organization in reaching strategic goals. \nWrite high-quality code, conduct and participate in code reviews, and follow strong engineering principles and standards. \nResearch the technical feasibility of new ideas\nWrite maintainable code that can scale fast\nSupport and contribute to our amazing work culture.\n\nRequired Qualifications\n\nBachelors in computer sciences or equivalent. \nGood understanding of object-oriented design, design patterns, algorithms and their complexities.\n Knowledge of relational databases e.g MySQL is a plus.\nComfortable writing code with either C++ and willing to learn Scala and Python.\nGood understanding of C++ STL libraries and familiarity with Boost\n Will to learn additional languages.\n Excellent verbal and written communication skills in English. \n\nWhat we do:\n\nDigital Turbine is a leading mobile advertising technology company.\n\nWe are devoted to solving the fundamental business challenge faced by freemium app and game developers, generating sustainable revenue streams through ad monetization across all connected devices.\n\nBuilt by developers for developers, our unified platform serves approximately 500+ million monthly active users and empowers thousands of the world’s leading app developers and publishers to integrate, manage and optimize all ad revenue sources across mediation, exchange and ad serving.\n\nWe are investing for the long term to build the platform that will fuel the app economy of the future. What we offer:Learn and grow with some of the best experts in the industryContribute to technically diverse (platforms: Unix, mobile (iOS/Android), C++, Scala, Ruby), highly scalable, open source technologies and hacker friendly projectsWork with a high-growth oriented, publicly traded company (with around 600 employees in various countries) Join a friendly, culturally diverse team where people value excellence, team spirit, passion, courage, pragmatism and accountability",
+      "location": "Berlin, Berlin, Germany",
+      "job_insights": [
+        "Hybrid Full-time Entry level",
+        "See how you compare to 32 applicants. Try Premium for €0"
+      ],
+      "easy_apply": true,
+      "apply_info": "Easy Apply",
+      "job_id": "4246516943",
+      "url": "https://www.linkedin.com/jobs/view/4246516943/?eBP=CwEAAAGXYDqQrz90RmfmQmwJp9tRM6QL6n23F1Q_919lSnx2Epm7wiqckrL6vpYIVcfRcxPIgxvCUAk-zcCf8upvyxEy4osM2WE1BlNFTaJcA2oJUeN9GOt5L0wKI-kj9VHzVx09k27f4EC5wZpCtEt9Ot0nlMVYt5-9fmdHyAbkYbk7aTE4Y0LKYTBBT98vOhGdPN8gGMrJYjxbehGUGO0C3eWDNk9DknIcpS366zxJ2IVl5sIQos8Jw6KW6h-MGAahdr8Dm2B3inSIVOUghzB92bkNE0XxYW2vtthZpEDZoE2B24itZvMuYVjLilAVqnlFfaEEcpkXMIVUgbzYGAMpNVzxjjgrUgg__YUJdWWnh0GM2_iUHclOloP0656IZQN_zpcfEZkq5nmxiB2L7F492y4_JQcgjV86NbhhrXYu9sb268JmjPgS_0GRBQe_vK52PFU-e7_Xfud29Tz5Mm433pFui6DJxf3mn3kIyT0G&refId=KVyqJApKVD2Bl9Rvos5rnQ%3D%3D&trackingId=juV47gy1Q18Obi8fDzX5YQ%3D%3D&trk=flagship3_search_srp_jobs"
+    }
+  ]
+}

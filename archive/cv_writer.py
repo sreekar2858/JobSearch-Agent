@@ -7,7 +7,6 @@ This module defines the CV generation pipeline, including:
 - Grammar checking
 - Final draft preparation
 """
-
 import json
 import logging
 import dotenv
@@ -32,8 +31,8 @@ agent_config = load_config("config/cv_app_agent_config.yaml")
 file_config = load_config("config/file_config.yaml")
 
 # Validate and load Word template
-cv_template_path: str = file_config["templates"]["cv"]
-coverletter_template_path: str = file_config["templates"]["cover_letter"]
+cv_template_path: str = file_config['templates']['cv']
+coverletter_template_path: str = file_config['templates']['cover_letter']
 
 logger = logging.getLogger(__name__)
 logger.setLevel(agent_config.get("logging_level", logging.INFO))
@@ -43,7 +42,6 @@ APP_NAME: str = agent_config.get("app_name", "CVWriter")
 USER_ID: str = agent_config.get("user_id", "user_01")
 SESSION_ID: str = agent_config.get("session_id", "session_01")
 MAX_LOOP_ITERATIONS: int = agent_config.get("max_loop_iterations", 5)
-
 
 # --- Agent Definitions -------------------------------------------------------
 class CVWriter(BaseAgent):
@@ -60,7 +58,6 @@ class CVWriter(BaseAgent):
 
     Relies on InMemorySessionService for state persistence.
     """
-
     # Declare agent fields so Pydantic accepts assignments
     initial_draft: LlmAgent
     critic: LlmAgent
@@ -85,7 +82,7 @@ class CVWriter(BaseAgent):
         loop_agent = LoopAgent(
             name="CritiqueReviseLoop",
             sub_agents=[critic, fact_check, reviser, ExitConditionAgent()],
-            max_iterations=MAX_LOOP_ITERATIONS,
+            max_iterations=MAX_LOOP_ITERATIONS
         )
         sequential_agent = SequentialAgent(
             name="PostProcessors",
@@ -101,7 +98,7 @@ class CVWriter(BaseAgent):
             final_draft=final_draft,
             loop_agent=loop_agent,
             sequential_agent=sequential_agent,
-            sub_agents=[initial_draft, loop_agent, sequential_agent],
+            sub_agents=[initial_draft, loop_agent, sequential_agent]
         )
 
     @override
@@ -133,115 +130,74 @@ class CVWriter(BaseAgent):
 
 # Import prompts to keep this file cleaner
 from src.prompts.cv_prompts import (  # noqa: E402
-    initial_draft_prompt,
+    initial_draft_prompt, 
     critic_prompt,
     fact_check_prompt,
     reviser_prompt,
     grammar_check_prompt,
-    final_draft_prompt,
+    final_draft_prompt
 )
 
+# --- LlmAgent Instantiation --------------------------------------------------
+initial_draft = LlmAgent(
+    name="InitialDraftGenerator",
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('initial_draft_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('initial_draft_model')])),
+    instruction=initial_draft_prompt,
+    input_schema=None,
+    output_key="current_draft",
+)
 
-# --- LlmAgent Factory Functions -----------------------------------------------
-def create_initial_draft_agent():
-    """Create a new initial draft agent for each request to avoid parent conflicts"""
-    return LlmAgent(
-        name="InitialDraftGenerator",
-        model=(
-            agent_config["models"]["gemini_2.5_flash"]
-            if "gemini" in agent_config.get("initial_draft_model")
-            else LiteLlm(
-                model=agent_config["models"][agent_config.get("initial_draft_model")]
-            )
-        ),
-        instruction=initial_draft_prompt,
-        input_schema=None,
-        output_key="current_draft",
-    )
+critic = LlmAgent(
+    name="Critic",
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('critic_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('critic_model')])),
+    instruction=critic_prompt,
+    input_schema=None,
+    output_key="critic_feedback",
+)
 
+fact_check = LlmAgent(
+    name="FactChecker",
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('fact_check_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('fact_check_model')])),
+    instruction=fact_check_prompt,
+    input_schema=None,
+    output_key="fact_check_report",
+)
 
-def create_critic_agent():
-    """Create a new critic agent for each request to avoid parent conflicts"""
-    return LlmAgent(
-        name="Critic",
-        model=(
-            agent_config["models"]["gemini_2.5_flash"]
-            if "gemini" in agent_config.get("critic_model")
-            else LiteLlm(model=agent_config["models"][agent_config.get("critic_model")])
-        ),
-        instruction=critic_prompt,
-        input_schema=None,
-        output_key="critic_feedback",
-    )
+reviser = LlmAgent(
+    name="Reviser",
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('reviser_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('reviser_model')])),
+    instruction=reviser_prompt,
+    input_schema=None,
+    output_key="current_draft",
+)
 
+grammar_check = LlmAgent(
+    name="GrammarChecker",
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('grammar_check_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('grammar_check_model')])),
+    instruction=grammar_check_prompt,
+    input_schema=None,
+    output_key="grammar_corrections",
+)
 
-def create_fact_check_agent():
-    """Create a new fact check agent for each request to avoid parent conflicts"""
-    return LlmAgent(
-        name="FactChecker",
-        model=(
-            agent_config["models"]["gemini_2.5_flash"]
-            if "gemini" in agent_config.get("fact_check_model")
-            else LiteLlm(
-                model=agent_config["models"][agent_config.get("fact_check_model")]
-            )
-        ),
-        instruction=fact_check_prompt,
-        input_schema=None,
-        output_key="fact_check_report",
-    )
-
-
-def create_reviser_agent():
-    """Create a new reviser agent for each request to avoid parent conflicts"""
-    return LlmAgent(
-        name="Reviser",
-        model=(
-            agent_config["models"]["gemini_2.5_flash"]
-            if "gemini" in agent_config.get("reviser_model")
-            else LiteLlm(
-                model=agent_config["models"][agent_config.get("reviser_model")]
-            )
-        ),
-        instruction=reviser_prompt,
-        input_schema=None,
-        output_key="current_draft",
-    )
-
-
-def create_grammar_check_agent():
-    """Create a new grammar check agent for each request to avoid parent conflicts"""
-    return LlmAgent(
-        name="GrammarChecker",
-        model=(
-            agent_config["models"]["gemini_2.5_flash"]
-            if "gemini" in agent_config.get("grammar_check_model")
-            else LiteLlm(
-                model=agent_config["models"][agent_config.get("grammar_check_model")]
-            )
-        ),
-        instruction=grammar_check_prompt,
-        input_schema=None,
-        output_key="grammar_corrections",
-    )
-
-
-def create_final_draft_agent():
-    """Create a new final draft agent for each request to avoid parent conflicts"""
-    return LlmAgent(
-        name="FinalDraftGenerator",
-        model=(
-            agent_config["models"]["gemini_2.5_flash"]
-            if "gemini" in agent_config.get("final_draft_model")
-            else LiteLlm(
-                model=agent_config["models"][agent_config.get("final_draft_model")]
-            )
-        ),
-        instruction=final_draft_prompt,
-        input_schema=None,
-        output_key="final_draft",
-    )
-
+final_draft = LlmAgent(
+    name="FinalDraftGenerator",
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('final_draft_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('final_draft_model')])),
+    instruction=final_draft_prompt,
+    input_schema=None,
+    output_key="final_draft",
+)
 
 def call_cv_agent(job_details: str) -> Tuple[str, str, str]:
     """
@@ -251,75 +207,48 @@ def call_cv_agent(job_details: str) -> Tuple[str, str, str]:
     4. Map the final draft back into the Word document's paragraphs.
     5. Save the filled document and return paths along with state.
     """
-
+    
     try:
-        # Create fresh agents for each request to avoid parent conflicts
-        new_initial_draft = create_initial_draft_agent()
-        new_critic = create_critic_agent()
-        new_fact_check = create_fact_check_agent()
-        new_reviser = create_reviser_agent()
-        new_grammar_check = create_grammar_check_agent()
-        new_final_draft = create_final_draft_agent()
-
         # --- Pipeline Assembly & Execution ------------------------------------------
         root_agent = CVWriter(
             name="CVWriter",
-            initial_draft=new_initial_draft,
-            critic=new_critic,
-            fact_check=new_fact_check,
-            reviser=new_reviser,
-            grammar_check=new_grammar_check,
-            final_draft=new_final_draft,
+            initial_draft=initial_draft,
+            critic=critic,
+            fact_check=fact_check,
+            reviser=reviser,
+            grammar_check=grammar_check,
+            final_draft=final_draft,
         )
 
         session_service = InMemorySessionService()
-
-        # Generate unique session ID for each request to avoid state conflicts
-        import uuid
-        from datetime import datetime
-
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        unique_session_id = f"{SESSION_ID}_{timestamp}_{str(uuid.uuid4())[:8]}"
-        unique_user_id = f"{USER_ID}_{timestamp}_{str(uuid.uuid4())[:8]}"
-
         session = session_service.create_session(
             app_name=APP_NAME,
-            user_id=unique_user_id,
-            session_id=unique_session_id,
+            user_id=USER_ID,
+            session_id=SESSION_ID,
         )
-        runner = Runner(
-            agent=root_agent, app_name=APP_NAME, session_service=session_service
-        )
+        runner = Runner(agent=root_agent, app_name=APP_NAME, session_service=session_service)
 
         print("🔄 Loading CV template...")
-        if cv_template_path and cv_template_path.endswith(".docx"):
+        if cv_template_path and cv_template_path.endswith('.docx'):
             doc, tmpl_text = load_docx_template(cv_template_path)
-        elif cv_template_path and cv_template_path.endswith(".txt"):
-            tmpl_text = load_text_file(
-                cv_template_path
-            )  # dumps the bulk text into a string
+        elif cv_template_path and cv_template_path.endswith('.txt'):
+            tmpl_text = load_text_file(cv_template_path) # dumps the bulk text into a string
         else:
-            raise ValueError(
-                "Unsupported template format. Only .docx and .txt are supported."
-            )
+            raise ValueError("Unsupported template format. Only .docx and .txt are supported.")
 
-        prompt = f"TEMPLATE:\n{tmpl_text}\n\nJOB: {job_details}"
-        content = types.Content(role="user", parts=[types.Part(text=prompt)])
+        prompt = f"TEMPLATE:\n{tmpl_text}\n\nJOB: {job_details}"  
+        content = types.Content(role='user', parts=[types.Part(text=prompt)])
 
         print("🚀 Starting CV generation pipeline...")
         print("⏳ This may take a few minutes, please wait...")
-
+        
         try:
             current_agent = ""
-            events = runner.run(
-                user_id=unique_user_id,
-                session_id=unique_session_id,
-                new_message=content,
-            )
+            events = runner.run(user_id=USER_ID, session_id=SESSION_ID, new_message=content)
             final_text: str = ""
             for evt in events:
                 # Track which agent is currently working
-                if hasattr(evt, "author") and evt.author != current_agent:
+                if hasattr(evt, 'author') and evt.author != current_agent:
                     current_agent = evt.author
                     if current_agent == "InitialDraftGenerator":
                         print("📝 Generating initial CV draft...")
@@ -335,16 +264,16 @@ def call_cv_agent(job_details: str) -> Tuple[str, str, str]:
                         print("🔤 Polishing grammar and style...")
                     elif current_agent == "FinalDraftGenerator":
                         print("✨ Finalizing CV content...")
-
+                
                 if evt.is_final_response() and evt.content:
                     print("✅ CV generation complete!")
                     final_text = evt.content.parts[0].text
-
+            
             if not final_text:
                 raise Exception("Failed to generate CV content")
-
+                
             print("📄 Applying content to CV template...")
-            if cv_template_path.endswith(".docx"):
+            if cv_template_path.endswith('.docx'):
                 # Inject lines into Word template
                 lines = final_text.split("\n")
                 for idx, paragraph in enumerate(doc.paragraphs):
@@ -352,19 +281,17 @@ def call_cv_agent(job_details: str) -> Tuple[str, str, str]:
                         paragraph.text = lines[idx]
                 return final_text, json.dumps(session.state, indent=2), doc
 
-            elif cv_template_path.endswith(".txt"):
+            elif cv_template_path.endswith('.txt'):
                 return final_text, json.dumps(session.state, indent=2), final_text
-
+            
             else:
-                raise ValueError(
-                    "Unsupported template format. Only .docx and .txt are supported."
-                )
-
+                raise ValueError("Unsupported template format. Only .docx and .txt are supported.")
+                
         except Exception as e:
             print(f"⚠️ Error during CV generation: {e}")
             print("⚠️ Falling back to simple CV generation...")
             return generate_simple_cv(job_details, cv_template_path)
-
+            
     except Exception as e:
         print(f"⚠️ Error setting up CV generation: {e}")
         print("⚠️ Falling back to simple CV generation...")
@@ -377,53 +304,52 @@ def generate_simple_cv(job_details: str, template_path: str) -> Tuple[str, str, 
     This is used when the main agent system fails due to API issues.
     """
     print("🔄 Using fallback CV generation...")
-
+    
     try:
         # Parse job details
         job_data = json.loads(job_details)
-        job_title = job_data.get("job_title", "Unknown Position")
-        company = job_data.get("company_name", "Unknown Company")
-        responsibilities = job_data.get("job_responsibilities", [])
-        requirements = job_data.get("job_requirements", [])
-        skills = job_data.get("skills_required", [])
-
+        job_title = job_data.get('job_title', 'Unknown Position')
+        company = job_data.get('company_name', 'Unknown Company')
+        responsibilities = job_data.get('job_responsibilities', [])
+        requirements = job_data.get('job_requirements', [])
+        skills = job_data.get('skills_required', [])
+        
         # Create a simple CV
         current_date = "May 2025"
         cv_text = f"""CURRICULUM VITAE - Tailored for {job_title} at {company}
         
 PROFESSIONAL SUMMARY
-Experienced professional with a strong background in {", ".join(skills[:3]) if skills else "relevant skills"} seeking the {job_title} position at {company}. Dedicated to delivering high-quality results and contributing to organizational success.
+Experienced professional with a strong background in {', '.join(skills[:3]) if skills else 'relevant skills'} seeking the {job_title} position at {company}. Dedicated to delivering high-quality results and contributing to organizational success.
 
 SKILLS RELEVANT TO THIS POSITION
-{", ".join(skills) if skills else "Various professional skills matching the job requirements"}
+{', '.join(skills) if skills else 'Various professional skills matching the job requirements'}
 
 EXPERIENCE
-- Implemented solutions related to {", ".join(requirements[:2]) if requirements else "industry standards"}
-- Led projects requiring {", ".join(skills[:2]) if skills else "relevant skills"}
-- Collaborated with teams to achieve {responsibilities[0] if responsibilities else "business objectives"}
+- Implemented solutions related to {', '.join(requirements[:2]) if requirements else 'industry standards'}
+- Led projects requiring {', '.join(skills[:2]) if skills else 'relevant skills'}
+- Collaborated with teams to achieve {responsibilities[0] if responsibilities else 'business objectives'}
 
 EDUCATION
 - Advanced degree in relevant field
-- Continued professional development in {skills[0] if skills else "relevant area"}
+- Continued professional development in {skills[0] if skills else 'relevant area'}
 
 Generated on {current_date} specifically for {job_title} position at {company}.
 """
-
+        
         # Return the simple CV
         state = {"simple_fallback": True}
-        if template_path.endswith(".txt"):
+        if template_path.endswith('.txt'):
             return cv_text, json.dumps(state), cv_text
         else:
             # For docx templates, we'd need more complex handling here
             # For now, just return the text
             return cv_text, json.dumps(state), cv_text
-
-    except Exception as e:  # If all else fails, return a very basic template
+            
+    except Exception as e:        # If all else fails, return a very basic template
         print(f"⚠️ Error in fallback CV generation: {e}")
         basic_cv = "Basic CV for job application\n\nThis is a placeholder CV generated due to technical issues with the full CV generation system.\n\nPlease try again later or contact support."
         state = {"error": str(e)}
         return basic_cv, json.dumps(state), basic_cv
-
 
 if __name__ == "__main__":
     # Example run

@@ -7,7 +7,6 @@ This module defines the cover letter generation pipeline, including:
 - Grammar checking
 - Final draft preparation
 """
-
 import json
 import logging
 import dotenv
@@ -27,24 +26,22 @@ from src.utils.exit_conditions import ExitConditionAgent
 
 # Import prompts
 from src.prompts.cover_letter_prompts import (
-    initial_draft_prompt,
+    initial_draft_prompt, 
     critic_prompt,
     fact_check_prompt,
     reviser_prompt,
     grammar_check_prompt,
-    final_draft_prompt,
+    final_draft_prompt
 )
 
 # --- Initial Setup -----------------------------------------------------------
 # Load environment variables and YAML configuration
 dotenv.load_dotenv()
-agent_config = load_config(
-    "config/cv_app_agent_config.yaml"
-)  # We'll reuse the CV config
+agent_config = load_config("config/cv_app_agent_config.yaml")  # We'll reuse the CV config
 file_config = load_config("config/file_config.yaml")
 
 # Validate and load Word template
-coverletter_template_path: str = file_config["templates"]["cover_letter"]
+coverletter_template_path: str = file_config['templates']['cover_letter']
 
 logger = logging.getLogger(__name__)
 logger.setLevel(agent_config.get("logging_level", logging.INFO))
@@ -52,11 +49,8 @@ logger.setLevel(agent_config.get("logging_level", logging.INFO))
 # --- Pipeline Constants ------------------------------------------------------
 APP_NAME: str = "CoverLetterWriter"
 USER_ID: str = agent_config.get("user_id", "user_01")
-SESSION_ID: str = agent_config.get(
-    "session_id", "session_02"
-)  # Different from CV session
+SESSION_ID: str = agent_config.get("session_id", "session_02")  # Different from CV session
 MAX_LOOP_ITERATIONS: int = agent_config.get("max_loop_iterations", 5)
-
 
 # --- Agent Definitions -------------------------------------------------------
 class CoverLetterWriter(BaseAgent):
@@ -73,7 +67,6 @@ class CoverLetterWriter(BaseAgent):
 
     Relies on InMemorySessionService for state persistence.
     """
-
     # Declare agent fields so Pydantic accepts assignments
     initial_draft: LlmAgent
     critic: LlmAgent
@@ -98,7 +91,7 @@ class CoverLetterWriter(BaseAgent):
         loop_agent = LoopAgent(
             name="CritiqueReviseLoop",
             sub_agents=[critic, fact_check, reviser, ExitConditionAgent()],
-            max_iterations=MAX_LOOP_ITERATIONS,
+            max_iterations=MAX_LOOP_ITERATIONS
         )
         sequential_agent = SequentialAgent(
             name="PostProcessors",
@@ -114,7 +107,7 @@ class CoverLetterWriter(BaseAgent):
             final_draft=final_draft,
             loop_agent=loop_agent,
             sequential_agent=sequential_agent,
-            sub_agents=[initial_draft, loop_agent, sequential_agent],
+            sub_agents=[initial_draft, loop_agent, sequential_agent]
         )
 
     @override
@@ -143,107 +136,66 @@ class CoverLetterWriter(BaseAgent):
 
         logger.info(f"[{self.name}] Pipeline complete. Final draft available.")
 
+# --- LlmAgent Instantiation --------------------------------------------------
+initial_draft = LlmAgent(
+    name="InitialDraftGenerator",
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('initial_draft_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('initial_draft_model')])),
+    instruction=initial_draft_prompt,
+    input_schema=None,
+    output_key="current_draft",
+)
 
-# --- LlmAgent Factory Functions -----------------------------------------------
-def create_initial_draft_agent():
-    """Create a new initial draft agent for each request to avoid parent conflicts"""
-    return LlmAgent(
-        name="InitialDraftGenerator",
-        model=(
-            agent_config["models"]["gemini_2.5_flash"]
-            if "gemini" in agent_config.get("initial_draft_model")
-            else LiteLlm(
-                model=agent_config["models"][agent_config.get("initial_draft_model")]
-            )
-        ),
-        instruction=initial_draft_prompt,
-        input_schema=None,
-        output_key="current_draft",
-    )
+critic = LlmAgent(
+    name="Critic",
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('critic_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('critic_model')])),
+    instruction=critic_prompt,
+    input_schema=None,
+    output_key="critic_feedback",
+)
 
+fact_check = LlmAgent(
+    name="FactChecker",
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('fact_check_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('fact_check_model')])),
+    instruction=fact_check_prompt,
+    input_schema=None,
+    output_key="fact_check_report",
+)
 
-def create_critic_agent():
-    """Create a new critic agent for each request to avoid parent conflicts"""
-    return LlmAgent(
-        name="Critic",
-        model=(
-            agent_config["models"]["gemini_2.5_flash"]
-            if "gemini" in agent_config.get("critic_model")
-            else LiteLlm(model=agent_config["models"][agent_config.get("critic_model")])
-        ),
-        instruction=critic_prompt,
-        input_schema=None,
-        output_key="critic_feedback",
-    )
+reviser = LlmAgent(
+    name="Reviser",
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('reviser_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('reviser_model')])),
+    instruction=reviser_prompt,
+    input_schema=None,
+    output_key="current_draft",
+)
 
+grammar_check = LlmAgent(
+    name="GrammarChecker",
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('grammar_check_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('grammar_check_model')])),
+    instruction=grammar_check_prompt,
+    input_schema=None,
+    output_key="grammar_corrections",
+)
 
-def create_fact_check_agent():
-    """Create a new fact check agent for each request to avoid parent conflicts"""
-    return LlmAgent(
-        name="FactChecker",
-        model=(
-            agent_config["models"]["gemini_2.5_flash"]
-            if "gemini" in agent_config.get("fact_check_model")
-            else LiteLlm(
-                model=agent_config["models"][agent_config.get("fact_check_model")]
-            )
-        ),
-        instruction=fact_check_prompt,
-        input_schema=None,
-        output_key="fact_check_report",
-    )
-
-
-def create_reviser_agent():
-    """Create a new reviser agent for each request to avoid parent conflicts"""
-    return LlmAgent(
-        name="Reviser",
-        model=(
-            agent_config["models"]["gemini_2.5_flash"]
-            if "gemini" in agent_config.get("reviser_model")
-            else LiteLlm(
-                model=agent_config["models"][agent_config.get("reviser_model")]
-            )
-        ),
-        instruction=reviser_prompt,
-        input_schema=None,
-        output_key="current_draft",
-    )
-
-
-def create_grammar_check_agent():
-    """Create a new grammar check agent for each request to avoid parent conflicts"""
-    return LlmAgent(
-        name="GrammarChecker",
-        model=(
-            agent_config["models"]["gemini_2.5_flash"]
-            if "gemini" in agent_config.get("grammar_check_model")
-            else LiteLlm(
-                model=agent_config["models"][agent_config.get("grammar_check_model")]
-            )
-        ),
-        instruction=grammar_check_prompt,
-        input_schema=None,
-        output_key="grammar_corrections",
-    )
-
-
-def create_final_draft_agent():
-    """Create a new final draft agent for each request to avoid parent conflicts"""
-    return LlmAgent(
-        name="FinalDraftGenerator",
-        model=(
-            agent_config["models"]["gemini_2.5_flash"]
-            if "gemini" in agent_config.get("final_draft_model")
-            else LiteLlm(
-                model=agent_config["models"][agent_config.get("final_draft_model")]
-            )
-        ),
-        instruction=final_draft_prompt,
-        input_schema=None,
-        output_key="final_draft",
-    )
-
+final_draft = LlmAgent(
+    name="FinalDraftGenerator",
+    model=(agent_config['models']['gemini_2.5_flash'] 
+            if 'gemini' in agent_config.get('final_draft_model') 
+            else LiteLlm(model=agent_config['models'][agent_config.get('final_draft_model')])),
+    instruction=final_draft_prompt,
+    input_schema=None,
+    output_key="final_draft",
+)
 
 def call_cover_letter_agent(job_details: str) -> Tuple[str, str, str]:
     """
@@ -253,75 +205,48 @@ def call_cover_letter_agent(job_details: str) -> Tuple[str, str, str]:
     4. Map the final draft back into the Word document's paragraphs.
     5. Save the filled document and return paths along with state.
     """
-
+    
     try:
-        # Create fresh agents for each request to avoid parent conflicts
-        fresh_initial_draft = create_initial_draft_agent()
-        fresh_critic = create_critic_agent()
-        fresh_fact_check = create_fact_check_agent()
-        fresh_reviser = create_reviser_agent()
-        fresh_grammar_check = create_grammar_check_agent()
-        fresh_final_draft = create_final_draft_agent()
-
         # --- Pipeline Assembly & Execution ------------------------------------------
         root_agent = CoverLetterWriter(
             name="CoverLetterWriter",
-            initial_draft=fresh_initial_draft,
-            critic=fresh_critic,
-            fact_check=fresh_fact_check,
-            reviser=fresh_reviser,
-            grammar_check=fresh_grammar_check,
-            final_draft=fresh_final_draft,
+            initial_draft=initial_draft,
+            critic=critic,
+            fact_check=fact_check,
+            reviser=reviser,
+            grammar_check=grammar_check,
+            final_draft=final_draft,
         )
 
         session_service = InMemorySessionService()
-
-        # Generate unique session ID for each request to avoid state conflicts
-        import uuid
-        from datetime import datetime
-
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        unique_session_id = f"{SESSION_ID}_{timestamp}_{str(uuid.uuid4())[:8]}"
-        unique_user_id = f"{USER_ID}_{timestamp}_{str(uuid.uuid4())[:8]}"
-
         session = session_service.create_session(
             app_name=APP_NAME,
-            user_id=unique_user_id,
-            session_id=unique_session_id,
+            user_id=USER_ID,
+            session_id=SESSION_ID,
         )
-        runner = Runner(
-            agent=root_agent, app_name=APP_NAME, session_service=session_service
-        )
+        runner = Runner(agent=root_agent, app_name=APP_NAME, session_service=session_service)
 
         print("🔄 Loading cover letter template...")
-        if coverletter_template_path and coverletter_template_path.endswith(".docx"):
+        if coverletter_template_path and coverletter_template_path.endswith('.docx'):
             doc, tmpl_text = load_docx_template(coverletter_template_path)
-        elif coverletter_template_path and coverletter_template_path.endswith(".txt"):
-            tmpl_text = load_text_file(
-                coverletter_template_path
-            )  # dumps the bulk text into a string
+        elif coverletter_template_path and coverletter_template_path.endswith('.txt'):
+            tmpl_text = load_text_file(coverletter_template_path) # dumps the bulk text into a string
         else:
-            raise ValueError(
-                "Unsupported template format. Only .docx and .txt are supported."
-            )
+            raise ValueError("Unsupported template format. Only .docx and .txt are supported.")
 
-        prompt = f"TEMPLATE:\n{tmpl_text}\n\nJOB: {job_details}"
-        content = types.Content(role="user", parts=[types.Part(text=prompt)])
+        prompt = f"TEMPLATE:\n{tmpl_text}\n\nJOB: {job_details}"  
+        content = types.Content(role='user', parts=[types.Part(text=prompt)])
 
         print("🚀 Starting cover letter generation pipeline...")
         print("⏳ This may take a few minutes, please wait...")
-
+        
         try:
             current_agent = ""
-            events = runner.run(
-                user_id=unique_user_id,
-                session_id=unique_session_id,
-                new_message=content,
-            )
+            events = runner.run(user_id=USER_ID, session_id=SESSION_ID, new_message=content)
             final_text: str = ""
             for evt in events:
                 # Track which agent is currently working
-                if hasattr(evt, "author") and evt.author != current_agent:
+                if hasattr(evt, 'author') and evt.author != current_agent:
                     current_agent = evt.author
                     if current_agent == "InitialDraftGenerator":
                         print("📝 Generating initial cover letter draft...")
@@ -337,62 +262,56 @@ def call_cover_letter_agent(job_details: str) -> Tuple[str, str, str]:
                         print("🔤 Polishing grammar and style...")
                     elif current_agent == "FinalDraftGenerator":
                         print("✨ Finalizing cover letter content...")
-
+                
                 if evt.is_final_response() and evt.content:
                     print("✅ Cover letter generation complete!")
                     final_text = evt.content.parts[0].text
-
+            
             if not final_text:
                 raise Exception("Failed to generate cover letter content")
-
+                
             print("📄 Applying content to cover letter template...")
-            if coverletter_template_path.endswith(".docx"):
+            if coverletter_template_path.endswith('.docx'):
                 # Inject lines into Word template
                 lines = final_text.split("\n")
                 for idx, paragraph in enumerate(doc.paragraphs):
                     if idx < len(lines):
                         paragraph.text = lines[idx]
                 return final_text, json.dumps(session.state, indent=2), doc
-
-            elif coverletter_template_path.endswith(".txt"):
+            elif coverletter_template_path.endswith('.txt'):
                 return final_text, json.dumps(session.state, indent=2), final_text
-
             else:
-                raise ValueError(
-                    "Unsupported template format. Only .docx and .txt are supported."
-                )
-
+                raise ValueError("Unsupported template format. Only .docx and .txt are supported.")
+                
         except Exception as e:
             print(f"⚠️ Error during cover letter generation: {e}")
             print("⚠️ Falling back to simple cover letter generation...")
             return generate_simple_cover_letter(job_details, coverletter_template_path)
-
+            
     except Exception as e:
         print(f"⚠️ Error setting up cover letter generation: {e}")
         print("⚠️ Falling back to simple cover letter generation...")
         return generate_simple_cover_letter(job_details, coverletter_template_path)
 
 
-def generate_simple_cover_letter(
-    job_details: str, template_path: str
-) -> Tuple[str, str, str]:
+def generate_simple_cover_letter(job_details: str, template_path: str) -> Tuple[str, str, str]:
     """
     A fallback function that generates a simple cover letter without using the complex agent system.
     This is used when the main agent system fails due to API issues.
     """
     print("🔄 Using fallback cover letter generation...")
-
-    try:  # Parse job details
+    
+    try:        # Parse job details
         job_data = json.loads(job_details)
-        job_title = job_data.get("job_title", "Unknown Position")
-        company = job_data.get("company_name", "Unknown Company")
-        responsibilities = job_data.get("job_responsibilities", [])
+        job_title = job_data.get('job_title', 'Unknown Position')
+        company = job_data.get('company_name', 'Unknown Company')
+        responsibilities = job_data.get('job_responsibilities', [])
         # Get requirements but we don't use them directly in this simple version
-        skills = job_data.get("skills_required", [])
-
+        skills = job_data.get('skills_required', [])
+        
         # Create a simple cover letter
         today_date = "May 11, 2025"
-
+        
         cover_letter = f"""
 {today_date}
 
@@ -400,9 +319,9 @@ Dear Hiring Manager,
 
 I am writing to express my interest in the {job_title} position at {company}. After reviewing the job description, I believe that my skills and experience align well with what you are seeking in a candidate.
 
-With experience in {", ".join(skills[:3]) if skills else "areas relevant to this position"}, I am confident in my ability to contribute effectively to your team. I have successfully {"delivered projects requiring " + responsibilities[0] if responsibilities else "handled responsibilities similar to those described in the job posting"}.
+With experience in {', '.join(skills[:3]) if skills else 'areas relevant to this position'}, I am confident in my ability to contribute effectively to your team. I have successfully {'delivered projects requiring ' + responsibilities[0] if responsibilities else 'handled responsibilities similar to those described in the job posting'}.
 
-What particularly interests me about {company} is your focus on {"innovation and development" if not responsibilities else responsibilities[0]}. I am eager to bring my expertise in {skills[0] if skills else "relevant areas"} to contribute to your continued success.
+What particularly interests me about {company} is your focus on {'innovation and development' if not responsibilities else responsibilities[0]}. I am eager to bring my expertise in {skills[0] if skills else 'relevant areas'} to contribute to your continued success.
 
 I look forward to the opportunity to discuss how my background, skills, and experiences would be a good match for this position. Thank you for your time and consideration.
 
@@ -410,23 +329,22 @@ Sincerely,
 [Your Name]
 [Your Contact Information]
         """
-
+        
         # Return the simple cover letter
         state = {"simple_fallback": True}
-        if template_path.endswith(".txt"):
+        if template_path.endswith('.txt'):
             return cover_letter, json.dumps(state), cover_letter
         else:
             # For docx templates, we'd need more complex handling here
             # For now, just return the text
             return cover_letter, json.dumps(state), cover_letter
-
+            
     except Exception as e:
         # If all else fails, return a very basic template
         print(f"⚠️ Error in fallback cover letter generation: {e}")
         basic_letter = "Cover Letter\n\nDear Hiring Manager,\n\nThis is a placeholder cover letter generated due to technical issues with the full cover letter generation system.\n\nPlease try again later or contact support.\n\nSincerely,\n[Your Name]"
         state = {"error": str(e)}
         return basic_letter, json.dumps(state), basic_letter
-
 
 if __name__ == "__main__":
     # Example run

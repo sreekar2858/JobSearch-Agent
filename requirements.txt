@@ -17,6 +17,8 @@ beautifulsoup4
 lxml
 html5lib
 nest_asyncio
+selenium
+webdriver-manager
 
 # API requirements
 fastapi
