@@ -7,7 +7,6 @@ This module provides local scrapers for searching jobs on various platforms:
 - Job details extraction and storage
 """
 
-from .search_manager import JobSearchManager
 from .linkedin_scraper import LinkedInScraper
 
 __all__ = ["JobSearchManager", "LinkedInScraper"]

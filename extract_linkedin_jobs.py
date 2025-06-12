@@ -16,13 +16,18 @@ This script:
 USAGE:
     python extract_linkedin_jobs.py "Python Developer" "Berlin" --pages 2 --headless
     python extract_linkedin_jobs.py "Data Scientist" "New York" --jobs 10 --headless
+    python extract_linkedin_jobs.py "Backend Engineer" "Remote" --experience-levels entry_level mid_senior --date-posted past_week
 
 Options:
     --pages N    : Maximum number of search result pages to process
     --jobs N     : Maximum number of jobs to extract (takes priority over --pages)
     --headless   : Run browser in headless mode
     --browser    : Choose browser (chrome/firefox)
-    --login      : Use LinkedIn login for better access
+    --experience-levels : Filter by experience levels (internship, entry_level, associate, mid_senior, director, executive)
+    --date-posted : Filter by date posted (any_time, past_month, past_week, past_24_hours)
+
+Note: LinkedIn login is REQUIRED and automatically handled. Configure LINKEDIN_USERNAME 
+and LINKEDIN_PASSWORD in your .env file.
 
 Author: Sreekar Reddy
 """
@@ -33,7 +38,7 @@ import os
 import logging
 import sys
 from datetime import datetime
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 
 # Configure logging
 logging.basicConfig(
@@ -42,8 +47,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger("linkedin_extractor")
 
-def extract_jobs(keywords: str, location: str, max_pages: int = 1, max_jobs: int = None, headless: bool = False, browser: str = "chrome", use_login: bool = False) -> List[Dict[str, Any]]:
-    """Extract complete job details from LinkedIn search results"""
+def extract_jobs(keywords: str, location: str, max_pages: int = 1, max_jobs: int = None, headless: bool = False, browser: str = "chrome", experience_levels: List[str] = None, date_posted: str = None) -> List[Dict[str, Any]]:
+    """Extract complete job details from LinkedIn search results
+    
+    Note: LinkedIn login is automatically required and handled by the scraper.
+    Ensure LINKEDIN_USERNAME and LINKEDIN_PASSWORD are configured in your .env file.
+    """
     try:
         # Import the scraper classes
         from src.scraper.search.linkedin_scraper import LinkedInScraper
@@ -94,13 +103,14 @@ def extract_jobs(keywords: str, location: str, max_pages: int = 1, max_jobs: int
           # Create output directory for detailed results
         output_dir = os.path.join("output", "linkedin")
         os.makedirs(output_dir, exist_ok=True)
-        
-        # Step 1: Collect all job links from the search results pages
+          # Step 1: Collect all job links from the search results pages
         logger.info(f"Collecting job links for '{keywords}' in '{location}' (max pages: {max_pages})")
         job_links = scraper.collect_job_links(
             keywords=keywords,
             location=location,
-            max_pages=max_pages
+            max_pages=max_pages,
+            experience_levels=experience_levels,
+            date_posted=date_posted
         )
         
         # Limit job links if max_jobs is specified
@@ -158,8 +168,13 @@ def main():
     parser.add_argument("--jobs", type=int, help="Maximum number of jobs to extract (overrides pages if specified)")
     parser.add_argument("--headless", action="store_true", help="Run browser in headless mode")
     parser.add_argument("--browser", choices=["chrome", "firefox"], default="chrome", help="Browser to use (default: chrome)")
-    parser.add_argument("--login", "--use-login", action="store_true", dest="use_login",
-        help="Use LinkedIn login (requires credentials in .env file)")
+    
+    # Filter options
+    parser.add_argument("--experience-levels", nargs="+", 
+                       choices=["internship", "entry_level", "associate", "mid_senior", "director", "executive"],
+                       help="Filter by experience levels (can specify multiple)")
+    parser.add_argument("--date-posted", choices=["any_time", "past_month", "past_week", "past_24_hours"],
+                       help="Filter by date posted")
     
     args = parser.parse_args()
     
@@ -183,7 +198,8 @@ def main():
             max_jobs=args.jobs,
             headless=args.headless,
             browser=args.browser,
-            use_login=args.use_login
+            experience_levels=args.experience_levels,
+            date_posted=args.date_posted
         )
         
         print(f"\n✅ Successfully extracted {len(jobs)} LinkedIn jobs!")

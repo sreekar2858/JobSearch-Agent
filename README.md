@@ -31,10 +31,10 @@ python extract_linkedin_jobs.py "Software Engineer" "Berlin" --jobs 10
 python extract_linkedin_jobs.py "Data Scientist" "Remote" --pages 3 --headless
 
 # Search with authentication for complete access to hiring team info
-python extract_linkedin_jobs.py "Product Manager" "San Francisco" --jobs 20 --login
+python extract_linkedin_jobs.py "Product Manager" "San Francisco" --jobs 20
 
 # Extract comprehensive data including company info and related jobs
-python extract_linkedin_jobs.py "Backend Engineer" "London" --login --jobs 15
+python extract_linkedin_jobs.py "Backend Engineer" "London" --jobs 15
 ```
 
 ### CLI Job Processing
@@ -136,7 +136,7 @@ python extract_linkedin_jobs.py "DevOps Engineer" "Berlin" --jobs 15
 python extract_linkedin_jobs.py "Machine Learning" "Remote" --pages 5 --headless
 
 # With authentication for better access
-python extract_linkedin_jobs.py "Backend Engineer" "London" --login --jobs 25
+python extract_linkedin_jobs.py "Backend Engineer" "London" --jobs 25
 ```
 
 #### Arguments:
@@ -149,7 +149,8 @@ python extract_linkedin_jobs.py "Backend Engineer" "London" --login --jobs 25
 **Browser Options:**
 - `--headless`: Run browser without GUI (faster, less resource-intensive)
 - `--browser`: Choose browser (chrome/firefox, default: chrome)
-- `--login`: Use LinkedIn authentication for enhanced access
+
+> **Note**: LinkedIn authentication is **required** and automatically handled. Configure your LinkedIn credentials in the `.env` file.
 
 **Advanced Options:**
 - `--output`: Custom output directory (default: output/linkedin/)
@@ -345,22 +346,38 @@ python main.py single --title "Senior Engineer" --company "TechCorp" --descripti
 JobSearch-Agent/
 ├── 📄 extract_linkedin_jobs.py          # Main LinkedIn scraper script
 ├── 📄 main_api.py                       # FastAPI server
-├── 📁 src/
+├── � main.py                           # CLI for job processing pipeline
+├── �📁 src/
 │   ├── 📁 agents/                       # AI agents for job processing
 │   │   ├── 📄 job_details_parser.py     # Job description parser
 │   │   ├── 📄 cv_writer.py              # CV generation agent
 │   │   └── 📄 cover_letter_writer.py    # Cover letter agent
-│   ├── 📁 scraper/
-│   │   └── 📁 search/
+│   ├── 📁 scraper/                      # Web scraping modules
+│   │   ├── 📄 README.md                 # 📚 Scraper module documentation
+│   │   └── 📁 search/                   # Search-specific scrapers
+│   │       ├── 📄 README.md             # 📚 LinkedIn scraper technical docs
 │   │       └── 📄 linkedin_scraper.py   # Core LinkedIn scraper
-│   └── 📁 prompts/                      # AI agent prompts
+│   ├── 📁 prompts/                      # AI agent prompts
+│   └── 📁 utils/                        # Utilities and helpers
 ├── 📁 config/                           # Configuration files
 ├── 📁 data/                             # CV templates and samples
 ├── 📁 output/                           # Generated outputs
 │   └── 📁 linkedin/                     # LinkedIn scraping results
-├── 📁 docs/                             # Documentation
-└── 📁 examples/                         # Usage examples
+├── 📁 docs/                             # Advanced documentation
+│   ├── 📄 ADVANCED_CONFIGURATION.md    # Production deployment guide
+│   └── � DEVELOPMENT.md                # Developer and contributor guide
+├── �📁 examples/                         # Usage examples
+└── 📁 tests/                            # Test files
 ```
+
+### 📚 **Technical Documentation**
+
+For detailed technical information about specific components:
+
+- **[Scraper Module Documentation](src/scraper/README.md)** - Comprehensive scraper architecture, configuration, and features
+- **[LinkedIn Scraper Technical Guide](src/scraper/search/README.md)** - In-depth LinkedIn scraper implementation, anti-detection, and advanced usage
+- **[Advanced Configuration](docs/ADVANCED_CONFIGURATION.md)** - Production deployment, Docker, monitoring, and enterprise setup
+- **[Development Guide](docs/DEVELOPMENT.md)** - Contributing guidelines, code architecture, and testing procedures
 
 ---
 
@@ -411,7 +428,7 @@ scraper:
 search:
   default_max_jobs: 25
   default_pages: 1
-  enable_login: true
+  # Note: LinkedIn login is always required and automatically handled
 ```
 
 **Agent Configuration (`config/cv_app_agent_config.yaml`):**
@@ -485,7 +502,7 @@ python main.py search "Data Scientist" --locations "Berlin" "Munich" "Hamburg" -
 
 ```bash
 # Comprehensive search with authentication
-python extract_linkedin_jobs.py "Machine Learning Engineer" "San Francisco" --login --jobs 25 --browser chrome
+python extract_linkedin_jobs.py "Machine Learning Engineer" "San Francisco" --jobs 25 --browser chrome
 
 # Headless scraping for production environments
 python extract_linkedin_jobs.py "DevOps Engineer" "Amsterdam" --headless --pages 3 --output custom_output/
@@ -706,7 +723,7 @@ LINKEDIN_USERNAME=your_email@example.com
 LINKEDIN_PASSWORD=your_password
 
 # Test login manually
-python extract_linkedin_jobs.py "test" "test" --login --jobs 1
+python extract_linkedin_jobs.py "test" "test" --jobs 1
 ```
 
 **❌ Browser Issues**
@@ -744,7 +761,7 @@ python extract_linkedin_jobs.py "Software" "Remote" --jobs 5
 
 # Verify location format (try "Berlin, Germany" instead of "Berlin")
 # Enable login for better access
-python extract_linkedin_jobs.py "Developer" "Berlin, Germany" --login
+python extract_linkedin_jobs.py "Developer" "Berlin, Germany"
 ```
 
 **❌ Memory Issues (Large Searches)**

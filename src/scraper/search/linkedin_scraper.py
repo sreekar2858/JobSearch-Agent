@@ -3072,52 +3072,186 @@ class LinkedInScraper:
             'associate': '3',
             'mid_senior': '4',
             'director': '5',
-            'executive': '6'
-        }
+            'executive': '6'        }
         
         try:
             logger.info(f"Applying experience level filter: {experience_levels}")
             
-            # Find and click the experience level filter button
-            experience_button = WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable((By.ID, "searchFilter_experience"))
-            )
+            # Find and click the experience level filter button with multiple selectors
+            experience_button_selectors = [
+                'button[id="searchFilter_experience"]',
+                'button[aria-label*="Experience level filter"]',
+                '.search-reusables__filter-trigger-and-dropdown[data-basic-filter-parameter-name="experience"] button',
+                'button.reusable-search-filter-trigger-and-dropdown__trigger[id*="experience"]'
+            ]
+            
+            experience_button = None
+            for selector in experience_button_selectors:
+                try:
+                    experience_button = WebDriverWait(self.driver, 5).until(
+                        EC.element_to_be_clickable((By.CSS_SELECTOR, selector))
+                    )
+                    logger.debug(f"Found experience button with selector: {selector}")
+                    break
+                except TimeoutException:
+                    continue
+            
+            if not experience_button:
+                logger.warning("Could not find experience level filter button")
+                return False
+            
+            # Click to open the dropdown
             experience_button.click()
             self._random_sleep(1.0, 2.0)
+              # Wait for the dropdown to appear and be fully loaded
+            dropdown_container = None
+            dropdown_selectors = [
+                '.artdeco-hoverable-content--visible .reusable-search-filters-trigger-dropdown__container',
+                'fieldset.reusable-search-filters-trigger-dropdown__container',
+                '.artdeco-hoverable-content--visible fieldset'
+            ]
             
-            # Wait for the dropdown to appear
-            WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, "fieldset.reusable-search-filters-trigger-dropdown__container"))
-            )
+            for selector in dropdown_selectors:
+                try:
+                    dropdown_container = WebDriverWait(self.driver, 5).until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, selector))
+                    )
+                    # Additional wait for the content to be fully rendered
+                    WebDriverWait(self.driver, 3).until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, f"{selector} input[type='checkbox']"))
+                    )
+                    logger.debug(f"Dropdown container found with selector: {selector}")
+                    break
+                except TimeoutException:
+                    continue
+            
+            if not dropdown_container:
+                logger.warning("Experience level dropdown container did not appear")
+                return False
+            
+            # Wait a bit more for any animations to complete
+            self._random_sleep(1.0, 1.5)
             
             # Select the specified experience levels
+            selections_made = 0
             for level in experience_levels:
                 if level.lower() in level_mapping:
                     value = level_mapping[level.lower()]
                     checkbox_id = f"experience-{value}"
                     
                     try:
-                        checkbox = self.driver.find_element(By.ID, checkbox_id)
-                        if not checkbox.is_selected():
-                            checkbox.click()
+                        # Try multiple approaches to find and click the checkbox
+                        checkbox_found = False
+                        
+                        # Method 1: Find by ID within the dropdown container
+                        try:
+                            checkbox = dropdown_container.find_element(By.ID, checkbox_id)
+                            if checkbox.is_displayed() and not checkbox.is_selected():
+                                # Try clicking the label first
+                                try:
+                                    label = dropdown_container.find_element(By.CSS_SELECTOR, f'label[for="{checkbox_id}"]')
+                                    self.driver.execute_script("arguments[0].click();", label)
+                                    checkbox_found = True
+                                except:
+                                    # Fallback to checkbox click
+                                    self.driver.execute_script("arguments[0].click();", checkbox)
+                                    checkbox_found = True
+                        except NoSuchElementException:
+                            pass
+                        
+                        # Method 2: Find by value attribute if ID approach failed
+                        if not checkbox_found:
+                            try:
+                                xpath = f"//input[@name='experience-level-filter-value'][@value='{value}']"
+                                checkbox = dropdown_container.find_element(By.XPATH, xpath)
+                                if checkbox.is_displayed() and not checkbox.is_selected():
+                                    self.driver.execute_script("arguments[0].click();", checkbox)
+                                    checkbox_found = True
+                            except NoSuchElementException:
+                                pass
+                        
+                        # Method 3: Find by visible text content
+                        if not checkbox_found:
+                            try:
+                                # Map level names to display text
+                                display_text_map = {
+                                    'internship': 'Internship',
+                                    'entry_level': 'Entry level', 
+                                    'associate': 'Associate',
+                                    'mid_senior': 'Mid-Senior level',
+                                    'director': 'Director',
+                                    'executive': 'Executive'
+                                }
+                                display_text = display_text_map.get(level.lower())
+                                if display_text:
+                                    xpath = f"//span[text()='{display_text}']/ancestor::label"
+                                    label = dropdown_container.find_element(By.XPATH, xpath)
+                                    if label.is_displayed():
+                                        self.driver.execute_script("arguments[0].click();", label)
+                                        checkbox_found = True
+                            except NoSuchElementException:
+                                pass
+                        
+                        if checkbox_found:
+                            selections_made += 1
                             logger.info(f"Selected experience level: {level}")
-                            self._random_sleep(0.5, 1.0)
-                    except NoSuchElementException:
-                        logger.warning(f"Experience level checkbox not found: {checkbox_id}")
+                            self._random_sleep(0.3, 0.7)
+                        else:
+                            logger.warning(f"Could not find or select checkbox for experience level: {level}")
+                            
+                    except Exception as e:
+                        logger.warning(f"Error selecting experience level {level}: {e}")
                         continue
                 else:
                     logger.warning(f"Invalid experience level: {level}")
             
-            # Click "Show results" button
-            show_results_button = self.driver.find_element(
-                By.CSS_SELECTOR, 
-                "button[aria-label*='Apply current filter to show'], button[aria-label*='Show results']"
-            )
-            show_results_button.click()
-            self._random_sleep(2.0, 3.0)
+            if selections_made == 0:
+                logger.warning("No experience level selections were made")
+                # Try to close the dropdown
+                try:
+                    cancel_selectors = [
+                        'button[aria-label*="Cancel Experience level filter"]',
+                        'button[aria-label*="Cancel"]',
+                        '.reusable-search-filters-buttons button.artdeco-button--tertiary'
+                    ]
+                    for selector in cancel_selectors:
+                        try:
+                            cancel_button = dropdown_container.find_element(By.CSS_SELECTOR, selector)
+                            if cancel_button.is_displayed():
+                                cancel_button.click()
+                                break
+                        except:
+                            continue
+                except:
+                    pass
+                return False
             
-            logger.info("Experience level filter applied successfully")
-            return True
+            # Click "Show results" button with improved detection
+            apply_button_selectors = [
+                'button.artdeco-button--primary[aria-label*="Apply current filter"]',
+                'button.artdeco-button--primary[aria-label*="Show"]',
+                '.reusable-search-filters-buttons button.artdeco-button--primary',
+                'button[class*="artdeco-button--primary"][aria-label*="Show"]'
+            ]
+            
+            apply_button = None
+            for selector in apply_button_selectors:
+                try:
+                    apply_button = dropdown_container.find_element(By.CSS_SELECTOR, selector)
+                    if apply_button.is_displayed() and apply_button.is_enabled():
+                        break
+                except NoSuchElementException:
+                    continue
+            
+            if apply_button:
+                # Use JavaScript click for reliability
+                self.driver.execute_script("arguments[0].click();", apply_button)
+                self._random_sleep(2.0, 4.0)  # Wait longer for page reload
+                logger.info(f"Applied experience level filter with {selections_made} selections")
+                return True
+            else:
+                logger.warning("Could not find apply button for experience level filter")
+                return False
             
         except Exception as e:
             logger.error(f"Failed to apply experience level filter: {e}")
@@ -3142,23 +3276,64 @@ class LinkedInScraper:
             'any_time': '',
             'past_month': 'r2592000',
             'past_week': 'r604800', 
-            'past_24_hours': 'r86400'
-        }
+            'past_24_hours': 'r86400'        }
         
         try:
             logger.info(f"Applying date posted filter: {date_posted}")
             
-            # Find and click the date posted filter button
-            date_button = WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable((By.ID, "searchFilter_timePostedRange"))
-            )
+            # Find and click the date posted filter button with multiple selectors
+            date_button_selectors = [
+                'button[id="searchFilter_timePostedRange"]',
+                'button[aria-label*="Date posted filter"]',
+                '.search-reusables__filter-trigger-and-dropdown[data-basic-filter-parameter-name="timePostedRange"] button'
+            ]
+            
+            date_button = None
+            for selector in date_button_selectors:
+                try:
+                    date_button = WebDriverWait(self.driver, 5).until(
+                        EC.element_to_be_clickable((By.CSS_SELECTOR, selector))
+                    )
+                    logger.debug(f"Found date button with selector: {selector}")
+                    break
+                except TimeoutException:
+                    continue
+            
+            if not date_button:
+                logger.warning("Could not find date posted filter button")
+                return False
+            
+            # Click to open the dropdown
             date_button.click()
             self._random_sleep(1.0, 2.0)
+              # Wait for the dropdown to appear and be fully loaded
+            dropdown_container = None
+            dropdown_selectors = [
+                '.artdeco-hoverable-content--visible .reusable-search-filters-trigger-dropdown__container',
+                'fieldset.reusable-search-filters-trigger-dropdown__container',
+                '.artdeco-hoverable-content--visible fieldset'
+            ]
             
-            # Wait for the dropdown to appear
-            WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, "fieldset.reusable-search-filters-trigger-dropdown__container"))
-            )
+            for selector in dropdown_selectors:
+                try:
+                    dropdown_container = WebDriverWait(self.driver, 5).until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, selector))
+                    )
+                    # Additional wait for radio buttons to be rendered
+                    WebDriverWait(self.driver, 3).until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, f"{selector} input[type='radio']"))
+                    )
+                    logger.debug(f"Dropdown container found with selector: {selector}")
+                    break
+                except TimeoutException:
+                    continue
+            
+            if not dropdown_container:
+                logger.warning("Date posted dropdown container did not appear")
+                return False
+            
+            # Wait a bit more for any animations to complete
+            self._random_sleep(1.0, 1.5)
             
             # Select the specified date option
             if date_posted.lower() in date_mapping:
@@ -3166,27 +3341,95 @@ class LinkedInScraper:
                 radio_id = f"timePostedRange-{value}"
                 
                 try:
-                    radio_button = self.driver.find_element(By.ID, radio_id)
-                    radio_button.click()
-                    logger.info(f"Selected date posted option: {date_posted}")
-                    self._random_sleep(0.5, 1.0)
-                except NoSuchElementException:
-                    logger.warning(f"Date posted radio button not found: {radio_id}")
+                    radio_found = False
+                    
+                    # Method 1: Find by ID within the dropdown container
+                    try:
+                        radio_button = dropdown_container.find_element(By.ID, radio_id)
+                        if radio_button.is_displayed() and not radio_button.is_selected():
+                            # Try clicking the label first
+                            try:
+                                label = dropdown_container.find_element(By.CSS_SELECTOR, f'label[for="{radio_id}"]')
+                                self.driver.execute_script("arguments[0].click();", label)
+                                radio_found = True
+                            except:
+                                # Fallback to radio button click
+                                self.driver.execute_script("arguments[0].click();", radio_button)
+                                radio_found = True
+                    except NoSuchElementException:
+                        pass
+                    
+                    # Method 2: Find by value attribute if ID approach failed
+                    if not radio_found:
+                        try:
+                            xpath = f"//input[@name='date-posted-filter-value'][@value='{value}']"
+                            radio_button = dropdown_container.find_element(By.XPATH, xpath)
+                            if radio_button.is_displayed() and not radio_button.is_selected():
+                                self.driver.execute_script("arguments[0].click();", radio_button)
+                                radio_found = True
+                        except NoSuchElementException:
+                            pass
+                    
+                    # Method 3: Find by visible text content
+                    if not radio_found:
+                        try:
+                            # Map date options to display text
+                            display_text_map = {
+                                'any_time': 'Any time',
+                                'past_month': 'Past month',
+                                'past_week': 'Past week',
+                                'past_24_hours': 'Past 24 hours'
+                            }
+                            display_text = display_text_map.get(date_posted.lower())
+                            if display_text:
+                                xpath = f"//span[text()='{display_text}']/ancestor::label"
+                                label = dropdown_container.find_element(By.XPATH, xpath)
+                                if label.is_displayed():
+                                    self.driver.execute_script("arguments[0].click();", label)
+                                    radio_found = True
+                        except NoSuchElementException:
+                            pass
+                    
+                    if radio_found:
+                        logger.info(f"Selected date posted option: {date_posted}")
+                        self._random_sleep(0.5, 1.0)
+                    else:
+                        logger.warning(f"Could not find or select radio button for date: {date_posted}")
+                        return False
+                        
+                except Exception as e:
+                    logger.warning(f"Error selecting date posted option: {e}")
                     return False
             else:
                 logger.warning(f"Invalid date posted option: {date_posted}")
                 return False
             
-            # Click "Show results" button
-            show_results_button = self.driver.find_element(
-                By.CSS_SELECTOR, 
-                "button[aria-label*='Apply current filter to show'], button[aria-label*='Show results']"
-            )
-            show_results_button.click()
-            self._random_sleep(2.0, 3.0)
+            # Click "Show results" button with improved detection
+            apply_button_selectors = [
+                'button.artdeco-button--primary[aria-label*="Apply current filter"]',
+                'button.artdeco-button--primary[aria-label*="Show"]',
+                '.reusable-search-filters-buttons button.artdeco-button--primary',
+                'button[class*="artdeco-button--primary"][aria-label*="Show"]'
+            ]
             
-            logger.info("Date posted filter applied successfully")
-            return True
+            apply_button = None
+            for selector in apply_button_selectors:
+                try:
+                    apply_button = dropdown_container.find_element(By.CSS_SELECTOR, selector)
+                    if apply_button.is_displayed() and apply_button.is_enabled():
+                        break
+                except NoSuchElementException:
+                    continue
+            
+            if apply_button:
+                # Use JavaScript click for reliability
+                self.driver.execute_script("arguments[0].click();", apply_button)
+                self._random_sleep(2.0, 4.0)  # Wait longer for page reload
+                logger.info("Date posted filter applied successfully")
+                return True
+            else:
+                logger.warning("Could not find apply button for date posted filter")
+                return False
             
         except Exception as e:
             logger.error(f"Failed to apply date posted filter: {e}")
