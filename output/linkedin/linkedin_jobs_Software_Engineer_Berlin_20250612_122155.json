@@ -1,0 +1,2832 @@
+[
+  {
+    "url": "https://www.linkedin.com/jobs/view/4249073067/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:12:18.441262",
+    "title": "Software Engineer",
+    "company": "teamative",
+    "description": "About the job\nWe are currently looking for a Data Engineer (m/f/d).\n\nResponsibilities:\n\nDevelop and modernize a scalable data platform for processing transactional data from over 6,000 stores\nDesign and implement robust data pipelines using Azure Data Factory, PowerShell, and Databricks (PySpark) on a modern data platform\nBuild a hybrid data architecture that enables both real-time and batch data processing, leveraging proven cloud reference architectures\nImplement data pipelines, data classifications, and ensure continuous quality assurance\nDevelop modern reporting and analytics processes based on Power BI, and support the integration of strategic data products for business units\n\nRequirements:\n\nExpertise in Data Warehouse and Data Lake architectures, with proven experience in data modeling for such systems – ideally in modern cloud DWHs\nExperience working with sensitive data and implementing required safeguards (e.g., GDPR or similar regulations)\nFamiliarity with data governance tools such as Unity Catalog, Collibra, or similar solutions\nSolid knowledge in data modeling, building data pipelines (batch/streaming), and SQL\nUnderstanding of DataOps principles, CI/CD, observability, and operational monitoring of data platforms (e.g., using Datadog)\nIdeally, hands-on experience with data governance and cataloging tools like Unity Catalog, Collibra, or similar\nExperience in building and operating data pipelines and ensuring their quality\nPassion for developing and implementing data-driven digital products in the retail (grocery) sector\nExperience in requirements engineering and fluent German language skills complete your profile\n\nBeste Grüße,\nDaria Rudzevych\n\nteamative\nDaria.Rudzevych@teamative.com\nwww.teamative.com",
+    "location": "Germany",
+    "easy_apply": true,
+    "apply_info": "Easy Apply",
+    "company_info": "About the company\nteamative\n3,031 followers\nFollow\nIT Services and IT Consulting 201-500 employees 153 on LinkedIn\nteamative helps customers to digitize their business. And it does so with a unique concept: It takes on the complete responsibility for innovative IT & SAP projects while at the same time defying the \"War for Talent\" with customized and scalable staffing services for holistic IT sourcing and can scale to any size in any technology through global and flexible team augmentation. With a team of over 350 consultants, software developers and architects in 10 locations and additional 350 specialized partners, we help our customers make the most of their digital potential. As an innovation partner covering all situations, teamative combine the skills of a service provider with the flexibility of a staffing specialist. And create unique, scalable IT and SAP services, solutions and smart sourcing models of all kinds.\n…\nshow more\nInterested in working with us in the future?\nMembers who share that they’re interested in a company may be 2x as likely to get a message from a recruiter than those who don’t. Learn more\nLearn more about Interested in working for our company\nI’m interested",
+    "hiring_team": [
+      {
+        "name": "Dariia Rudzevych",
+        "title": "Talent Acquisition Specialist",
+        "linkedin_url": "https://www.linkedin.com/in/dariia-rudzevych-92678915b",
+        "connection_degree": "3rd+"
+      }
+    ],
+    "related_jobs": [
+      {
+        "title": "Full Stack Developer",
+        "company": "ExaGaming",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249608201",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Graduate Software Developer - STEM / Physics / Mathematics",
+        "company": "European Tech Recruit",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4242842444",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Praktikant:in künstliche Intelligenz",
+        "company": "STTech GmbH",
+        "location": "Greater Munich Metropolitan Area (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231189268",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "3 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "HPC and AI Software Architecture Intern - 2025",
+        "company": "NVIDIA",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4228849937",
+        "posted_date": "1 week ago",
+        "insights": [
+          "167 school alumni work here\n167 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Python Software Engineer | Python | Docker | Git | Backend Development | Germany",
+        "company": "Enigma",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247785305",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Back End Developer",
+        "company": "Arc.dev",
+        "location": "European Union (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231733707",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "3 weeks ago"
+        ]
+      },
+      {
+        "title": "Full Stack Engineer (m/f/d)",
+        "company": "Tomorrow Things",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4238256433",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Full Stack Engineer",
+        "company": "Tiptap",
+        "location": "Berlin, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4116532380",
+        "posted_date": "5 months ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "5 months ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer, Frontend",
+        "company": "Chainlink Labs",
+        "location": "Berlin, Berlin, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4212372245",
+        "posted_date": "1 week ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Full-Stack Developer (m/w/d) - in SaaS Startup (Remote / Hybrid)",
+        "company": "cinify",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231162925",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "1 school alum works here\n1 Technical University of Munich school alum works here",
+          "3 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Developer - Java, Microservices, cloud – Remote - Work with Java Champions - €80,000",
+        "company": "Findr",
+        "location": "Frankfurt, Hesse, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231390329",
+        "posted_date": "2 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "(Full Remote) Junior Full Stack Developer",
+        "company": "Joinrs Deutschland",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247408220",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "2 hours ago"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4249053985/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:12:43.156481",
+    "title": "Frontend Developer",
+    "company": "micro1",
+    "description": "About the job\nJob Title: Frontend Developer\nJob Type: Full-time or Part-Time\nLocation: Remote\n\nAbout Us:\nOur mission at micro1 is to match the most talented people in the world with their dream jobs. If you are looking to be at the forefront of AI innovation and work with some of the fastest growing companies in Silicon Valley, we invite you to apply for a role. By joining the micro1 community, your resume will become visible to top industry leaders, unlocking access to the best career opportunities on the market.\n\nJob Summary:\nJoin our dynamic team at micro1 as a Frontend Developer where you will be instrumental in creating engaging and dynamic user experiences for web applications. At micro1, we provide opportunities to work with leading companies in Silicon Valley, ensuring a stable and competitive income in a flexible remote setting. Embrace the opportunity to grow your career, access top industry opportunities, and enjoy a range of great benefits.\n\nKey Responsibilities:\nDevelop high-quality frontend components for web applications.\nOptimize user interfaces to enhance user experiences.\nCollaborate with cross-functional teams to define and design new features.\nEnsure cross-browser compatibility and implement responsive designs.\nMaintain code quality and ensure responsiveness of applications.\nUtilize industry best practices and design patterns.\nParticipate in code reviews to maintain high code quality standards.\n\nRequired Skills and Qualifications:\nProficiency in HTML, CSS, and JavaScript.\nStrong experience with React and Angular frameworks.\nExcellent written and verbal communication skills.\nAbility to work effectively in a remote setting.\nDemonstrated ability to develop and optimize user interfaces.\nExperience with ensuring cross-browser compatibility of applications.\nStrong problem-solving skills and attention to detail.\n\nPreferred Qualifications:\nExperience with responsive design and mobile-first development.\nFamiliarity with version control systems, such as Git.\nUnderstanding of Agile methodologies.\nIt's okay if you don't. Having a Native to C2/C1 level in another language such as German, French, or Spanish is nice to have.",
+    "location": "EMEA",
+    "easy_apply": false,
+    "apply_info": "https://jobs.micro1.ai/post/74277ea6-2c0b-418f-92f7-3dc375b7f208",
+    "company_info": "About the company\nmicro1\n384,863 followers\nFollow\nSoftware Development 51-200 employees 926 on LinkedIn\nAI recruitment engine to hire the best talent on earth. Hire from our pre-vetted talent pool instantly or use our software to vet your own talent 10x faster.\n\nWe’re building the AI engine that will match 1 billion people with their dream role.\n…\nshow more\nCommitments\nCareer growth and learning\nAt our company, we are committed to fostering the professional growth of our employees and supporting their career development through various upskilling initiatives and resources.\n…\nShow more\nLearn more",
+    "hiring_team": [
+      {
+        "name": "Amenah Shahid",
+        "title": "Talent Partner | Connecting Top Talent with Opportunities",
+        "linkedin_url": "https://www.linkedin.com/in/amenah-shahid-88a963184",
+        "connection_degree": "3rd+"
+      }
+    ],
+    "related_jobs": [
+      {
+        "title": "Junior Backend Developer",
+        "company": "DrCarmen",
+        "location": "Romania (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245880071",
+        "posted_date": "6 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "6 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Frontend Developer",
+        "company": "Skywaves Rise",
+        "location": "Norway (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249494633",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "2 hours ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "[Full Remote] Junior Front End Developer",
+        "company": "Joinrs Italia",
+        "location": "Italy (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247406429",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "2 hours ago"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "Astrolight",
+        "location": "Lithuania (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245432603",
+        "posted_date": "1 day ago",
+        "insights": [
+          "1 day ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Frontend Developer",
+        "company": "Profitroom",
+        "location": "Poland (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247694946",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "1 hour ago"
+        ]
+      },
+      {
+        "title": "Frontend Developer",
+        "company": "idealista",
+        "location": "Spain (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245335933",
+        "posted_date": "2 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "[Full Remote] Graduate Software Engineer",
+        "company": "Joinrs España",
+        "location": "Spain (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4248031100",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "2 hours ago"
+        ]
+      },
+      {
+        "title": "Software Engineer, Frontend",
+        "company": "Chainlink Labs",
+        "location": "Berlin, Berlin, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4212372245",
+        "posted_date": "1 week ago",
+        "insights": [
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Frontend Developer",
+        "company": "team.blue Denmark",
+        "location": "Skanderborg Municipality, Central Denmark Region, Denmark (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4221231547",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Frontend Developer",
+        "company": "Phoenix Security | ASPM",
+        "location": "Spain (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4219134892",
+        "posted_date": "1 month ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 month ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Frontend developer",
+        "company": "HCLTech",
+        "location": "Spain (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4230610725",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "3 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer Intern",
+        "company": "Bloomreach",
+        "location": "Slovakia (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4197387713",
+        "posted_date": "6 days ago",
+        "insights": [
+          "6 days ago"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4247316700/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:13:12.110596",
+    "title": "Junior Vibe Coder",
+    "company": "EON Reality",
+    "description": "About the job\nPosition Title: Junior Vibe Coder\nDepartment: Development\nReports To: Senior Developer / Team Lead\n⸻\nAbout EON Reality\nEON Reality is a global leader in AI-powered extended reality (XR) platforms, transforming how people learn, train, and interact with information. Our mission is to democratize knowledge by making immersive, intelligent learning tools accessible to everyone. We thrive on innovation and value team members who bring fresh ideas, creativity, and strong collaborative energy.\n\nPosition Overview\nWe're looking for a curious, creative, and communicative Junior Vibe Coder to join our dynamic development team. You'll use advanced AI coding tools to quickly turn ideas—expressed in natural language—into functional software prototypes and immersive XR experiences. This is not a traditional coding role. Instead, it's ideal for someone who enjoys working with AI (LLMs), experimenting in tools like Replit, and building intuitive, vibe-based applications.\n\nKey Responsibilities\nUse AI-powered coding assistants (ChatGPT, Claude, Cursor, Copilot, etc.) to build and refine software based on natural language input.\nCollaborate with designers, developers, and product managers to clarify concepts and rapidly develop working prototypes.\nCreate and fine-tune immersive XR experiences, including Unity-based environments.\nDesign and implement intuitive, user-friendly interfaces with a strong eye for UI/UX.\nWork on both front-end and back-end components in web and interactive applications.\nCommunicate clearly and openly with both technical and non-technical team members.\nStay current with advancements in AI-driven development and XR technology.\nIterate quickly based on user feedback and internal testing.\n\nRequired Qualifications\nSolid computer literacy and problem-solving ability.\nExperience using AI-based coding tools (ChatGPT, Claude, Copilot, Cursor, etc.).\nBasic web development skills (HTML, CSS, JavaScript, backend frameworks a plus).\nFamiliarity with Unity and XR development environments.\nExperience with version control systems (Git) for collaborative development and code management.\nA good feel for design and user experience, even if not formally trained.\nStrong communication and collaboration skills—you're easy to work with.\nSelf-motivated and comfortable navigating ambiguity or incomplete specs.\nPortfolio, GitHub, or links to vibe-based projects (especially with AI or XR) are a strong plus.\n\nPreferred (but not strictly required)\nBackground in immersive learning, education tech, or interactive media design.\n\nWhat We Offer\nA chance to work on the cutting edge of AI and immersive tech.\nA creative, fast-paced environment where ideas are rapidly turned into reality.\nA collaborative international team with strong innovation culture.\nRoom to grow professionally and make real impact.\nCompetitive salary and benefits.\n\nHow to Apply\nPlease submit your resume and a short cover letter. If you have links to projects or vibe-coded experiences—especially using AI tools and/or XR—we'd love to see them.\n\nEON Reality is an equal opportunity employer. We celebrate diversity and are committed to an inclusive workplace.",
+    "location": "European Union",
+    "easy_apply": true,
+    "apply_info": "Easy Apply",
+    "company_info": "About the company\nEON Reality\n48,503 followers\nFollow\nSoftware Development 201-500 employees 206 on LinkedIn\nWith over 25 years of experience, we at EON Reality stand as global leaders in virtual and augmented reality, emphasizing Spatial AI training. Headquartered in Irvine, California, and with a significant global footprint, we've crafted pioneering tools like our user-centric EON-XR platform. Trusted by industry giants and educational stalwarts, we're at the forefront of revolutionizing knowledge transfer for millions. We believe knowledge is a human right.\nConnect with us via www.eonreality.com\n…\nshow more\nCommitments\nCareer growth and learning\nAS EON REALITY’S NONPROFIT ARM, LEARN FOR LIFE HAS BEEN UTILIZING THE COMPANY’S TECHNOLOGY AND REACH TO MAKE A DIFFERENCE AS FREQUENTLY AS POSSIBLE FOR THE PEOPLE WHO NEED IT THE MOST https://eonreality.com/spatial-ai/learn-for-life/\n…\nShow more\nSocial impact\nEON Learn for Life https://eonreality.com/spatial-ai/learn-for-life/\nLearn more",
+    "hiring_team": [
+      {
+        "name": "Anna Lejerskar",
+        "title": "Executive Vice President @ EON Reality | Business Development, Management",
+        "linkedin_url": "https://www.linkedin.com/in/anna-lejerskar-107a1841",
+        "connection_degree": "3rd+"
+      }
+    ],
+    "related_jobs": [
+      {
+        "title": "Software Engineer",
+        "company": "Astrolight",
+        "location": "Lithuania (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245432603",
+        "posted_date": "1 day ago",
+        "insights": [
+          "1 day ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior Backend Developer",
+        "company": "DrCarmen",
+        "location": "Romania (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245880071",
+        "posted_date": "6 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "6 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior Προγραμματιστής Backend (Python/Django)",
+        "company": "Jubile",
+        "location": "Greece (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4239659157",
+        "posted_date": "4 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "4 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer Intern",
+        "company": "Bloomreach",
+        "location": "Slovakia (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4197387713",
+        "posted_date": "6 days ago",
+        "insights": [
+          "1 school alum works here\n1 Technical University of Munich school alum works here",
+          "6 days ago"
+        ]
+      },
+      {
+        "title": "Software Engineering Internship",
+        "company": "Multitude",
+        "location": "Bratislava, Bratislava, Slovakia (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4226271257",
+        "posted_date": "1 week ago",
+        "insights": [
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "[Full Remote] Graduate Software Engineer",
+        "company": "Joinrs España",
+        "location": "Spain (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4248031100",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "2 hours ago"
+        ]
+      },
+      {
+        "title": "Python Developer",
+        "company": "Oakwell Hampton Group",
+        "location": "Netherlands (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245876750",
+        "posted_date": "6 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "6 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Python Developer",
+        "company": "Bitsight",
+        "location": "Portugal (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4239367171",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "Sophos",
+        "location": "Hungary (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245900520",
+        "posted_date": "5 days ago",
+        "insights": [
+          "3 school alumni work here\n3 Technical University of Munich school alumni work here",
+          "5 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "Exactius",
+        "location": "Czechia (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247416234",
+        "posted_date": "3 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "3 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Robotics Programmer",
+        "company": "BetterQA",
+        "location": "Romania (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247783471",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4237621544/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:13:35.626088",
+    "title": "Founding Engineer (Python/FastAPI)",
+    "company": "Xcede",
+    "description": "About the job\n🧻 Role: Founding Software Engineer\n🥞 Stack: Python, FastAPI, Kubernetes, ML\n📍 Location: Remote EU or Barcelona, with monthly office visits\n💰 Salary: Open-ended compensation\n\n\nXcede are partnered with one of the most exciting AI scale ups globally, who are funded at the top 0.1% level for seed round by leading investors.\n\nThe team is made up world-class experts from Deepmind, INRIA and Ecole Polytechnique\n\n🚀 What will you do as a Founding Software Engineer?\n\nAs one of the first engineering hires, you will be responsible for building the systems that will allow users to seamlessly interact with the models\nBuild robust backend servers and APIs for model inference\nDesign event-driven architectures with sub/pub messaging patterns\nWork closely with the devops/infra team for the platform build out\n\n\n🚀 What background are they looking for?\n\nExtensive experience with Python, ideally FastAPI\nSome familiarity with frontend would be ideal\nDatabase connectivity (Snowflake/Databricks)\nBonus: Kubernetes ecosystem for deploying ML services\n\n\nIf this sounds interesting, please apply or reach out!",
+    "location": "European Union",
+    "date_posted": "2 weeks ago",
+    "easy_apply": true,
+    "apply_info": "Easy Apply",
+    "company_info": "About the company\nXcede\n408,005 followers\nFollow\nStaffing and Recruiting 51-200 employees 203 on LinkedIn\nGlobal Technology Recruitment Specialists.\n\nWe source and select top talent across all technology sectors globally.\n\nFounded in 2003, our vertical specialists provide global transformational talent in data, AI & machine learning, product, software, cloud and cyber. As part of the Xcede Group, we work with businesses, from pioneering start-ups to global brands, to find project-based or permanent talent that enables innovation in line with their vision and goals.\n…\nshow more",
+    "hiring_team": [
+      {
+        "name": "Samuel Webb",
+        "title": "Principal Consultant - Software Engineering",
+        "linkedin_url": "https://www.linkedin.com/in/samuel-webb-766831ba",
+        "connection_degree": "3rd+"
+      }
+    ],
+    "related_jobs": [
+      {
+        "title": "Software Engineer",
+        "company": "Astrolight",
+        "location": "Lithuania (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245432603",
+        "posted_date": "1 day ago",
+        "insights": [
+          "1 day ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior Προγραμματιστής Backend (Python/Django)",
+        "company": "Jubile",
+        "location": "Greece (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4239659157",
+        "posted_date": "4 days ago",
+        "insights": [
+          "4 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "[Full Remote] Graduate Software Engineer",
+        "company": "Joinrs España",
+        "location": "Spain (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4248031100",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "2 hours ago"
+        ]
+      },
+      {
+        "title": "Software Engineer Intern",
+        "company": "Bloomreach",
+        "location": "Slovakia (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4197387713",
+        "posted_date": "6 days ago",
+        "insights": [
+          "1 school alum works here\n1 Technical University of Munich school alum works here",
+          "6 days ago"
+        ]
+      },
+      {
+        "title": "Python Developer",
+        "company": "Oakwell Hampton Group",
+        "location": "Netherlands (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245876750",
+        "posted_date": "6 days ago",
+        "insights": [
+          "6 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineering Internship",
+        "company": "Multitude",
+        "location": "Bratislava, Bratislava, Slovakia (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4226271257",
+        "posted_date": "1 week ago",
+        "insights": [
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Python Developer",
+        "company": "Bitsight",
+        "location": "Portugal (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4239367171",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Full Stack Developer",
+        "company": "ExaGaming",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249608201",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "Sophos",
+        "location": "Hungary (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245900520",
+        "posted_date": "5 days ago",
+        "insights": [
+          "3 school alumni work here\n3 Technical University of Munich school alumni work here",
+          "5 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Python Microservices Engineer",
+        "company": "UAB Coded",
+        "location": "Lithuania (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249486539",
+        "posted_date": "3 hours ago",
+        "insights": [
+          "3 hours ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "Exactius",
+        "location": "Czechia (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247416234",
+        "posted_date": "3 days ago",
+        "insights": [
+          "3 days ago",
+          "Easy Apply"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4223391623/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:14:01.775455",
+    "title": "Software Engineer",
+    "company": "Quantcast",
+    "description": "About the job\nAt Quantcast, we're redefining what's possible in digital advertising. As a global Demand Side Platform (DSP) powered by AI, we help marketers connect with the right audiences and deliver measurable results across the Open Web. Our foundation is built on cutting-edge measurement and consumer analytics, giving our clients the tools they need to drive success in an ever-evolving digital landscape.\n\nSince our start in 2006, we've pioneered industry firsts—from launching the original measurement platform for digital publishers to introducing the first AI-driven DSP. If you're ready to be part of a dynamic, forward-thinking team that thrives on creating transformative solutions, Quantcast is the perfect place to grow your career.\n\nWe're currently hiring for a Software Engineer in our Post-Sales Enablement team based in Berlin.\n\nAs a Software Engineer, you will design, implement and maintain services that enable our customer success and yield operations teams to efficiently run and operate advertising campaigns for advertisers. You will be responsible for understanding the needs of our stakeholders and building software to provide tooling and automate workflows. You will collaborate with other Engineering, Product and Corporate Technology teams.\n\nWhat You'll Do\n\nDefine, code, test, and deploy software focused on process simplification and automation.\nAbility to switch between programming languages such as Java, Kotlin, Python and Go.\nWork directly with internal customers, other business stakeholders and other Engineering and Corporate Technology teams to understand requirements and contribute to product definitions and system design.\nFollow the engineering best practices as defined by the team and organization, from testing, deployment, documenting, operating services and code quality.\nParticipate in a team-wide on-call rotation.\n\nWho You Are\n\nLess than 3 years full-time experience in Industry.\nEnglish Language.\nComputer Science degree or equivalent experience (We recognize that knowledge and skills equivalent to those earned in a degree program can also be achieved via nontraditional paths, and welcomes applicants with nontraditional training.)\nProficient in idiomatic Java and/or Kotlin.\nExperience with REST APIs, GraphQL, SQL and Javascript/JSON.\nUnderstanding of the full software development life cycle (scoping, prioritization, planning, execution, operation, end-of-life) and the tools that assist it (source control, continuous integration, deployment tools) in an Agile environment.\nKnowledge of and experience with Frontend technologies is also desirable.\n\nAt Quantcast, we craft offers that reflect your unique skills, expertise, and geographic location. On top of a competitive salary, this position includes eligibility for a performance bonus, equity, and a comprehensive benefits package. Depending on your location, this may include generous vacation, medical, dental, and vision coverage, and retirement plans. For more details, visit our Careers page and see how we support our team. Please see the Applicant Privacy Notice for details on our applicant privacy policy.\n\nFounded in 2006 and headquartered in San Francisco, we are a diverse, aligned community with offices across 10 countries worldwide. Join the team that unlocks potential.\n\nQuantcast is an Equal Opportunity Employer.",
+    "location": "Berlin, Berlin, Germany",
+    "date_posted": "Reposted 1 week ago",
+    "easy_apply": true,
+    "apply_info": "Easy Apply",
+    "company_info": "About the company\nQuantcast\n58,329 followers\nFollow\nTechnology, Information and Internet 501-1,000 employees 441 on LinkedIn\nWe are Quantcast - the leader in measurable advertising outcomes. We’ve built an AI-powered DSP that automatically predicts which audiences are most likely to buy and optimizes campaigns to unlock reliable business results at scale. With Quantcast, advertisers save time and energy while innovating to move their business forward.\n\nSince 2006, we’ve supported agencies, brands, and publishers of all sizes, staying ahead of global trends and delivering outcomes far beyond industry standard. With confidence, you can start every campaign smarter and rely on us to seamlessly measure and effectively fine-tune – every step, everywhere, across the purchase journey.\n\nUnleash your full potential, reach more relevant consumers, create more meaningful engagement, and unlock greater business outcomes with Quantcast.\n…\nshow more\nInterested in working with us in the future?\nMembers who share that they’re interested in a company may be 2x as likely to get a message from a recruiter than those who don’t. Learn more\nLearn more about Interested in working for our company\nI’m interested\nTrending employee content\nPage 1 of 4\nPrevious\nNext",
+    "hiring_team": [
+      {
+        "name": "Stephen Kilgallon",
+        "title": "Principal Recruiter - EMEA at Quantcast",
+        "linkedin_url": "https://www.linkedin.com/in/stephen-kilgallon-9026a6107",
+        "connection_degree": "3rd+"
+      }
+    ],
+    "related_jobs": [
+      {
+        "title": "Working Student in Web Development (m/f/d)",
+        "company": "KEWAZO",
+        "location": "Garching, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4229808994",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Full Stack Developer",
+        "company": "ExaGaming",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249608201",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Working Student (m/f/d) – Software Engineer",
+        "company": "Dassault Systèmes",
+        "location": "Darmstadt, Hesse, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4248313795",
+        "posted_date": "1 day ago",
+        "insights": [
+          "73 school alumni work here\n73 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Software Developer Python (D/M/W)",
+        "company": "WEBSALE AG",
+        "location": "Nuremberg, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4236584910",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Software Engineer I",
+        "company": "Paysafe",
+        "location": "Berlin, Berlin, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4235878663",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Python Software Engineer | Python | Docker | Git | Backend Development | Germany",
+        "company": "Enigma",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247785305",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Graduate Software Engineer",
+        "company": "European Tech Recruit",
+        "location": "Munich, Bavaria, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4243872315",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "LLM Solutions Developer",
+        "company": "Lime Technologies",
+        "location": "Cologne, North Rhine-Westphalia, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4244593187",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "teamative",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249073067",
+        "posted_date": "20 hours ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "20 hours ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Robotics Software Engineer",
+        "company": "Lemvos",
+        "location": "Augsburg, Bavaria, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4242698423",
+        "posted_date": "6 days ago",
+        "insights": [
+          "6 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior Software Engineer - Inventory Offering (all genders)",
+        "company": "Zalando",
+        "location": "Dortmund, North Rhine-Westphalia, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4238787632",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "26 school alumni work here\n26 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "Avaloq",
+        "location": "Düsseldorf, North Rhine-Westphalia, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4231942631",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "3 weeks ago",
+          "Easy Apply"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4151321449/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:14:26.578170",
+    "title": "Software Engineer (Intern)",
+    "company": "Naptha AI",
+    "description": "About the job\nSoftware Engineer (Intern) | naptha.ai\n\nAbout This Role\n\nWe are seeking exceptional Software Engineering interns to join Naptha AI and contribute to building the future of AI agent infrastructure. This internship offers hands-on experience working with frontier AI technology, backed by industry veterans and technical leaders through NVIDIA Inception, Google for Startups, and Microsoft for Startups.\n\nWe're building the foundational infrastructure for the next wave of AI companies, enabling frontier AI developers to build products powered by enormous networks of highly capable next-generation AI agents. As an Engineering Intern, you'll work directly with our technical team on real projects that impact our core platform.\n\nWhat You'll Do\n\nBuild and improve components of our agent infrastructure\nWork on real features that ship to production\nCollaborate with experienced engineers and researchers\nLearn about large-scale AI systems and infrastructure\nContribute to our agent development platform\nGain experience with cutting-edge AI tools and frameworks\n\nTechnical Areas\n\nBackend development with Python and modern frameworks\nAgent system implementation and testing\nAPI development and integration\nPerformance optimization and monitoring\nInfrastructure and tooling development\nTesting and deployment automation\n\nRequirements\n\nCurrently pursuing BS/MS in Computer Science or related field\nStrong programming skills, particularly in Python\nBasic understanding of AI/ML concepts\nExperience with software development practices\nAbility to work independently and learn quickly\nStrong problem-solving abilities\n\nNice to Have\n\nExperience with AI frameworks or tools\nFamiliarity with distributed systems\nOpen source contributions\nExperience with developer tools\nInterest in AI infrastructure\n\nAbout The Internship\n\nDuration: 12-16 weeks\nLocation: Remote\nCompetitive compensation\nReal-world project ownership\nMentorship from experienced engineers\nOpportunity for return offers\n\nThis internship offers a unique opportunity to work on cutting-edge AI infrastructure while learning from experienced technical leaders. You'll gain practical experience building systems that power the next generation of AI applications.",
+    "location": "Berlin, Berlin, Germany",
+    "date_posted": "3 months ago",
+    "easy_apply": false,
+    "apply_info": "https://naptha.ai/careers?ashby_jid=96df9dd3-85bc-4cff-b806-973b78bb433a&utm_source=k3pN1XlLyX",
+    "company_info": "About the company\nNaptha AI\n4,710 followers\nFollow\nSoftware Development 11-50 employees 6 on LinkedIn\nNaptha is a modular development framework for connecting and scaling next-generation AI apps leveraging the collaborative intelligence of multi-agent systems on the agentic web.\n\nSee our open roles at https://naptha.ai/careers\n…\nshow more",
+    "related_jobs": [
+      {
+        "title": "Full Stack Developer",
+        "company": "ExaGaming",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249608201",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Graduate Software Developer - STEM / Physics / Mathematics",
+        "company": "European Tech Recruit",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4242842444",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Python Software Engineer | Python | Docker | Git | Backend Development | Germany",
+        "company": "Enigma",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247785305",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Back End Developer",
+        "company": "Arc.dev",
+        "location": "European Union (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231733707",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "3 weeks ago"
+        ]
+      },
+      {
+        "title": "Praktikant:in künstliche Intelligenz",
+        "company": "STTech GmbH",
+        "location": "Greater Munich Metropolitan Area (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231189268",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "3 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer, Frontend",
+        "company": "Chainlink Labs",
+        "location": "Berlin, Berlin, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4212372245",
+        "posted_date": "1 week ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "teamative",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249073067",
+        "posted_date": "20 hours ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "20 hours ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Full Stack Engineer (m/f/d)",
+        "company": "Tomorrow Things",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4238256433",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Full-Stack Developer (m/w/d) - in SaaS Startup (Remote / Hybrid)",
+        "company": "cinify",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231162925",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "1 school alum works here\n1 Technical University of Munich school alum works here",
+          "3 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Werkstudent Softwareentwicklung Generative AI (m/w/d)",
+        "company": "BSH Home Appliances Group",
+        "location": "Munich, Bavaria, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4235428436",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "206 school alumni work here\n206 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Backend Engineer (f/m/d) Electrical Engineering",
+        "company": "envelio",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4227316027",
+        "posted_date": "4 weeks ago",
+        "insights": [
+          "1 school alum works here\n1 Technical University of Munich school alum works here",
+          "4 weeks ago"
+        ]
+      },
+      {
+        "title": "Python Backend Engineer",
+        "company": "Gorilla - Energy data applications",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4237982563",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "2 weeks ago"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4246250076/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:14:54.358512",
+    "title": "Software Engineer Intern",
+    "company": "Bending Spoons",
+    "description": "About the job\nAt Bending Spoons, we’re striving to build one of the all-time great companies. A company that serves a huge number of customers. A company where team members grow to their full potential. A company that functions at unparalleled levels of effectiveness and efficiency. A company that creates value for shareowners at an extraordinary rate. And a company that does so while adhering to high ethical standards.\n\nTo achieve this objective, we execute the following strategy: We acquire a digital business with untapped potential and make it as successful as we can by leveraging our platform—which comprises our expertise, technologies, data, brand, talents, and company culture. Then, we invest the proceeds into making our platform more powerful, and into acquiring new businesses. Thus, our strategy sees us combine an investor’s attention to capital allocation with the hands-on approach of an operator.\n\nFor a talented, driven, and collaborative individual, working at Bending Spoons is an opportunity to learn, make an impact, and progress their career at an exceptionally high rate. That’s our promise to such a candidate.\n\nA few examples of your responsibilities\nMaster your toolkit. By working across diverse tech stacks, you’ll refine your ability to choose the right tools for every challenge. From monolithic to microservices architectures, gRPC to REST APIs, Kubernetes to Docker, Python to Rust—you’ll show that true expertise isn’t about using the trendiest technologies, but about understanding their purpose to unleash their full potential.\nBuild stuff that matters. Regardless of your seniority, you’ll enjoy plenty of autonomy and take full ownership of your work, from ideation to execution. You’ll have the unique opportunity to build software from the ground up and witness firsthand how your code evolves into a product used at scale.\nSimplify relentlessly. Is every component essential? Do we need this process? As a Bending Spoons engineer, your mission is to turn complexity into simplicity. Whether optimizing CI/CD pipelines, writing maintainable code, or crafting minimalist architectures, your drive to simplify will power scalable, future-proof solutions.\n\nWhat we look for\nReasoning ability. Given the necessary knowledge, you can solve complex problems. You think from first principles, and structure your ideas sharply. You resist the influence of biases. You identify and take care of the details that matter.\nDrive. You’re extremely ambitious in everything you do—and your initiative, effort, and tenacity match the intensity of your ambition. You feel deeply responsible for your work. You hold yourself to a high—and rising—bar.\nTeam spirit. You give generously and without the expectation of receiving in return. You support the best idea, not your idea. You're always happy to get your hands dirty to help your team. You’re reliable, honest, and transparent.\nProficiency in English. You read, write, and speak proficiently in English.\nYou can work at least 20 hours per week. A full-time commitment is preferred, but we’ll consider applicants who can commit to at least 20 hours per week.\n\nWhat we offer\nIncredibly talented, entrepreneurial teams. You’ll work in small, result-oriented, autonomous teams alongside some of the brightest people in your field.\nAn exceptional opportunity for growth. We go to great lengths to hire individuals of outstanding potential—then, our priority is to put them in the ideal position to thrive. Spooners in their 20s lead products worth hundreds of millions of dollars. And if you’ve got what it takes, you’ll soon be playing an essential role in major projects, too.\nCompetitive pay and access to equity in the company. Typically, we offer an individual at the start of their career a salary of £66,779 in the UK and €63,965 elsewhere. If they possess a few years of relevant experience, the salary on offer tends to be between £110,389 and £149,636 in the UK, and €105,737 and €143,330 elsewhere. Pay grows rapidly as you accumulate experience and translate it into greater impact. You can also receive some of your pay in company equity at a discounted price, thus participating in the value creation we achieve together. If relocating to Italy, you may enjoy a 50% tax cut.\nAll. These. Benefits. Flexible hours, remote working, unlimited backing for learning and training, top-of-the-market health insurance, a rich relocation package, generous parental support, and a yearly retreat to a stunning location. We help each Spooner set up the conditions to do their best work.\n\nCommitment & contract\nInternship. Full-time or part-time.\n\nLocation\nMilan (Italy), London (UK) or remote.\n\nBefore you apply\nBending Spoons is a demanding environment: We're extremely ambitious and we ask a lot of ourselves and one another. While this tends to lead to fantastic learning, achievements, and career growth, it also requires a significant commitment. So if you like the role and are ready to give your very best, don't hesitate to apply.\n\nThe selection process\nIf you pass our screening, we’ll ask you to take on a few tests that assess how you approach unfamiliar problems. If you’re successful with those, we’ll invite you to a series of interviews.\n\nBending Spoons is an equal opportunity and affirmative action employer. We consider for employment any applicant and we provide reasonable accommodations for an applicant with disabilities, which can be requested through this form.\n\nStudies suggest that women tend not to apply for a job if their CV isn’t a perfect fit. Here, talent takes precedence over experience. So if you like the role and think you could be awesome at it in time, go ahead and apply.\n\nDesired Skills and Experience\nAlgorithms, Attention to Detail, Code Refactoring, Computer Science, Debugging, Optimization, Problem Solving, Reasoning Skills, Software Development, Software Engineers",
+    "location": "Berlin, Berlin, Germany",
+    "date_posted": "1 day ago",
+    "easy_apply": false,
+    "apply_info": "https://jobs.bendingspoons.com/positions/671201070d672a6fe45a0d7b?utm_medium=job_post&utm_source=linkedin&utm_campaign=6847ee8a27dfdac9e5075041",
+    "company_info": "About the company\nBending Spoons\n259,766 followers\nFollow\nSoftware Development 201-500 employees 581 on LinkedIn\nWe’re out to build an all-time great company.\n\nSince 2013, we've served over a billion people across the globe through our suite of digital technology products including Brightcove, Evernote, Meetup, Remini, StreamYard, and WeTransfer.\n\nIf you're talented, driven, and collaborative, working at Bending Spoons is an opportunity to learn, make an impact, and progress your career at an exceptionally high rate.\n…\nshow more\nInterested in working with us in the future?\nMembers who share that they’re interested in a company may be 2x as likely to get a message from a recruiter than those who don’t. Learn more\nLearn more about Interested in working for our company\nI’m interested",
+    "related_jobs": [
+      {
+        "title": "Software Engineer Intern",
+        "company": "Bending Spoons",
+        "location": "Bremen, Bremen, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4246249125",
+        "posted_date": "1 day ago",
+        "insights": [
+          "10 school alumni work here\n10 Technical University of Munich school alumni work here",
+          "1 day ago",
+          "Be an early applicant"
+        ]
+      },
+      {
+        "title": "Working Student in Web Development (m/f/d)",
+        "company": "KEWAZO",
+        "location": "Garching, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4229808994",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Working Student (m/f/d) – Software Engineer",
+        "company": "Dassault Systèmes",
+        "location": "Darmstadt, Hesse, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4248313795",
+        "posted_date": "1 day ago",
+        "insights": [
+          "73 school alumni work here\n73 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Software Engineering Intern - Nsight Systems",
+        "company": "NVIDIA",
+        "location": "Munich, Bavaria, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4216283341",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "167 school alumni work here\n167 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "2025 Graduate Software Dev Engineer",
+        "company": "Amazon Web Services (AWS)",
+        "location": "Munich, Bavaria, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4047072261",
+        "posted_date": "3 days ago",
+        "insights": [
+          "241 school alumni work here\n241 Technical University of Munich school alumni work here",
+          "3 days ago"
+        ]
+      },
+      {
+        "title": "Intern AI Developer / Software Engineer (f/m/d)",
+        "company": "smart Europe GmbH",
+        "location": "Leinfelden-Echterdingen, Baden-Württemberg, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4247126152",
+        "posted_date": "1 day ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Full Stack Developer",
+        "company": "ExaGaming",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249608201",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Working Student (d/f/m) in Software Development for Propellant Management",
+        "company": "ArianeGroup",
+        "location": "Bremen, Bremen, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4228793307",
+        "posted_date": "5 days ago",
+        "insights": [
+          "50 school alumni work here\n50 Technical University of Munich school alumni work here",
+          "5 days ago"
+        ]
+      },
+      {
+        "title": "Working Student - Software Engineering ADAS & AD (f/m/d)",
+        "company": "CARIAD",
+        "location": "Berlin, Berlin, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4236012121",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "255 school alumni work here\n255 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4227603728/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:15:23.833398",
+    "title": "Software Engineer - Web (m/f/d)",
+    "company": "Flink",
+    "description": "About the job\nCompany Description\n\nFlink is the leading quick commerce player in Europe. We are on a mission to give people back time: You can order your groceries through our app and we deliver to your doorstep in minutes. We carry 3,000 products with a focus on the leading brands in each category. We aim for sustainability by making deliveries on electric bikes and utilizing recyclable packaging.\n\nFlink launched in February 2021 and already operates in more than 90 cities in Germany, and the Netherlands. The business generated more than EUR 400m in revenues in 2022 and is operationally profitable. Flink is backed by the world’s most renowned tech investors, including Prosus, Mubadala, and Bond, and strategic investors like Doordash and REWE. We take great pride in being an inclusive employer that offers equal opportunities, and we celebrate the diversity and multiculturalism of our team. We're growing fast and always pushing ourselves to do better - we play for #1.\n\nIn your role as a Software Engineer - Web (m/f/d), you’ll help build fast, intuitive web experiences as part of our Discovery team; the group responsible for shaping a customer’s first impression of Flink and making it easy to find and add the right products to their cart. This includes key areas like the homepage, deals tab, search, and product detail pages.\n\nJob Description\n\nCollaborate with the team to create an amazing customer experience across our website, including key areas like the homepage (the first screen when opening Flink), the deals section, search, categories, and product detail pages;\nTake part in discussions and planning around platform development and website architecture;\nGet an opportunity to work across teams to create real value for our customers;\nCollaborate within the frontend team to develop our webshop and various landing pages that drive business impact;\nExplore and experiment with new technologies and frameworks;\nCollaborate with designers to implement clean and user-friendly interfaces;\nYou’ll work in a cross-functional team using technologies like React, Node.js, TypeScript, Next.js, Vue, Nuxt, and Tailwind CSS, with opportunities to contribute to our Backend for Frontend (BFF) services;\nContribute to documentation and share knowledge across the team.\n\nQualifications\n\nExperience as a Frontend Engineer, with a focus on building React applications; either working within an existing codebase or building from the ground up;\nProficiency in ReactJS, TypeScript, JavaScript, or similar technologies;\nComfortable bringing design mockups (e.g. from Figma) to usable web pages that work well across devices;\nUnderstanding of RESTful APIs and web service architecture;\nFamiliarity with modern frontend tools, libraries, and workflows;\nOpen-minded personality, comfortable working both in a Lean and Agile environment and making decisions in a collaborative way with the team;\nWillingness to learn, grow, and support others in a collaborative environment;\nExperience with server-side rendering (e.g., Next.js or Nuxt.js) is a plus;\nExperience with modern development practices like GitHub, transpilers, linters, build tools, and CI/CD pipelines is a plus;\nA focus on code quality, with knowledge of unit, integration, and end-to-end (E2E) testing considered a plus.\n\nAdditional Information\n\nA €1000 annual L&D budget as well as individual coaching options to ensure you have plenty of opportunities to learn, grow and achieve your goals\n26 days of vacation, +1 day every year up to a maximum of 30 days\nA mobility budget of 30 EUR per month with NAVIT, which you can use individually for Uber, BVG and many other providers \nA cool discount on your Urban Sports Club membership\nAttractive company pension options\nUnlimited access to an e-learning and development platform, MyAcademy, including online German courses\nOnline discounts with Corporate Benefits and Future Bens\nA cool discount off your personal Flink orders; be the first to test out new products!\nA modern and dog-friendly office in the heart of Berlin - lots of delicious lunch spots available within short walking distance\n\nIt is our commitment that every applicant will be evaluated according to their skills regardless of age, gender identity, ethnicity, sexual orientation, disability status, or religion.",
+    "location": "Berlin, Berlin, Germany",
+    "date_posted": "Reposted 2 weeks ago",
+    "easy_apply": true,
+    "apply_info": "Easy Apply",
+    "company_info": "About the company\nFlink\n60,526 followers\nFollow\nSoftware Development 5,001-10,000 employees 2,553 on LinkedIn\nHigh-quality and fresh groceries delivered to your door in minutes.\n\nWe are Flink - your online supermarket revolutionising the way you do your grocery shopping. With a wide selection of over 2,400 high-quality products, we aim to deliver to your door in minutes. We put our customers first and ensure all products delivered are fresh and nutritious. We are able to customise our national assortment to be able to offer you unique local products in every city. Our delivery hubs are located in densely populated inner city locations and we strive to be sustainable by delivering on electric bikes and using packaging that can be recycled.\n\nFounded by experienced e-commerce professionals and backed by some of the most renowned investors in Europe, we are growing rapidly and have a great hunger to continuously challenge ourselves.\n…\nshow more",
+    "related_jobs": [
+      {
+        "title": "Working Student in Web Development (m/f/d)",
+        "company": "KEWAZO",
+        "location": "Garching, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4229808994",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Working Student (m/f/d) – Software Engineer",
+        "company": "Dassault Systèmes",
+        "location": "Darmstadt, Hesse, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4248313795",
+        "posted_date": "1 day ago",
+        "insights": [
+          "73 school alumni work here\n73 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Full Stack Developer",
+        "company": "ExaGaming",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249608201",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Internship AI & Automation (m/w/d) in Berlin",
+        "company": "HYGH",
+        "location": "Berlin, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4237439252",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Python Software Engineer | Python | Docker | Git | Backend Development | Germany",
+        "company": "Enigma",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247785305",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Developer Python (D/M/W)",
+        "company": "WEBSALE AG",
+        "location": "Nuremberg, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4236584910",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Junior C++ Software Developer (m/f/d)",
+        "company": "Straumann Group",
+        "location": "Berlin, Berlin, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4223870318",
+        "posted_date": "1 week ago",
+        "insights": [
+          "7 school alumni work here\n7 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Software Engineer I",
+        "company": "Paysafe",
+        "location": "Berlin, Berlin, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4235878663",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Robotics Software Engineer",
+        "company": "Lemvos",
+        "location": "Augsburg, Bavaria, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4242698423",
+        "posted_date": "6 days ago",
+        "insights": [
+          "6 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Working Student - Software Engineering ADAS & AD (f/m/d)",
+        "company": "CARIAD",
+        "location": "Berlin, Berlin, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4236012121",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "255 school alumni work here\n255 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "teamative",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249073067",
+        "posted_date": "20 hours ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "20 hours ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Working Student (d/f/m) in Software Development for Propellant Management",
+        "company": "ArianeGroup",
+        "location": "Bremen, Bremen, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4228793307",
+        "posted_date": "5 days ago",
+        "insights": [
+          "50 school alumni work here\n50 Technical University of Munich school alumni work here",
+          "5 days ago"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4249002504/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:15:48.008008",
+    "title": "Junior Frontend Software Engineer (m/f/x)",
+    "company": "rebuy",
+    "description": "About the job\nWe are looking for a Junior Frontend Software Engineer to join our Lake team and work on internal projects as well as rebuy.de , our main platform where thousands of customers come to give products a second life every day. You'll collaborate with experienced developers to build and improve features that directly impact our customer experience, while growing your skills across our tech stack. Working primarily with TypeScript and Angular, you'll also have opportunities to develop backend skills with PHP and Kotlin. This role is perfect for someone early in their software engineering career who is passionate about sustainable technology and eager to learn in a supportive, mission-driven environment.\n\nAs our new teammate, you'll collaborate with experienced developers who are eager to mentor you as you grow your skills across our tech stack. You'll have the unique opportunity to touch both backend and frontend technologies - primarily working with TypeScript and Angular. The best part? You won't be stuck maintaining legacy code - you'll actively contribute to new features that directly impact our users' experience.\n\nWe're looking for someone who's passionate about learning and not afraid to share ideas. You don't need to know everything yet - we value your fresh perspective and eagerness to grow. You'll work in an environment where asking questions is encouraged, and where \"perfect is the enemy of good\" - we believe in shipping MVP features and iterating based on real user feedback.\n\nWhat makes this role special is the balance of support and responsibility. You'll be guided by experienced engineers, but also trusted with meaningful work that matters to our mission. Your contributions will directly help thousands of customers make sustainable choices every day, giving you the satisfaction of knowing your code isn't just running on servers - it's helping the planet.\n\nBeing part of our collaborative team means you'll learn not just how to code, but how to think about the full customer journey, collaborate across departments, and make data-driven decisions through A/B testing. This isn't just a job - it's the foundation of an exciting career in sustainable technology.\n\nIf you thrive in a dynamic, tech-driven environment and enjoy working with cross-functional teams, we would love to hear from you!\n\nReady to become part of the most important mission on this planet? We are rebuy, pioneers in the sustainable reuse of electronics and media and we are looking for you! Our mission: to make circular living accessible to all, one transaction at a time. By giving products a second chance, we reduce resource consumption and avoid unnecessary e-waste.\n\nOur team of 600 comes from all corners of the world; we drive things forward collaboratively, take personal responsibility, value positive critical thinking, and persistently serve our customers and planet.\n\nKey Responsibilities:\n\n Develop features for our rebuy.de using Angular, with opportunities to explore PHP and Kotlin\nCollaborate with experienced team members to implement solutions that enhance the customer shopping experience\nWrite clean, maintainable code that adheres to our team's coding standards and best practices\nParticipate in code reviews to both receive feedback and develop your skills in evaluating code quality\nAssist in troubleshooting and resolving bugs, turning challenges into learning opportunities\nContribute ideas during team discussions - we value fresh perspectives!\nHelp implement features that span both frontend and backend components\nWork alongside our UX/UI designers to bring visual concepts to life\nLearn about our service-oriented architecture and message-based communication between services\nSupport the testing and deployment of new features through our CI/CD pipeline\nBasic proficiency in TypeScript, Angular and Node.js\nEnthusiasm to learn whichever technology you’re less familiar with\nKnowledge of HTML, CSS, and TypeScript fundamentals \nUnderstanding of fundamental web development concepts (HTTP, REST APIs, databases)\nUnderstanding of fundamentals of Git version control\nProblem-solving mindset and enthusiasm for learning new technologies\nAbility to work collaboratively in a team environment\n\nNice-to-have:\n\nFamiliarity with Kotlin and PHP frameworks like Symfony or Laravel\nUnderstanding of databases (MySQL, PostgreSQL)\n\nWorking hours:\n\nFull time \n\nLocation:\n\nBerlin\nHybrid model\n\nPurpose, a great company culture and incredible benefits - what to expect at rebuy:\n\nWork with a friendly team that is passionate about circularity and wants to make the world a little more sustainable, one transaction at a time\nFeel comfortable in an environment where independence and new ideas are welcome\nBenefit from flat hierarchies and the greatest possible transparency so that things don't take longer than they have to and you always feel well informed\nEnjoy our centrally located office in Berlin (Erkelenzdamm 11 - 13, 10999 Berlin)\nBenefit from our family-friendly, flexible environment and paid child sick leave\nBring your dog to the office: we love animals and want to cuddle yours, too!\nUse employee discounts on rebuy.de, sustainable products at Futurebens, offers for sustainable micro-mobility and massages directly in our office\nHave fun at our legendary team and company events\nUse our mental health offers as part of a cooperation with nilo\nTake care of your work-life balance with 30 vacation days\nAt rebuy all people are welcome and supported! We would like to talk, regardless of age, disability, national and social origin, skin color, religion, gender identity and sexual orientation. Just be who you are.",
+    "location": "Berlin, Berlin, Germany",
+    "date_posted": "6 days ago",
+    "easy_apply": false,
+    "apply_info": "https://rebuy.recruitee.com/o/junior-frontend-software-engineer-mfx-2-4/c/new?source=LinkedIn+Basic+Jobs",
+    "company_info": "About the company\nrebuy\n13,783 followers\nFollow\nRetail 501-1,000 employees 288 on LinkedIn\nrebuy’s mission is to provide a conscious, low-cost alternative to new products, without compromising in looks or functionality. We developed a unique refurbishing process that upgrades pre-owned products & increases their value.\n\nThe journey started with university students, a small shelf full of video games & a big vision. Since then, rebuy has grown into a 10.000 m² warehouse and logistic center, has more than 550 employees and has had 5 million customers, making rebuy the lead player in Europe.\n\nPlease find our data privacy policy here: https://www.rebuy.de/legal/privacy-policy\n…\nshow more\nCommitments\nEnvironmental sustainability\nOur sustainability initiatives are focused on three key areas: making a positive impact on the planet, ensuring employee well-being and equality, and striving to make circularity accessible to all. We will work on expanding our recommerce model by being even more customer-centric, and by further reducing the environmental impact of our operations. We engage with our customers, employees, and stakeholders to ensure that sustainability remains at the forefront of our decision-making.\n…\nShow more\nLearn more",
+    "related_jobs": [
+      {
+        "title": "Junior Software Engineer",
+        "company": "Eclectic Recruitment Ltd",
+        "location": "Düsseldorf, North Rhine-Westphalia, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4248025048",
+        "posted_date": "2 days ago",
+        "insights": [
+          "2 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior C++ Software Developer (m/f/d)",
+        "company": "Straumann Group",
+        "location": "Berlin, Berlin, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4223870318",
+        "posted_date": "1 week ago",
+        "insights": [
+          "7 school alumni work here\n7 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Working Student in Web Development (m/f/d)",
+        "company": "KEWAZO",
+        "location": "Garching, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4229808994",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "13 school alumni work here\n13 Technical University of Munich school alumni work here",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior Software Engineer - Inventory Offering (all genders)",
+        "company": "Zalando",
+        "location": "Dortmund, North Rhine-Westphalia, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4238787632",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "26 school alumni work here\n26 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Software Engineer I",
+        "company": "Paysafe",
+        "location": "Berlin, Berlin, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4235878663",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Junior DevOps Engineer (m/f/d)",
+        "company": "Flix",
+        "location": "Berlin, Berlin, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4235944803",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "36 school alumni work here\n36 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Software Engineer (m/w/d)",
+        "company": "Aratx",
+        "location": "Munich, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4249249002",
+        "posted_date": "15 hours ago",
+        "insights": [
+          "15 hours ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Graduate Software Engineer",
+        "company": "European Tech Recruit",
+        "location": "Munich, Bavaria, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4243872315",
+        "posted_date": "1 week ago",
+        "insights": [
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Back End Developer",
+        "company": "Arc.dev",
+        "location": "European Union (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231733707",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "3 weeks ago"
+        ]
+      },
+      {
+        "title": "(Full Remote) Junior Full Stack Developer",
+        "company": "Joinrs Deutschland",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247408220",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "2 hours ago"
+        ]
+      },
+      {
+        "title": "Frontend Engineer (JavaScript/Django) (gn)",
+        "company": "voiio",
+        "location": "Berlin, Berlin, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4243630838",
+        "posted_date": "5 days ago",
+        "insights": [
+          "1 school alum works here\n1 Technical University of Munich school alum works here",
+          "5 days ago"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "teamative",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249073067",
+        "posted_date": "20 hours ago",
+        "insights": [
+          "20 hours ago",
+          "Easy Apply"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4235878663/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:16:15.045105",
+    "title": "Software Engineer I",
+    "company": "Paysafe",
+    "description": "About the job\nPaysafe Limited (“Paysafe”) (NYSE: PSFE) (PSFE.WS) is a leading payments platform with an extensive track record of serving merchants and consumers in the global entertainment sectors. Its core purpose is to enable businesses and consumers to connect and transact seamlessly through industry-leading capabilities in payment processing, digital wallet, and online cash solutions. With over 29 years of online payment experience, an annualized transactional volume of $152 billion in 2024, and approximately 3,000 employees located in 12+ countries, Paysafe connects businesses and consumers across 260 payment types in over 48 currencies around the world. Delivered through an integrated platform, Paysafe solutions are geared toward mobile-initiated transactions, real-time analytics and the convergence between brick-and-mortar and online payments. Further information is available at www.paysafe.com.\n\n It starts here. Have a global impact on the world of payments. \n\n Position: Software Engineer I (m/f/d) \n\n What Paysafe stands for: \n\n Being open and honest.\n Keeping focused.\n Operating with Courage.\n Pioneering the future.\n\nOur values and culture are driven by Equality, Development, Social Responsibility and Wellbeing. If you want to find out more about life at Paysafe, check out our careers page here .\n\n How we work: \n\nThe office is located in the Bikini Berlin building near Kurfürstendamm with easy access via public transport links. To foster team culture, we try as often as possible to meet in person in Berlin\n\nThe impact you will have:\n\n Actively work with our product & engineering team to implement features & introduce new products into the system \n You will maintain and improve internal systems to make them ready for change and more performant \n Review other team members work & help to increase the quality of software that goes into production \n You will keep an eye on the overall system and fix bugs or issues as soon as they occur \n Share your knowledge & learn from your teammates during our knowledge sharing sessions \n\nWhat we're looking for:\n\n You love coding! \n Software development is not just a job for you. You code on private projects as well & you are interested in the industry’s latest developments \n You want to program in Go and/or Ruby & have at least 2-3 years of professional experience with one of those programming languages! \n Curious by nature & want to learn + grow your skills \n Love to see other’s rise and therefore want to empower your colleagues to develop their skills \n You want to run proof of concepts, to innovate and improve our existing tech stack \n Interested in the big picture! You want to know and understand how everything is connected, starting with our public APIs, to our internal services and the PostgreSQL database cluster \n You have a passion for clean code and an eye for simplicity \n Full proficiency in English. Spanish and / or German would be a plus \n\nA snippet of what you'll get in return: \n\n A global community of pioneers who want to impact the payment industry globally. \n An international, diverse & inclusive working environment onboarding people like you! \n A promise to ourselves to live the values: Pioneering, Courageous, Open & Focused. Our four values are the heart of everything we do & inspires how we work together. \n Modern & well-equipped office with excellent public transportation connections in the center of Berlin. \n A lot of initiatives such as Summer-hours, wellbeing afternoons & no-internal meeting days to focus on what is really important for you. \n Paysafe Days to celebrate achievements together during a festive global event. \n A n one-day volunteering allowance to support a cause you care about in your community. \n International development & career opportunities if you are ready & open for that. \n Optional two weeks of working from abroad every year \n\nEqual Employment Opportunity\n\nPaysafe is an equal opportunity employer. We value diversity and are committed to providing a work environment of mutual respect to everyone without regard to race, color, religion, national origin, age, gender identity or expression, or any other characteristic protected by applicable laws, regulations and ordinances.",
+    "location": "Berlin, Berlin, Germany",
+    "date_posted": "2 weeks ago",
+    "easy_apply": false,
+    "apply_info": "https://jobs.paysafe.com/job/Berlin-Software-Engineer-I/1294004000/",
+    "company_info": "About the company\nPaysafe\n124,073 followers\nFollow\nFinancial Services 1,001-5,000 employees 3,507 on LinkedIn\nPaysafe is a leading payments platform with an extensive track record of serving merchants and consumers in the global entertainment sectors. Its core purpose is to enable businesses and consumers to connect and transact seamlessly through industry-leading capabilities in payment processing, digital wallet, and online cash solutions. Delivered through an integrated platform, Paysafe solutions are geared toward mobile-initiated transactions, real-time analytics and the convergence between brick-and-mortar and online payments. Further information is available at www.paysafe.com.\n\nFollow us:\nfacebook.com/paysafe\ntwitter.com/paysafe\ninstagram.com/paysafe\n…\nshow more\nInterested in working with us in the future?\nMembers who share that they’re interested in a company may be 2x as likely to get a message from a recruiter than those who don’t. Learn more\nLearn more about Interested in working for our company\nI’m interested\nTrending employee content\nPage 1 of 4\nPrevious\nNext",
+    "related_jobs": [
+      {
+        "title": "Software Engineer",
+        "company": "Quantcast",
+        "location": "Berlin, Berlin, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4223391623",
+        "posted_date": "1 week ago",
+        "insights": [
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer Intern",
+        "company": "Bending Spoons",
+        "location": "Saarland, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4246243483",
+        "posted_date": "1 day ago",
+        "insights": [
+          "10 school alumni work here\n10 Technical University of Munich school alumni work here",
+          "1 day ago",
+          "Be an early applicant"
+        ]
+      },
+      {
+        "title": "Working Student (m/f/d) – Software Engineer",
+        "company": "Dassault Systèmes",
+        "location": "Darmstadt, Hesse, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4248313795",
+        "posted_date": "1 day ago",
+        "insights": [
+          "73 school alumni work here\n73 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Working Student in Web Development (m/f/d)",
+        "company": "KEWAZO",
+        "location": "Garching, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4229808994",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Graduate Software Developer - STEM / Physics / Mathematics",
+        "company": "European Tech Recruit",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4242842444",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior Software Engineer",
+        "company": "Eclectic Recruitment Ltd",
+        "location": "Düsseldorf, North Rhine-Westphalia, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4248025048",
+        "posted_date": "2 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior C++ Software Developer (m/f/d)",
+        "company": "Straumann Group",
+        "location": "Berlin, Berlin, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4223870318",
+        "posted_date": "1 week ago",
+        "insights": [
+          "7 school alumni work here\n7 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Software Developer Python (D/M/W)",
+        "company": "WEBSALE AG",
+        "location": "Nuremberg, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4236584910",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "LLM Solutions Developer",
+        "company": "Lime Technologies",
+        "location": "Cologne, North Rhine-Westphalia, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4244593187",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Graduate Software Engineer",
+        "company": "European Tech Recruit",
+        "location": "Munich, Bavaria, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4243872315",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior Software Engineer - Inventory Offering (all genders)",
+        "company": "Zalando",
+        "location": "Dortmund, North Rhine-Westphalia, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4238787632",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "26 school alumni work here\n26 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Robotics Software Engineer",
+        "company": "Lemvos",
+        "location": "Augsburg, Bavaria, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4242698423",
+        "posted_date": "6 days ago",
+        "insights": [
+          "6 days ago",
+          "Easy Apply"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4247904215/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:16:44.753475",
+    "title": "Engineering Intern",
+    "company": "Knowunity",
+    "description": "About the job\nAbout Us\n\nWe are building the #1 AI learning companion for 1 billion students globally.\n\nWe are building a future where every student on the planet can access, enjoy, and benefit from the highest quality education. Since founding Knowunity straight out of high school in 2020, we've been committed to revolutionising how students learn.\n\nMillions of students already use our AI learning companion weekly. The AI learning market is at an inflection point, finally enabling true personalisation at scale, and we're determined to build the first AI learning unicorn in this space.\n\nYou will join an elite team of 60 hands-on builders serving 1 billion students worldwide. If we execute on our product vision, you will have built something generational that transforms education globally.\n\nThis is your chance to be part of building a generational company.\n\nYour mission\n\nThe problem you’ll solve: You’ll support our fast-moving engineering team in building and improving the product that helps millions of students learn better every day.\n\nYour Ownership\n\nSupport product managers and engineers in building new product features and improvements.\nHelp implement core functionalities that directly impact our user experience.\nImprove code quality and contribute to our technical foundation as we scale.\n\nWhy this matters: Knowunity is used by millions of students globally, and we’re just getting started. The features and improvements you help build will directly impact how students learn and grow with us every day. Your work helps us move faster and smarter on our mission to become the #1 learning companion for 1 billion students.\n\nWhat success looks like: You contribute meaningfully to live product features, collaborate closely with senior engineers and the CTO, and develop rapidly as a technical talent. You bring your ideas to the table, take ownership of mini-projects, and leave the internship with the opportunity to join full-time.\n\nYour story\n\nYour mindset\n\nYou’re The Type Of Person Who\n\nBuilds to learn and learns by building - you love turning ideas into working products and figuring things out along the way\nThinks like a founder - you’re proactive, curious, and unafraid to take ownership in a fast-moving environment\nSees the full picture - whether it’s frontend, backend, or anything in between, you’re eager to contribute across the stack\nCares about users - you’re not just writing code, you’re solving real problems for real people\nLeverages AI - as a force multiplier in everything you do\nValues excellence over comfort - mediocrity isn’t in your vocabulary\n\nYour track record\n\nYou’re currently studying (or have just finished) Computer Science, Software Engineering, or a related field. You’ve built things you’re proud of — whether in class, side projects, or internships — and you’re hungry to apply what you know in a real-world, high-impact setting. You want to grow fast, contribute meaningfully, and help shape the future of a product users love.\n\nMust-haves\n\nCurrently pursuing or recently completed a degree in Computer Science, Software Engineering, or similar\nStrong programming skills across backend and frontend\nFluent English; German is a plus\nReady to work from our Berlin office 5 days/week (with some flexibility!)\n\nWhat We Offer\n\nNot for everyone, everything for the right ones.\n\nCompetitive compensation and equity: We’re are building Knowunity to dominate the global AI learning market. Your compensation package includes competitive salary paired with meaningful equity in a company with genuine unicorn potential. Team members who help us reach that goal will be rewarded accordingly.\nElite team and true ownership: You’ll work alongside 60 exceptional people who match your ambition within a flat hierarchy - direct access to founders and leadership without bureaucratic middle layers. You'll own entire areas from conception to delivery with real decision-making authority.\nMeaningful impact at scale: Your work will have immediate, measurable impact on education globally and directly improves how millions of students learn.\nBenefits: 28 days annual leave +1 extra day per year with Knowunity, 40 days work from anywhere, personal development budget, mental health support via Nilo, Urban Sports Club, monthly become1 retail vouchers, team and company events\n\nWe’re not here to coast - we are building something exceptional. We’re a lean team of ambitious people who push hard, move fast, and constantly raise the bar. The real perk is not standard benefits - it’s joining 60 amazing people who challenge you to level up daily. If you’re hungry, thrive under pressure and ready to go the extra mile, this is where you will accelerate your career faster than anywhere else.\n\nOur Tech Stack\n\nOur app is written in Flutter with Riverpod. Our Golang backend is powered by PostgreSQL and hosted on AWS with Kubernetes. Our AI stack consists of several LLM providers (OpenAI, Gemini, Anthropic, and Mistral), custom routing engines, and fine-tuned models. Our data stack consists of BigQuery and dbt.\n\nHow To Apply\n\nReady to help build the AI learning unicorn?\n\nClick “Apply for this job” and submit your CV and LinkedIn profile.\n\nWe encourage applications from exceptional talent regardless of traditional background requirements.\n\nAt Knowunity, we actively foster an inclusive and diverse workplace that ensures equal opportunity for all qualified applicants, regardless of nationality, ethnic or national origin, skin color, religion, sex, gender identity or expression, sexual orientation, physical or mental disability, or marital status. Please refrain from including your picture and age with the application.",
+    "location": "Berlin, Berlin, Germany",
+    "easy_apply": false,
+    "apply_info": "https://knowunity.jobs.personio.com/job/1912641?display=en&language=en&pid=44e69f6f-724a-4025-a3f7-57504cadca37&it=z9sJByniaM5sBuPI6Pc8_w&_ghcid=71e67ea4-f328-4404-ad0c-95e7b0e31743#apply",
+    "company_info": "About the company\nKnowunity\n13,095 followers\nFollow\nMobile Computing Software Products 51-200 employees 127 on LinkedIn\nWe're building the #1 AI learning companion for 1 billion students worldwide - driven by the purpose of democratising access to the highest quality education.\n\nMillions of students already use our AI learning companion weekly across multiple countries. With proprietary learning data and breakthrough AI technology, we're determined to become the defining platform that transforms how students access education globally.\n\nEducation is at a historic inflection point. AI is finally enabling truly personalised learning at scale - not just disrupting traditional methods, but revolutionising the entire global learning experience.\n\nReady to join our elite team of hands-on builders? Help us become the generational AI learning company serving 1+ billion students. We're looking for engineers, product builders, and growth accelerators who thrive in high-velocity environments and want to architect the future of learning.\n…\nshow more",
+    "related_jobs": [
+      {
+        "title": "Software Engineer Intern",
+        "company": "Bending Spoons",
+        "location": "Bremen, Bremen, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4246249125",
+        "posted_date": "1 day ago",
+        "insights": [
+          "10 school alumni work here\n10 Technical University of Munich school alumni work here",
+          "1 day ago",
+          "Be an early applicant"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4233224886/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:17:14.434808",
+    "title": "Junior Web-Developer (Angular / fixed-term)",
+    "company": "OKAPI:Orbits",
+    "description": "About the job\nYour mission\n\nSpace is getting crowded, and satellite collisions are becoming a serious threat. At OKAPI:Orbits, we are developing the first-ever collision avoidance and frequency coordination framework in collaboration with leading international space debris scientists.\n\nYour mission is to ensure that our services are reliable, intuitive, and high-performing, accessible via a seamless API and a modern, well-designed web front-end.\n\nYour code will help prevent satellite collisions, ensuring the sustainability of space operations for years to come. You’ll develop software that protects assets worth billions and contributes directly to the future of space safety.\n\nOur platform is used by commercial satellite operators managing large constellations and national & international space agencies.\n\nPlease note: This position is limited until end of 2026, with the possibility of extension.\n\nYour Tasks And Responsibilities\n\nHelp develop and maintain web applications that support OKAPI:Orbits’ space safety platform.\nContribute to software projects for space agencies and commercial satellite operators.\nCollaborate with senior developers and learn about software architecture and technical decision-making.\nAssist scientists and engineers in building innovative tools for space operations.\n\nTech Stack You'll Work With\n\nAngular\nPostgreSQL\nCesium.js\nExternal REST APIs\n\nYour profile\n\nMust-Haves\n\nA degree (B.Sc. or higher) in Computer Science or a related field OR equivalent training as an IT specialist.\nExperience with Angular development.\nKnowledge of front-end testing.\nStrong problem-solving skills and the ability to work independently.\nBased in Germany with a valid work permit.\nFluent in English (spoken and written).\n\nNice-to-Haves:\n\nKnowledge of React\nFamiliarity with Cesium.js or other geospatial tools.\nExperience in the aerospace sector.\n\nWhy us?\n\nFlat hierarchies & autonomy – Define your own way of working with flexible hours.\nWork setup:\n4-week onboarding in Braunschweig.\nChoose between remote work (within Germany), office work, or hybrid.\nIdeally, you’d visit the office occasionally for in-person collaboration.\nCareer growth opportunities and a training budget to support your continuous learning.\nCorporate benefits: BahnCard 25/50 and more.\nEngage with the space community at industry events and conferences.\nPerks: Free drinks in the office, and regular after-work activities (laser tag, dinner, chess, bouldering, or just a beer).\nAbout Us\n\nOKAPI:Orbits is at the forefront of space sustainability, addressing some of the most pressing challenges of the space industry: the growing problem of crowded orbital regimes, and the need for more efficient satellite operations. We're providing end-to-end solutions that help various space industry players cover their Space Situation Awareness (SSA), and Space Traffic Management and Coordination (STM & STC) needs. We are committed to safeguarding space missions and access to space for all humanity. Join us on our mission.",
+    "location": "Germany",
+    "date_posted": "2 weeks ago",
+    "easy_apply": false,
+    "apply_info": "https://okapiorbits.jobs.personio.de/job/2124759?display=en&language=en&pid=0f12d9c2-d12e-477c-8247-ae3bca10b9a1&it=EkYozvVzmd6zjvjEzIHLGQ&_ghcid=71e67ea4-f328-4404-ad0c-95e7b0e31743#apply",
+    "company_info": "About the company\nOKAPI:Orbits\n6,206 followers\nFollow\nAviation & Aerospace 11-50 employees 35 on LinkedIn\nOKAPI:Orbits is a comprehensive Space Traffic Management solutions provider. Founded in 2018, the company specializes in safeguarding space missions through its AI-based SSA and STM Platforms—OKAPI:Aether, OKAPI:Astrolabe, and OKAPI:Soteria.\n\nThe three platforms offer end-to-end services: from the early stages of the mission to its disposal – focusing on mission and operations optimization, coordination, and regulations compliance.\n…\nshow more",
+    "hiring_team": [
+      {
+        "name": "Luca Himstedt",
+        "title": "Software Development Lead @ OKAPI:Orbits GmbH | Software Development, Software Architecture",
+        "linkedin_url": "https://www.linkedin.com/in/himstedt",
+        "connection_degree": "3rd+"
+      }
+    ],
+    "related_jobs": [
+      {
+        "title": "Graduate Software Engineer",
+        "company": "Bending Spoons",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4246247209",
+        "posted_date": "1 day ago",
+        "insights": [
+          "10 school alumni work here\n10 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "(Full Remote) Junior Full Stack Developer",
+        "company": "Joinrs Deutschland",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247408220",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "2 hours ago"
+        ]
+      },
+      {
+        "title": "Front End Developers - AI Training [Remote]",
+        "company": "Braintrust",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4220213076",
+        "posted_date": "2 days ago",
+        "insights": [
+          "2 days ago"
+        ]
+      },
+      {
+        "title": "Software Engineer, Frontend",
+        "company": "Chainlink Labs",
+        "location": "Berlin, Berlin, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4212372245",
+        "posted_date": "1 week ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Back End Developer",
+        "company": "Arc.dev",
+        "location": "European Union (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231733707",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "3 weeks ago"
+        ]
+      },
+      {
+        "title": "Full-Stack Developer | Java (all genders)",
+        "company": "Lucanet",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231746760",
+        "posted_date": "1 day ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Full-Stack Engineer",
+        "company": "ElevenLabs",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4019346130",
+        "posted_date": "1 week ago",
+        "insights": [
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Full Stack Engineer",
+        "company": "Tiptap",
+        "location": "Berlin, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4116532380",
+        "posted_date": "5 months ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "5 months ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "teamative",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249073067",
+        "posted_date": "20 hours ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "20 hours ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Web Developer",
+        "company": "JOBSTODAY.WORLD",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4161654092",
+        "posted_date": "3 months ago",
+        "insights": [
+          "3 months ago"
+        ]
+      },
+      {
+        "title": "React Frontend Engineer (m/w/d)",
+        "company": "TeleClinic",
+        "location": "Munich, Bavaria, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4246244814",
+        "posted_date": "1 day ago",
+        "insights": [
+          "6 school alumni work here\n6 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Software Developer (m/w/d) FrontEnd",
+        "company": "Körber Pharma",
+        "location": "Markt Schwaben, Bavaria, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4202632875",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "19 school alumni work here\n19 Technical University of Munich school alumni work here",
+          "3 weeks ago"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4242842444/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:17:41.780166",
+    "title": "Graduate Software Developer - STEM / Physics / Mathematics",
+    "company": "European Tech Recruit",
+    "description": "About the job\nGraduate Software Developer - STEM / Physics / Mathematics\n\nWe are recruiting graduate software developers to work for one of Germany's fastest growing award-winning technology consultancies specializing in the development of both innovative solutions and high-end technology across multiple industries including healthcare, automotive, and insurance.\n\nThe team is looking to bring on top graduates finishing their academic studies in 2024 looking to start their industry career and join a highly skilled and talented team of engineers actively working on multiple high-profile software development projects.\n\nThis is an amazing opportunity to work with some of the brightest minds on cutting-edge projects to develop your skills in Agile software development, AI, DevOps, and Cloud technologies.\n\nKey Requirements for this Software Developer position: \nAt minimum an MSc in Computer Science, Mathematics, Physics, or related STEM field.\nProgramming skills in any of the following: C++, C#, Java, Javascript, Python, Rust, or GoLang.\nFluent in English, both written and spoken.\n\nKeywords: Graduate / Graduates / Agile / IT / C++ / C# / C Sharp / Java / Javascript / Java Script / Python / Rust / Go / GoLang / Go Language / AI / Artificial Intelligence / DevOps / Cloud / STEM / Computer Science / Physics / Mathematics\n\nIf you are interested in this Software Developer opportunity, please send a CV to ts@eu-recruit.com\n\nBy applying to this role you understand that we may collect your personal data and store and process it on our systems. For more information please see our Privacy Notice (https://eu-recruit.com/about-us/privacy-notice/)",
+    "location": "Germany",
+    "date_posted": "1 week ago",
+    "easy_apply": true,
+    "apply_info": "Easy Apply",
+    "company_info": "About the company\nEuropean Tech Recruit\n524,873 followers\nFollow\nStaffing and Recruiting 51-200 employees 65 on LinkedIn\nEuropean Tech Recruit is an award-winning technology recruitment agency. We take a personalised approach to connect top-tier tech talent with global tech industry leaders.\n\nOur Sectors\n• AI & Machine Learning\n• Semiconductor\n• Automotive Tech\n• Software Engineering\n• Wireless & IoT\n• Embedded Systems\n• Industry 4.0 & Robotics\n• Cutting Edge Research\n• Life Sciences\n• Gaming & Graphics\n• Battery Tech & EV\n• Renewable Energy\n• Telecom Network Equipment\n• Data Science\n• Cloud Computing\n• C-Suite\n• Sales & Marketing\n\nOur Approach To Tech Recruitment\nWith our 15+ years of expertise in technology recruitment, we have established ourselves as industry leaders, proficient at sourcing top talent globally to staff the most advanced technology projects out there.\nWe're skilled at finding not just the right skills, but also the right cultural fit. We speak the language of engineers and developers across cutting-edge industries while aligning with your company's broader hiring strategies. With our local insights and global reach, we help your business outpace competitors in the talent race.\n80% of our clients trust us to be their primary tech recruitment agency within 12 months of working with us, and for good reason. Whether you are searching for a tech recruitment agency to source talent for highly specialised, niche roles or need to fill fifty vacancies globally on an urgent basis, we always deliver. From working with renowned, global tech businesses to disruptive tech start-ups, we can fulfil even the most challenging remits, with the expert knowledge and established networks to do so.\n\n\n\n#ArtificialIntelligence #Automotive #ComputerVision #Semiconductors #EmbeddedSystems #STEM #Wireless #IoT #Webtech #CyberSecurity #AugmentedReality #VirtualReality #FMCG #Food&Beverage #LifeScience #Automation #Industry4.0 #DigitalTransformation\n…\nshow more\nInterested in working with us in the future?\nMembers who share that they’re interested in a company may be 2x as likely to get a message from a recruiter than those who don’t. Learn more\nLearn more about Interested in working for our company\nI’m interested",
+    "hiring_team": [
+      {
+        "name": "Tomas Sharpe",
+        "title": "Senior Consultant | Semiconductor, Software Engineering, Blockchain/Web3",
+        "linkedin_url": "https://www.linkedin.com/in/tomas-sharpe",
+        "connection_degree": "3rd+"
+      }
+    ],
+    "related_jobs": [
+      {
+        "title": "Graduate Software Engineer",
+        "company": "Bending Spoons",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4246247209",
+        "posted_date": "1 day ago",
+        "insights": [
+          "10 school alumni work here\n10 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Praktikant:in künstliche Intelligenz",
+        "company": "STTech GmbH",
+        "location": "Greater Munich Metropolitan Area (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231189268",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "3 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Freelance Back End Engineer",
+        "company": "HartleyCo",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4241218814",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Werkstudent Softwareentwicklung Generative AI (m/w/d)",
+        "company": "BSH Home Appliances Group",
+        "location": "Munich, Bavaria, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4235428436",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "206 school alumni work here\n206 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Full-Stack Engineer",
+        "company": "ElevenLabs",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4019346130",
+        "posted_date": "1 week ago",
+        "insights": [
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "(Full Remote) Junior Full Stack Developer",
+        "company": "Joinrs Deutschland",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247408220",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "2 hours ago"
+        ]
+      },
+      {
+        "title": "Software Engineer, Frontend",
+        "company": "Chainlink Labs",
+        "location": "Berlin, Berlin, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4212372245",
+        "posted_date": "1 week ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Python-Entwickler",
+        "company": "automait",
+        "location": "North Rhine-Westphalia, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4248213072",
+        "posted_date": "1 day ago",
+        "insights": [
+          "1 day ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Back End Developer",
+        "company": "Arc.dev",
+        "location": "European Union (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231733707",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "3 weeks ago"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "teamative",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249073067",
+        "posted_date": "20 hours ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "20 hours ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Python Software Engineer | Python | Docker | Git | Backend Development | Germany",
+        "company": "Enigma",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247785305",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Full-Stack Developer | Java (all genders)",
+        "company": "Lucanet",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231746760",
+        "posted_date": "1 day ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4237449399/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:18:06.511799",
+    "title": "Full-stack Developer (m/w/d)",
+    "company": "Prestatech",
+    "description": "About the job\nAt Prestatech, we're redefining the financial world by fostering innovation and challenging the traditional banking system. Our culture is diverse, dynamic, and forward-thinking. From our offices in Berlin and Milan, we create cutting-edge API technologies in an inclusive environment where everyone can contribute their best work.\n\nFounded in 2021 by Christian Nothacker, Luca Terragni, and Lorenzo Giusti, Prestatech combines document automation and proprietary technology to help financial institutions and B2B companies make quick, reliable, and inclusive credit decisions for SMEs and consumers.\n\nWhen most people think of getting a loan or mortgage, they picture a slow and tedious process. Our mission is to simplify that through technology.\n\nWe’re a young and fast-growing company—but this is our second venture. Before Prestatech, we founded and exited Prestacap, a lending platform for SMEs active in Italy and Germany.\n\nWe’re passionate about data and technology, never satisfied with the status quo, and believe that teamwork is key to achieving ambitious goals together.\n\nTo date, we have raised €8 million, which is helping us bring more innovative solutions to market, expand operations in Italy, and launch in the UK, Germany, and the US.\n\nTasks\nIn the middle of a scale-up phase, Prestatech is looking for a Full Stack Developer (m/w/d). The work is mainly on the back end 70%, and on the front end 30%. Primary needs are further service development for the market needs and support of our new product: Finioo. It is a financial verification platform, it simplifies the lives of real estate players with an automated onboarding and financial verification platform.\n\nOur stack: \n\n\nOur main product consists of two parts customer journey with Python backend and Partner-side C# \n\nFor Python type hints are being extended across the code. Ruff is utilized as a linter & formatter, along with mypy as an additional type-checker \n\nFrontend: both products use VueJS 3, JavaScript with TailwindCSS \n\nDatabase: PostgreSQL \n\nCI/CD: Applications are deployed regularly with pipelines in Kubernetes within the Azure cloud\n\n\nRequirements\nWhat You Bring\n\nWe value curiosity, autonomy, and continuous learning. If you meet most of the criteria below, we encourage you to apply—even if you don't tick every box.\n\n\nStrong coding skills in Python or C#\n\nExperience with JavaScript and reactive UI approaches \n\nKnowledge and willingness to go better development approaches with frontend and backend \n\nFamiliarity with developer environments Git, Docker, SQL or NoSQL databases, familiarity with CI/CD \n\nDesire to go tests firsts approaches and pair/mob design and programming\n\n\nBenefits\nWhat We Offer\n\n\nFixed salary + performance bonus\n\nA clear career path to support your professional growth\n\nAnnual training budget + free German classes\n\nFlexible working arrangements for great work-life balance (3 days/week in office+ 10 days Working from Abroad)\n\nBi-annual company offsites\n\nReferral bonus program\n\nA modern, full-serviced office in the heart of Berlin (Mitte)\n\n\nInterview Process\n\n\nAutomated test assignment. 20-40 minutes code challenge around LeetCode Easy level. \n\nHR Interview: 20 minutes \n\nTech Lead (Manager) interview: general questions about experience and engineering. Not more than 45 minutes \n\nTechnical Interview. General experience discussion questions and online coding challenge around basic data structures usage. Around 1 hour \n\nTalk with CTO. 20 minutes \n\n\nOur Commitment to Diversity & Inclusion\n\nPrestatech is proud to be an equal opportunity employer and actively embraces diversity in all its forms. With over 30 team members from 20+ nations, our multicultural environment constantly challenges us to value multiple perspectives and build better products.\n\nWe are committed to equitable hiring and a discrimination-free process. We welcome applicants of all races, ethnicities, ages, religions, disabilities, sexual orientations, gender identities, and backgrounds.\n\nIf you require any accommodations during the recruitment process, please let us know—we’re happy to support you.",
+    "location": "Berlin, Berlin, Germany",
+    "date_posted": "1 week ago",
+    "easy_apply": false,
+    "apply_info": "https://join.com/companies/prestatech/14314137-full-stack-developer-m-w-d?pid=e65242534431eadcb0c9",
+    "company_info": "About the company\nPrestatech\n14,218 followers\nFollow\nFinancial Services 11-50 employees 38 on LinkedIn\nWe are a technology powered credit intelligence platform that helps banks, lending platforms, UTP asset managers and brokers taking fast and informed credit decisions for both consumers and SMEs.\n\nWe combine intelligent document automation and anti-fraud algorithms with the granularity of bank account and financial data to automate the credit analysis and the decision-making process.\n\nPrestatech currently is active across Europe and the USA.\n\n\n…\nshow more",
+    "related_jobs": [
+      {
+        "title": "Software Engineer",
+        "company": "Quantcast",
+        "location": "Berlin, Berlin, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4223391623",
+        "posted_date": "1 week ago",
+        "insights": [
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Full-Stack Developer | Java (all genders)",
+        "company": "Lucanet",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231746760",
+        "posted_date": "1 day ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Fullstack Developer React Django",
+        "company": "MULI",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4248690938",
+        "posted_date": "1 day ago",
+        "insights": [
+          "1 day ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior Software Engineer",
+        "company": "Eclectic Recruitment Ltd",
+        "location": "Düsseldorf, North Rhine-Westphalia, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4248025048",
+        "posted_date": "2 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Working Student in Web Development (m/f/d)",
+        "company": "KEWAZO",
+        "location": "Garching, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4229808994",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Full Stack Engineer",
+        "company": "Tiptap",
+        "location": "Berlin, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4116532380",
+        "posted_date": "5 months ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "5 months ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Back End Developer",
+        "company": "Arc.dev",
+        "location": "European Union (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231733707",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "3 weeks ago"
+        ]
+      },
+      {
+        "title": "(Full Remote) Junior Full Stack Developer",
+        "company": "Joinrs Deutschland",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247408220",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "2 hours ago"
+        ]
+      },
+      {
+        "title": "Full-Stack Developer (m/w/d) - in SaaS Startup (Remote / Hybrid)",
+        "company": "cinify",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231162925",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "1 school alum works here\n1 Technical University of Munich school alum works here",
+          "3 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Full Stack Engineer (m/f/d)",
+        "company": "Tomorrow Things",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4238256433",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Associate Backend Engineer (NodeJS) (m/f/x)",
+        "company": "FINN",
+        "location": "Munich, Bavaria, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4231574465",
+        "posted_date": "4 days ago",
+        "insights": [
+          "28 school alumni work here\n28 Technical University of Munich school alumni work here",
+          "4 days ago"
+        ]
+      },
+      {
+        "title": "Junior Software Engineer - Inventory Offering (all genders)",
+        "company": "Zalando",
+        "location": "Dortmund, North Rhine-Westphalia, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4238787632",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "26 school alumni work here\n26 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4247785305/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:19:17.058740",
+    "title": "Python Software Engineer | Python | Docker | Git | Backend Development | Germany",
+    "company": "Enigma",
+    "description": "About the job\nPython Software Engineer | Python | Docker | Git | Backend Development | Germany\n\nDriving Innovation in Mechanical Engineering\nJoin a forward-thinking technology company that's transforming the mechanical engineering industry through cutting-edge software solutions. Our AI-powered assistant enables the rapid and accurate identification of spare parts in a variety of conditions, streamlining service processes, reducing errors, and supporting technicians — all powered by synthetic data.\nWe're on a mission to revolutionize spare parts identification and we’re looking for people who thrive in a young, agile, and pragmatic work environment. If you're excited by innovation and want to shape the future of industrial software, this is your opportunity.\n\nAbout the Team\nYou’ll be part of a dynamic and collaborative group of 10–15 professionals, including software developers, sales, marketing, and finance specialists. Our engineering team focuses on building and maintaining backend services, processing data, developing APIs, and working on 3D visualization and simulation tools. We're also pushing the boundaries of machine learning.\nWe emphasize a flat hierarchy, open communication, and shared ownership. Feedback is central to our work culture, with continuous improvement and personal growth being key values. We empower individuals to explore cross-functional roles, take ownership of features, or grow into leadership positions as the company expands.\n\nYour Role\nAs a Senior Python Software Engineer, your work will have a direct impact on product development and company success. Your contributions will help shape features that attract customers, optimize pipelines, and support our mission of sustainability through repair over replacement.\n\nWe offer flexibility with fully remote or hybrid options, 30 days of annual leave, and the ability to work when and where you’re most productive.\n\nKey Responsibilities\nFeature Development: Build new microservices and extend functionality of existing applications.\nCode Maintenance & Optimization: Refactor and enhance performance of existing codebases.\nCode Reviews & Testing: Participate in code reviews and implement automated testing strategies.\nDevOps & CI/CD: Manage deployments using Docker and GitLab pipelines.\nCollaboration: Engage in sprint planning, technical discussions, and contribute to architectural decisions.\n\nYour Profile\n5+ years of professional experience in software development\n3+ years of hands-on experience with Python in production environments\nProficiency with Git and Docker\nFamiliarity with test-driven development (TDD) and automated testing is a plus\nStrong self-initiative and entrepreneurial mindset\nFluent in English\nBased in Germany (remote-friendly role)\n\nWhat We Offer\nFlexible working hours and location\n30 days vacation per year\nRegular team-building events\nAn environment that encourages innovation, with a \"fail fast, learn fast\" mindset\nPersonalized feedback and professional development opportunities\nPension plan\nSupport for hackathons (reimbursement and bonus day off)\n\nLocation\nOur main office is based in Germany and we support a fully remote or hybrid working model. You’re welcome to work from our office or fully remotely — whatever suits you best.\n\nPython Software Engineer | Python | Docker | Git | Backend Development | Germany",
+    "location": "Germany",
+    "easy_apply": true,
+    "apply_info": "Easy Apply",
+    "company_info": "About the company\nEnigma\n31,168 followers\nFollow\nStaffing and Recruiting 2-10 employees 19 on LinkedIn\nHere at Enigma, we specialize in Generative AI recruitment, specifically focused on Machine Learning and Software Engineering disciplines. With a combined experience of 20+ years, we understand the intricacies of finding the perfect role as well as the right talent for your team.\n\nBut what sets Enigma apart? Our consultative approach. We don't just match candidates with job openings; we guide candidates, founders, and hiring managers through the recruitment process. Our value-added services go beyond traditional recruitment efforts, offering services such as recruitment process structuring, salary benchmarking, share allocation, CV reviews and so much more.\n\nWe're more than recruiters – we're partners in your success journey. Our mission is not only to connect you with exceptional talent and companies but also to support your growth and success every step of the way. We're committed to your success. Let us partner with you to connect you with people and companies alike, that will drive growth and innovation for years to come.\n…\nshow more",
+    "hiring_team": [
+      {
+        "name": "Jason Love",
+        "title": "Senior Delivery Consultant at Enigma",
+        "linkedin_url": "https://www.linkedin.com/in/jason-love-97971b22b",
+        "connection_degree": "3rd+"
+      }
+    ],
+    "related_jobs": [
+      {
+        "title": "Graduate Software Engineer",
+        "company": "Bending Spoons",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4246247209",
+        "posted_date": "1 day ago",
+        "insights": [
+          "10 school alumni work here\n10 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Graduate Software Developer - STEM / Physics / Mathematics",
+        "company": "European Tech Recruit",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4242842444",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "HPC and AI Software Architecture Intern - 2025",
+        "company": "NVIDIA",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4228849937",
+        "posted_date": "1 week ago",
+        "insights": [
+          "167 school alumni work here\n167 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Full-Stack Developer | Java (all genders)",
+        "company": "Lucanet",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231746760",
+        "posted_date": "1 day ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Back End Developer",
+        "company": "Arc.dev",
+        "location": "European Union (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231733707",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "3 weeks ago"
+        ]
+      },
+      {
+        "title": "Praktikant:in künstliche Intelligenz",
+        "company": "STTech GmbH",
+        "location": "Greater Munich Metropolitan Area (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231189268",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "3 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "teamative",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249073067",
+        "posted_date": "20 hours ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "20 hours ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer, Frontend",
+        "company": "Chainlink Labs",
+        "location": "Berlin, Berlin, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4212372245",
+        "posted_date": "1 week ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Full Stack Engineer (m/f/d)",
+        "company": "Tomorrow Things",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4238256433",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Werkstudent Softwareentwicklung Generative AI (m/w/d)",
+        "company": "BSH Home Appliances Group",
+        "location": "Munich, Bavaria, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4235428436",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "206 school alumni work here\n206 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Software Developer - Java, Microservices, cloud – Remote - Work with Java Champions - €80,000",
+        "company": "Findr",
+        "location": "Frankfurt, Hesse, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231390329",
+        "posted_date": "2 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Full-Stack Developer (m/w/d) - in SaaS Startup (Remote / Hybrid)",
+        "company": "cinify",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231162925",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "1 school alum works here\n1 Technical University of Munich school alum works here",
+          "3 weeks ago",
+          "Easy Apply"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4247245814/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:19:41.271152",
+    "title": "Software Engineer",
+    "company": "Taskify",
+    "description": "About the job\nCODE & EARN $36/hr | Flexible Remote Gig for Front-End (Remote/Flexible)\n\nAbout the Role:\nWe're hiring a Front-End to join our growing team of passionate technologists. This is an ideal role for early-career developers looking to gain real-world experience, contribute to live projects, and grow under the mentorship of experienced engineers, all while working from anywhere.\n\nWhether you're a recent graduate, self-taught programmer, or switching into tech, this role gives you the opportunity to build your skills in a real development environment, on a flexible schedule that fits your lifestyle.\n\nWhat You'll Do:\nWork on real coding projects in collaboration with cross-functional remote teams\nWrite, test, and debug code in modern programming languages like JavaScript, Python, or Java\nLearn version control (Git), issue tracking, and agile workflows\nParticipate in virtual meetings, peer code reviews, and guided mentorship sessions\nContribute to web or software development projects and gain experience across front-end or back-end systems\nReceive structured feedback and continuous learning support\n\nWhat Were Looking For:\nA foundational understanding of at least one programming language (e.g., HTML/CSS, Python, JavaScript, etc.)\nBasic familiarity with version control (Git), databases, or web development is a plus\nStrong desire to learn and grow in a remote tech environment\nAbility to communicate clearly and collaborate asynchronously\nA proactive mindset and consistent access to a computer and stable internet\n\nReady to take your coding skills to the next level?\nApply today and become part of the AI revolution!",
+    "location": "EMEA",
+    "date_posted": "3 days ago",
+    "easy_apply": true,
+    "apply_info": "Easy Apply",
+    "company_info": "About the company\nTaskify\n59,849 followers\nFollow\nTechnology, Information and Internet 11-50 employees 3 on LinkedIn\nTaskify is more than just a marketplace; it's a growing community where businesses and talented freelancers connect, collaborate, and achieve their goals. We believe in empowering individuals and organizations through flexible work solutions. Whether you're a business looking to scale your team or a freelancer seeking exciting new projects, Taskify provides the tools and network you need to succeed. Join our community and be part of the future of work in India and beyond.\n\nStop struggling to find the right skills. Taskify offers a streamlined marketplace where businesses can quickly and easily hire qualified freelancers for any project. From graphic design and marketing to software development and virtual assistance.\n…\nshow more",
+    "related_jobs": [
+      {
+        "title": "Junior Frontend Software Engineer",
+        "company": "OLX",
+        "location": "Portugal (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4243015709",
+        "posted_date": "1 week ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "Astrolight",
+        "location": "Lithuania (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245432603",
+        "posted_date": "1 day ago",
+        "insights": [
+          "1 day ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer Intern",
+        "company": "Bloomreach",
+        "location": "Slovakia (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4197387713",
+        "posted_date": "6 days ago",
+        "insights": [
+          "1 school alum works here\n1 Technical University of Munich school alum works here",
+          "6 days ago"
+        ]
+      },
+      {
+        "title": "[Full Remote] Graduate Software Engineer",
+        "company": "Joinrs España",
+        "location": "Spain (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4248031100",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "2 hours ago"
+        ]
+      },
+      {
+        "title": "Software Engineering Intern",
+        "company": "SentinelOne",
+        "location": "Prague, Prague, Czechia (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4246501771",
+        "posted_date": "17 hours ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "17 hours ago"
+        ]
+      },
+      {
+        "title": "Junior Backend Developer",
+        "company": "DrCarmen",
+        "location": "Romania (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245880071",
+        "posted_date": "6 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "6 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior Software Engineer, Optimization",
+        "company": "Algolia",
+        "location": "Paris, Île-de-France, France (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4245390482",
+        "posted_date": "2 days ago",
+        "insights": [
+          "3 school alumni work here\n3 Technical University of Munich school alumni work here",
+          "2 days ago"
+        ]
+      },
+      {
+        "title": "Full Stack Engineer",
+        "company": "Fraudio",
+        "location": "Portugal (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4246006478",
+        "posted_date": "1 day ago",
+        "insights": [
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Software Engineering Intern, Activation",
+        "company": "Blockchain.com",
+        "location": "Paris, Île-de-France, France (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249298407",
+        "posted_date": "11 hours ago",
+        "insights": [
+          "5 school alumni work here\n5 Technical University of Munich school alumni work here",
+          "11 hours ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineering Internship",
+        "company": "Multitude",
+        "location": "Bratislava, Bratislava, Slovakia (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4226271257",
+        "posted_date": "1 week ago",
+        "insights": [
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Junior Software Engineer - AI Platform",
+        "company": "Algolia",
+        "location": "Paris, Île-de-France, France (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4193256961",
+        "posted_date": "1 week ago",
+        "insights": [
+          "3 school alumni work here\n3 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4249608201/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:20:06.421861",
+    "title": "Full Stack Developer",
+    "company": "ExaGaming",
+    "description": "About the job\n🚀 We’re Hiring a Full Stack Developer! \n\nAre you a talented Full Stack Developer with a passion for building cutting-edge applications and immersive experiences? We’re looking for someone to join our dynamic team and help us shape the future of interactive development! \n\nImportant Skills;\nPixi.JS\nCocos Creator\n\nWhat You’ll Be Working On:\n- Creating powerful front-end applications with React and Angular. \n- Building efficient, scalable back-end systems using GoLang. \n- Developing engaging, high-performance graphics and games using PixiJS. \n\nWhat We’re Looking For:\n- Proficiency in React and/or Angular with a solid understanding of modern web development practices. \n- Experience with GoLang for back-end development. \n- A passion for working on graphical frameworks like PixiJS (or similar). \n- Strong problem-solving skills and a collaborative mindset. \n\nWhy Join Us? \n- Work on exciting projects in a fast-paced, innovative environment. \n- Be part of a supportive team that values creativity and excellence. \n- Opportunities to grow and refine your skills across diverse technologies. \n\n💡 Ready to make an impact? Let’s connect!",
+    "location": "Germany",
+    "easy_apply": true,
+    "apply_info": "Easy Apply",
+    "company_info": "About the company\nExaGaming\n929 followers\nFollow\nGambling Facilities and Casinos 11-50 employees 13 on LinkedIn\nAt ExaGaming, we are redefining the future of iGaming.\nWe specialize in creating next-generation casino games that deliver exceptional entertainment, engagement, and performance. With a focus on innovation, speed, and reliability, our portfolio includes a wide range of games — from immersive slots to thrilling crash and table games — all designed to meet the evolving needs of players and operators worldwide.\nPowered by cutting-edge technology and a passionate team of creators, we offer fully customizable, mobile-optimized, and regulation-ready solutions that empower our partners to grow and succeed in the highly competitive iGaming market.\nWhether you’re looking for bespoke game development, seamless integration, or a trusted partner to scale your offering, ExaGaming is committed to delivering excellence at every level.\nExaGaming — Play Beyond Limits.\n…\nshow more",
+    "hiring_team": [
+      {
+        "name": "Jonathan Brave",
+        "title": "-",
+        "linkedin_url": "https://www.linkedin.com/in/jonathan-brave-7b1801367",
+        "connection_degree": "3rd+"
+      }
+    ],
+    "related_jobs": [
+      {
+        "title": "Graduate Software Engineer",
+        "company": "Bending Spoons",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4246247209",
+        "posted_date": "1 day ago",
+        "insights": [
+          "10 school alumni work here\n10 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Graduate Software Developer - STEM / Physics / Mathematics",
+        "company": "European Tech Recruit",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4242842444",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "HPC and AI Software Architecture Intern - 2025",
+        "company": "NVIDIA",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4228849937",
+        "posted_date": "1 week ago",
+        "insights": [
+          "167 school alumni work here\n167 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Full-Stack Developer | Java (all genders)",
+        "company": "Lucanet",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231746760",
+        "posted_date": "1 day ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Back End Developer",
+        "company": "Arc.dev",
+        "location": "European Union (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231733707",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "3 weeks ago"
+        ]
+      },
+      {
+        "title": "Praktikant:in künstliche Intelligenz",
+        "company": "STTech GmbH",
+        "location": "Greater Munich Metropolitan Area (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231189268",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "3 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Python Software Engineer | Python | Docker | Git | Backend Development | Germany",
+        "company": "Enigma",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247785305",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "teamative",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249073067",
+        "posted_date": "20 hours ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "20 hours ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer, Frontend",
+        "company": "Chainlink Labs",
+        "location": "Berlin, Berlin, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4212372245",
+        "posted_date": "1 week ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Full Stack Engineer (m/f/d)",
+        "company": "Tomorrow Things",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4238256433",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Werkstudent Softwareentwicklung Generative AI (m/w/d)",
+        "company": "BSH Home Appliances Group",
+        "location": "Munich, Bavaria, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4235428436",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "206 school alumni work here\n206 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "Software Developer - Java, Microservices, cloud – Remote - Work with Java Champions - €80,000",
+        "company": "Findr",
+        "location": "Frankfurt, Hesse, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231390329",
+        "posted_date": "2 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 days ago",
+          "Easy Apply"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4239025972/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:20:31.722362",
+    "title": "Software Engineer (Wikidata) (all genders)",
+    "company": "Wikimedia Deutschland e. V.",
+    "description": "About the job\nFree knowledge leads to a fairer world. Wikipedia is the most important online knowledge collection of our time. The German Wikipedia alone records almost 1 billion page views per month for a total of 3 million articles. We - Wikimedia Deutschland e. V. - support the volunteers of Wikipedia and its sister projects, develop free software, such as Wikidata, and advocate for free access to knowledge, the opening of education and research, and more common good orientation in data policy.\n\nWe are looking for a Software Engineer (all genders) (30-40 hours/week) to join and support one of our agile development teams. This is a permanent contract starting as soon as possible and this position is based in our headquarter in Berlin.\n\nAbout the position & the team:\n\nYou will be working with the team that develops and improves the software behind the Wikidata project. Wikidata is a free and open knowledge graph that can be read and edited by both humans and machines and is a part of the Linked Open Data Network. You will be developing open source software that puts user needs first and increases users’ satisfaction. Wikidata has the clear goal of giving more people more access to more knowledge and you will be part of that!\n\nTechnologies we use:\n\nMost of our server side code is written in PHP and extends the functionality of MediaWiki. For version control we use Git. We use Vue.js and TypeScript for our modern frontends. We also keep migrating our legacy code into these and newer technologies. Also, testing is important to us; we use testing frameworks and practice continuous integration across our projects.\n\nKnowledge and experience in these technologies is not a requirement. We believe they all can be learned on the job and WMDE, your team, and your line manager will support you in this learning.\n\nWhat you’ll be doing: \n\nAmong your tasks there will be the following:\n\nBuild and maintain the functionality of Wikidata and its associated tools, collaborating with the team on finding the best solution to user problems. \nParticipate in all the stages of software development as well as code, design, and do code reviews providing constructive feedback. \nMaintain a good understanding of the technical aspects of the product roadmap as well as the team goals. \nEngage in constantly improving the team processes and agile practices. \n\nWhat makes you right for this role: \n\nYou are passionate and care about software. \nYour background is not important as long as you have a solid understanding and experience with object oriented programming (ideally PHP) and web development. \nYou have an eye for software design and quality and you understand the importance of tests. \nYou like working in a team working towards a common goal, learning together, and supporting and lifting up your peers. \nYou are not afraid of making mistakes, you want to keep learning and developing yourself. \nYou are passionate about Wikimedia’s mission and want to make an impact towards our goal of giving more people more access to free knowledge. \nYou are able to communicate in English with professional proficiency. \n\n Interested? \n\nPlease send us your detailed application documents (Resume & Motivational Letter (yes, we read them)) via our job portal. We kindly ask you to refrain from application photos and information on date of birth, marital status and parents.\n\nWikimedia Germany is committed to equal opportunities and does not discriminate on the basis of, for example, ethnic origin, citizenship, religion or belief, political or other convictions, gender, age, disability, or sexual identity. We would like to address you in the way which feels most comfortable for you so please share your preferred name and pronouns if you wish.",
+    "location": "Berlin, Berlin, Germany",
+    "date_posted": "1 week ago",
+    "easy_apply": false,
+    "apply_info": "https://wikimedia-deutschland.career.softgarden.de/application/?jobId=56640119",
+    "company_info": "About the company\nWikimedia Deutschland e. V.\n5,117 followers\nFollow\nTechnology, Information and Internet 51-200 employees 177 on LinkedIn\nWikimedia Deutschland e. V. ist ein gemeinnütziger Verein, der sich für die Förderung Freien Wissens einsetzt. Seit der Gründung von Wikimedia Deutschland in 2004 unterstützt der Verein verschiedene Wikimedia-Projekte. Die wachsende Bedeutung der Wikimedia-Projekte - allen voran Wikipedia - rechtfertigte die Gründung eines Vereins, der sich gezielt für Öffentlichkeitsarbeit, Spendengewinnung und Infrastruktur einsetzt. Alle Projekte sind Gemeinschaftsprojekte, bei denen jeder mitmachen und die jeder kostenlos nutzen kann. Das größte Projekt ist Wikipedia – die freie Online-Enzyklopädie, die weltweit zu den beliebtesten Websites gehört. Wikipedia setzt sich für den kostenlosen Zugang zu freiem Wissen ein und engagiert sich damit für ein grundlegendes Recht des Menschen auf Bildung. Insgesamt sind mehr als 10 Millionen Artikel in über 260 Sprachen abrufbar. Wikipedia ist, wie auch andere Schwesterprojekte, unabhängig und werbefrei und nur durch freie Mitarbeit und Spenden möglich.\n\nWikimedia Deutschland unterstützt durch intensive Presse- und Öffentlichkeitsarbeit das rasante Wachstum der Wikimedia-Projekte. Image und Bekanntheit der Wikimedia-Projekte in der Öffentlichkeit weiter zu fördern ist eines unserer Kernziele. Wir organisieren Schreibwettbewerbe, veranstalten Workshops, realisieren Kooperationen, organisieren Messeauftritte und planen Veranstaltungen, Vorträge und Symposien. Darüberhinaus setzen wir uns für umfangreiche technische und administrative Aufgaben ein.\n…\nshow more",
+    "related_jobs": [
+      {
+        "title": "Software Engineer",
+        "company": "Quantcast",
+        "location": "Berlin, Berlin, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4223391623",
+        "posted_date": "1 week ago",
+        "insights": [
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Working Student in Web Development (m/f/d)",
+        "company": "KEWAZO",
+        "location": "Garching, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4229808994",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Working Student (m/f/d) – Software Engineer",
+        "company": "Dassault Systèmes",
+        "location": "Darmstadt, Hesse, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4248313795",
+        "posted_date": "1 day ago",
+        "insights": [
+          "73 school alumni work here\n73 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Junior Software Engineer",
+        "company": "Eclectic Recruitment Ltd",
+        "location": "Düsseldorf, North Rhine-Westphalia, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4248025048",
+        "posted_date": "2 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Full Stack Developer",
+        "company": "ExaGaming",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249608201",
+        "posted_date": "1 hour ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "1 hour ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Graduate Software Developer - STEM / Physics / Mathematics",
+        "company": "European Tech Recruit",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4242842444",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Fullstack Engineer - Working Student @Frankfurt (m/w/d)",
+        "company": "Bavest",
+        "location": "Frankfurt am Main, Hesse, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4242772153",
+        "posted_date": "5 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "5 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Graduate Software Engineer",
+        "company": "European Tech Recruit",
+        "location": "Munich, Bavaria, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4243872315",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior C++ Software Developer (m/f/d)",
+        "company": "Straumann Group",
+        "location": "Berlin, Berlin, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4223870318",
+        "posted_date": "1 week ago",
+        "insights": [
+          "7 school alumni work here\n7 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Software Developer Python (D/M/W)",
+        "company": "WEBSALE AG",
+        "location": "Nuremberg, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4236584910",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "2 weeks ago"
+        ]
+      },
+      {
+        "title": "LLM Solutions Developer",
+        "company": "Lime Technologies",
+        "location": "Cologne, North Rhine-Westphalia, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4244593187",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior Software Engineer - Inventory Offering (all genders)",
+        "company": "Zalando",
+        "location": "Dortmund, North Rhine-Westphalia, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4238787632",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "26 school alumni work here\n26 Technical University of Munich school alumni work here",
+          "2 weeks ago"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4242707194/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:21:00.897190",
+    "title": "Junior Web Developer (m/w/d)",
+    "company": "FinMent",
+    "description": "About the job\nUnsere Mission: “Lass Dein Geld noch effizienter für Dich arbeiten!”\n\nWir sind FinMent - ein schnell wachsendes, zweifach staatlich zertifiziertes FinTech Startup in Berlin. Wir demokratisieren das Wissen und den Zugang zur institutionellen Geldanlage mithilfe von innovativen Technologien, geprüftem Finanzwissen und exklusiven Strategien, die bisher nur institutionellen Investoren (Family Offices) mit +200 Millionen Euro Mindestkapital vorbehalten waren.\n\nBegeisterst du Dich für Finanzen und bist du bereit, in einem profitabel wachsenden FinTech Start Up Deine Karriere durchstarten?\n\nUnser Highlight-Benefit für Dich: Erreiche mit uns Deine finanzielle Freiheit! Du erhältst exklusiven Zugang zu unseren Strategien, Wissen und unserer Software im Wert von 30.000 € – und das komplett kostenlos.\n\nDirekter Einfluss auf die Unternehmensentwicklung: Werde Teil unseres Wachstums und nutze die Gelegenheit, strategische Wachstumsinitiativen zu gestalten und den Erfolg des Unternehmens aktiv mitzubestimmen.\n\nKarriere mit Perspektive: Bei uns warten langfristige Entwicklungsmöglichkeiten auf Dich – ob als Experte oder in einer Führungsrolle, wir fördern Deine Ambitionen und begleiten Dich auf Deinem Karriereweg.\n\nUnd das ist nur der Anfang! Entdecke weitere Vorteile unten und gestalte mit uns die Zukunft der Finanzwelt – Sei dabei und mach mit uns den nächsten großen Schritt!\n\nAufgaben\nWas Dich erwartet\n\nAls Mitglied in unserem Produktentwicklungsteam übernimmst du eine Schlüsselrolle als Programmierer im Frontend und Backend.\n\n\nDu bist in den ganzheitlichen Entwicklungsprozess von unseren Finanzplattform eingebunden. Du identifizierst und entwickelst neue Features alles rund um Börsenhandel und Finanzielle Unabhängigkeit.\n\nDu entwickelst in einer dynamischen Startup Umgebung die neue Generation von Investmentsystemen für Privatanleger.\n\nDu unterstützt und entwickelst unserer Finanzplattform im Front und Backend.\n\nDu optimierst alle unternehmensinternen Prozesse und Algorithmen.\n\nDu gestaltest als Mitglied eines agilen Teams den Scrum-Prozess aktiv mit und begleitest alle Phasen von der Planung bis zur Retro mit.\n\n\nQualifikation\nWir gehen davon aus, dass Du ein Experte in deinem Themenbereich sein willst und bereit dafür bist, sich konstant weiterzuentwickeln - auch bei herausfordernden Aufgaben findest Du schnelle Lösungen und überzeugst mit starken Ideen.\n\n\nProgrammieren ist deine Leidenschaft und du bist ein Clean Coder.\n\nDu kennst die grundlegenden Frontend-Technologien wie JavaScript, React.js, HTML5, CSS. Dabei hast du eine präzise und detailverliebte Arbeitsweise.\n\nDu bist ein Programmier-Allrounder, der sich durch seine Hands-on-Mentalität stetig weiterentwickeln möchte und Dinge gerne anpackt\n\nDu möchtest und kannst Verantwortung für Deinen Themenbereich übernehmen, um daraus schnell persönlich zu wachsen.\n\nDu packst Dinge an. Dabei bist du diszipliniert, eigenständig und ergebnisorientiert.\n\nDein Deutsch ist idealerweise auf C1 Level. Dein Englisch ist gut für Konversationen. \n\n\nMan erfüllt nicht immer alle Anforderungen. Das sollte Dich nicht aufhalten. Wenn Du wirklich Lust hast, mit uns zusammenzuarbeiten, freuen wir uns von Dir zu hören!\n\nBenefits\nWas wir bieten\n\nWir bieten dir nicht nur einen Job an, sondern Du wirst ein Mitglied unseres High-Performance-Teams, bestehend aus Digital- und Investment-Experten und nimmst eine bedeutende Rolle bei der Demokratisierung der Geldanlage ein. Daneben bieten wir Dir:\n\n\nEin positives Arbeitsumfeld: Wohlfühlatmosphäre und ein kollegialer und familiärer Umgang mit gemeinsamen Freizeitaktivitäten und Teamevents.\n\nEigener Verantwortungsbereich: Verantwortung für den Erfolg deines Bereichs mit direkter Auswirkung auf die Unternehmensentwicklung.\n\nEchte Start-Up Atmosphäre: Kurze Entscheidungswege und direkter Kontakt zu der strategischen Geschäftsführung.\n\nModerne Arbeitsumgebung: Modernes Office mit einer sehr guten Verkehrsanbindung und arbeite mit State-of-the-Art Technologie.\n\nPersönliche Weiterbildung: Jährliches Weiterbildungsbudget bis zu 5.000€ und Fachwissen von Unternehmensexperten.\n\nZugang zu FinMent Produkten: Baue dein Vermögen mit regelmäßigem Börseneinkommen auf.\n\nSteile Karrierechancen: Nimm langfristig eine Rolle als Experte und /oder Führungskraft ein.\n\n\nBist Du bereit zu den Digital-Pionieren in der Finanzbranche zu gehören?\n\nWir sind bestrebt unsere Gemeinschaft einen weiten Schritt nach vorne zu bringen und mit unserer Arbeit einen entscheidenden Einfluss auf die Welt auszuüben. Wir ermöglichen, dass nicht nur unsere Kunden, sondern auch alle unsere Mitarbeiter ihre finanzielle Freiheit erreichen, um ihre großen Träume zu verwirklichen und ein Leben nach ihren Wunschvorstellungen zu genießen.\n\nWenn du nach persönlichem und beruflichem Wachstum strebst und nach dem passenden positivem Umfeld suchst, bewirb dich jetzt!\n\nWerde Teil unserer Erfolgsstory und gestalte mit uns die Zukunft der privaten Geldanlage im Rahmen der finanziellen Unabhängigkeit!\n\nSchick uns Deinen Lebenslauf und ein Arbeitsproben, die du schon verfasst hast.\n\nWir freuen uns darauf dich kennenzulernen!\n\nFalls Du vorab Fragen hast, kannst Du uns direkt kontaktieren.\n\nAnsprechperson:\n\nMaksat Munal\n\nPersonalverantwortlicher\n\nTel: +49 (0)30 606 902 41",
+    "location": "Berlin, Berlin, Germany",
+    "date_posted": "6 days ago",
+    "easy_apply": false,
+    "apply_info": "https://join.com/companies/finment/14280665-junior-web-developer-m-w-d?pid=e65242534431eadcb0c9",
+    "company_info": "About the company\nFinMent\n1,447 followers\nFollow\nProfessional Training and Coaching 11-50 employees 9 on LinkedIn\nWir sind der erste staatlich geprüfte Anbieter von praxisorientiertem Wissen und Werkzeugen, um an der Börse erfolgreich anzulegen.\nDurch die staatliche Zertifizierung sind wir unabhängig von allen Banken und zeigen welche Methoden wirklich funktionieren, um das Maximale aus Ihrem Kapital herausholen.\n\nFinMent zeigt Ihnen in einem kompletten und strukturierten Programm, wie Sie unabhängig und krisensicher Geld an der Börse verdienen.\nDabei benötigen Sie keine Vorkenntnisse. Sie können mit einem kleinen oder großen Konto starten und mit einem geringen Zeitaufwand nebenberuflich Ihr Vermögen aufbauen.\n\nSchon über 2.000 private und institutionelle Anleger profitieren von den FinMent-Handels-Strategien und wurden bei der Umsetzung begleitet.\n\nWorauf warten Sie noch?\n…\nshow more",
+    "related_jobs": [
+      {
+        "title": "2025 Graduate Front End Engineer",
+        "company": "Amazon Web Services (AWS)",
+        "location": "Berlin, Berlin, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4193305034",
+        "posted_date": "1 week ago",
+        "insights": [
+          "241 school alumni work here\n241 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Junior Software Engineer",
+        "company": "Eclectic Recruitment Ltd",
+        "location": "Düsseldorf, North Rhine-Westphalia, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4248025048",
+        "posted_date": "2 days ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 days ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Working Student in Web Development (m/f/d)",
+        "company": "KEWAZO",
+        "location": "Garching, Bavaria, Germany (On-site)",
+        "url": "https://www.linkedin.com/jobs/view/4229808994",
+        "posted_date": "2 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "2 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Junior C++ Software Developer (m/f/d)",
+        "company": "Straumann Group",
+        "location": "Berlin, Berlin, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4223870318",
+        "posted_date": "1 week ago",
+        "insights": [
+          "7 school alumni work here\n7 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "(Full Remote) Junior Full Stack Developer",
+        "company": "Joinrs Deutschland",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247408220",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "2 hours ago"
+        ]
+      },
+      {
+        "title": "2025 Graduate Software Dev Engineer",
+        "company": "Amazon Web Services (AWS)",
+        "location": "Munich, Bavaria, Germany",
+        "url": "https://www.linkedin.com/jobs/view/4047072261",
+        "posted_date": "3 days ago",
+        "insights": [
+          "241 school alumni work here\n241 Technical University of Munich school alumni work here",
+          "3 days ago"
+        ]
+      },
+      {
+        "title": "Back End Developer",
+        "company": "Arc.dev",
+        "location": "European Union (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231733707",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "3 weeks ago"
+        ]
+      },
+      {
+        "title": "(Junior) Frontend Developer",
+        "company": "Kijimea (SYNformulas GmbH)",
+        "location": "Munich, Bavaria, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4248018904",
+        "posted_date": "2 days ago",
+        "insights": [
+          "3 school alumni work here\n3 Technical University of Munich school alumni work here",
+          "2 days ago"
+        ]
+      },
+      {
+        "title": "Graduate Software Engineer",
+        "company": "European Tech Recruit",
+        "location": "Munich, Bavaria, Germany (Hybrid)",
+        "url": "https://www.linkedin.com/jobs/view/4243872315",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/jobs/view/4240897765/",
+    "source": "linkedin",
+    "scraped_at": "2025-06-12T12:21:29.488932",
+    "title": "Software Engineer für LLM, Chatbots & Machine Learning (m/w/d)",
+    "company": "Prelytics",
+    "description": "About the job\nDeine Aufgaben\n\n\nEntwicklung und Optimierung innovativer Chatbot-, LLM- und Machine-Learning-Lösungen für spannende Forschungsprojekte\n\nMitarbeit an Innovationsprojekten in den Bereichen Energie, Gesundheit und Finanzen\n\nDesign und Implementierung moderner Schnittstellen, Funktionen und Demonstratoren mit modernsten Technologien und Frameworks\n\nKonzeption von Software-Architekturen (z. B. RAG, Agentensysteme) und Entwicklung neuer Systeme basierend auf deinen kreativen Ideen\n\n\nAufgaben\nDeine Aufgaben\n\n\nEntwicklung und Optimierung innovativer Chatbot-, LLM- und Machine-Learning-Lösungen für spannende Forschungsprojekte\n\nMitarbeit an Innovationsprojekten in den Bereichen Energie, Gesundheit und Finanzen\n\nDesign und Implementierung moderner Schnittstellen, Funktionen und Demonstratoren mit modernsten Technologien und Frameworks\n\nKonzeption von Software-Architekturen (z. B. RAG, Agentensysteme) und Entwicklung neuer Systeme basierend auf deinen kreativen Ideen\n\n\nQualifikation\nDein Profil\n\n\nAbgeschlossenes oder fortgeschrittenes Studium in Informatik, Wirtschaftsinformatik, Elektrotechnik, Maschinenbau, Physik, Mathematik oder einem vergleichbaren Studiengang\n\nFundierte Programmierkenntnisse in Python und Erfahrung mit GIT\n\nExpertise in mindestens einem der Bereiche: LLM, RAG/CAG, Agentensysteme oder Computer Vision\n\nSehr gute Deutsch- oder Englischkenntnisse in Wort und Schrift\n\n\nBenefits\nDeine Vorteile\n\n\nFlache Hierarchien und Raum für Eigeninitiative in einem dynamischen Team\n\nLearning by Doing: Eigenverantwortliches Arbeiten und Ausprobieren neuer Ansätze\n\nOffene Fehlerkultur: Deine Ideen sind willkommen – wachse durch kreative Freiheit\n\nZusammenarbeit in einem jungen, motivierten Team mit gegenseitiger Unterstützung\n\nFlexible Arbeitszeiten für optimale Vereinbarkeit von Studium, Privatleben und Job\n\n100 % Home-Office oder Präsenz in Mülheim an der Ruhr\n\n\nWerde Teil unseres Teams und gestalte die Zukunft der KI mit uns! Sende uns Deine Bewerbung (CV, Zeugnisse und Link auf Dein GIT oder eigene Softwareprojekte reichen). Wir freuen uns auf Dich!",
+    "location": "Germany",
+    "date_posted": "1 week ago",
+    "easy_apply": false,
+    "apply_info": "https://join.com/companies/u-glowde/14275922-software-engineer-fuer-llm-chatbots-und-machine-learning-m-w-d?pid=e65242534431eadcb0c9",
+    "company_info": "About the company\nPrelytics\n82 followers\nFollow\nIT Services and IT Consulting 2-10 employees 1 on LinkedIn\nPrelytics, your dedicated partner in data engineering, data mining, and machine learning (ML). With a keen knowledge of software engineering, we're equipped to tackle complex challenges and optimize professional processes.\n\nKey Domains:\n- Data Analytics\n- Process Automation\n- IT-Security/ OT Security (Cybersecurity)\n- Internet of Things (IoT)\n\nEmploying advanced algorithms as our primary tools, we elevate performance by closely monitoring and analyzing processes with precision.\nWith our profound expertise in these key domains, we can delve deep into your processes to achieve more efficient operations and cost reductions.\n\nConnect with us to explore how we can reshape your business with data-driven strategies.\n…\nshow more",
+    "related_jobs": [
+      {
+        "title": "Graduate Software Engineer",
+        "company": "Bending Spoons",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4246247209",
+        "posted_date": "1 day ago",
+        "insights": [
+          "10 school alumni work here\n10 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Graduate Software Developer - STEM / Physics / Mathematics",
+        "company": "European Tech Recruit",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4242842444",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Fullstack Developer React Django",
+        "company": "MULI",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4248690938",
+        "posted_date": "1 day ago",
+        "insights": [
+          "1 day ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Full-Stack Engineer",
+        "company": "ElevenLabs",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4019346130",
+        "posted_date": "1 week ago",
+        "insights": [
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "Full-Stack Developer | Java (all genders)",
+        "company": "Lucanet",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231746760",
+        "posted_date": "1 day ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 day ago"
+        ]
+      },
+      {
+        "title": "Praktikant:in künstliche Intelligenz",
+        "company": "STTech GmbH",
+        "location": "Greater Munich Metropolitan Area (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231189268",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "3 weeks ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Software Engineer, Frontend",
+        "company": "Chainlink Labs",
+        "location": "Berlin, Berlin, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4212372245",
+        "posted_date": "1 week ago",
+        "insights": [
+          "2 school alumni work here\n2 Technical University of Munich school alumni work here",
+          "1 week ago"
+        ]
+      },
+      {
+        "title": "(Full Remote) Junior Full Stack Developer",
+        "company": "Joinrs Deutschland",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4247408220",
+        "posted_date": "2 hours ago",
+        "insights": [
+          "2 hours ago"
+        ]
+      },
+      {
+        "title": "Python-Entwickler",
+        "company": "automait",
+        "location": "North Rhine-Westphalia, Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4248213072",
+        "posted_date": "1 day ago",
+        "insights": [
+          "1 day ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Back End Developer",
+        "company": "Arc.dev",
+        "location": "European Union (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4231733707",
+        "posted_date": "3 weeks ago",
+        "insights": [
+          "3 weeks ago"
+        ]
+      },
+      {
+        "title": "Software Engineer",
+        "company": "teamative",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4249073067",
+        "posted_date": "20 hours ago",
+        "insights": [
+          "Company review time is typically 1 week",
+          "20 hours ago",
+          "Easy Apply"
+        ]
+      },
+      {
+        "title": "Freelance Back End Engineer",
+        "company": "HartleyCo",
+        "location": "Germany (Remote)",
+        "url": "https://www.linkedin.com/jobs/view/4241218814",
+        "posted_date": "1 week ago",
+        "insights": [
+          "Actively reviewing applicants",
+          "1 week ago",
+          "Easy Apply"
+        ]
+      }
+    ]
+  }
+]
