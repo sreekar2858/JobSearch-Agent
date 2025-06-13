@@ -1,0 +1,14 @@
+# Requirements for LinkedIn Scraper Playwright Implementation
+
+# Core dependencies
+playwright>=1.40.0
+python-dotenv>=1.0.0
+
+# Async support (included in Python 3.7+)
+asyncio
+
+# For compatibility with existing code
+typing-extensions>=4.0.0
+
+# Optional: Enhanced logging
+colorlog>=6.0.0
