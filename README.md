@@ -12,92 +12,185 @@
   </a>
 </p>
 
-An intelligent job search automation system with advanced LinkedIn scraping capabilities, CV generation, and cover letter creation powered by AI agents. This comprehensive toolkit extracts rich job data, including company information, hiring team details, related positions, and complete job descriptions, making it perfect for job seekers who want detailed insights and automated application materials.
+An intelligent job search automation system with **LinkedIn scraping**, **AI-powered CV generation**, and **cover letter creation**. Extract detailed job data, company information, and hiring team details with advanced anonymization and proxy support.
 
 ---
 
 ## 🚀 Quick Start
 
-### LinkedIn Job Scraping
-Extract jobs from LinkedIn search results or individual job URLs with flexible browser support and output options.
+### 1. Installation
+```bash
+git clone https://github.com/sreekar2858/JobSearch-Agent.git
+cd JobSearch-Agent
+pip install -r requirements.txt
+```
 
-### AI-Powered Processing
-Generate tailored CVs and cover letters using multi-agent AI systems for professional applications.
+### 2. Setup (Optional but Recommended)
+Create a `.env` file for enhanced features:
+```env
+# LinkedIn credentials (for better scraping results)
+LINKEDIN_USERNAME=your_email@example.com
+LINKEDIN_PASSWORD=your_password
 
-### API & CLI Access
-Use via command line interface or REST API with WebSocket support for web integrations.
+# AI API key (for CV/cover letter generation)  
+GOOGLE_API_KEY=your_gemini_api_key
+```
 
----
+### 3. Start Scraping
+```bash
+# LinkedIn job search
+python -m src.scraper.search.linkedin_scraper_playwright "Software Engineer" "San Francisco" --max-jobs 10
 
-## 🎯 Key Features
+# Get credentials for job sites
+python -m src.scraper.buggmenot --website glassdoor.com
 
-### 🔍 **Advanced LinkedIn Scraper**
-- **Dual Extraction Modes**: Search by keywords/location OR extract from specific job URLs
-- **Multi-Browser Support**: Chrome (default) or Firefox with automatic fallback
-- **Smart Sorting**: Sort results by relevance or recency
-- **Flexible Output**: Full job details or fast link-only collection
-- **Rich Data**: Titles, companies, descriptions, requirements, salaries, application URLs
-- **Company Intelligence**: Detailed profiles, employee counts, hiring team information
-- **Anti-Detection**: Stealth browsing with CAPTCHA handling and rate limiting
-
-### 🤖 **AI-Powered Job Processing**
-- **Intelligent Parsing**: Extract structured data from unformatted job descriptions
-- **Custom CV Generation**: Tailored CVs for specific job applications
-- **Personalized Cover Letters**: Compelling letters matched to job requirements
-- **Multi-Agent Architecture**: Specialized agents for critique, fact-checking, and refinement
-- **Bulk Processing**: Handle multiple applications efficiently
-- **Template Integration**: Works with Word and text templates
-
-### 🌐 **API & Integration**
-- **REST API**: HTTP endpoints for job search, parsing, and document generation
-- **WebSocket Support**: Real-time progress updates and interactive communication
-- **React Integration**: Ready-to-use examples for web applications
-- **Background Processing**: Asynchronous task handling
-- **File Downloads**: Direct access to generated documents
+# Extract from specific job URL
+python -m src.scraper.search.linkedin_scraper_playwright --job-url "https://linkedin.com/jobs/view/123456789"
+```
 
 ---
 
-## 📋 Requirements
+## 🔧 Main Tools
 
-- **Python 3.10+**
-- **Browser**: Chrome or Firefox (Chrome recommended)
-- **LinkedIn Account**: For enhanced scraping capabilities
-- **AI API Keys**: For CV/cover letter generation (Google Gemini or OpenAI)
+### 🔍 **LinkedIn Scraper (Playwright)**
+Advanced LinkedIn job scraper with anonymization and proxy support:
 
----
-
-## 🛠️ Installation
-
-1. **Clone repository and install dependencies**
-   ```bash
-   git clone https://github.com/sreekar2858/JobSearch-Agent.git
-   cd JobSearch-Agent
-   pip install -r requirements.txt
-   ```
-
-2. **Configure environment** (create `.env` file)
-   ```env
-   LINKEDIN_USERNAME=your_email@example.com
-   LINKEDIN_PASSWORD=your_password
-   GOOGLE_API_KEY=your_gemini_api_key
-   ```
-
----
-
-## 🔧 Usage Overview
-
-### LinkedIn Scraper
-
-**Search Mode Examples:**
 ```bash
 # Basic search
-python extract_linkedin_jobs.py "Software Engineer" "Berlin" --jobs 15
+python -m src.scraper.search.linkedin_scraper_playwright "Python Developer" "Remote" --max-jobs 5
 
-# Advanced options
-python extract_linkedin_jobs.py "Data Scientist" "Remote" --browser firefox --sort recency --links-only
+# With browser options
+python -m src.scraper.search.linkedin_scraper_playwright "Data Scientist" "NYC" --browser firefox --headless
 
-# Multiple locations
-python main.py search "Python Developer" --locations "Berlin" "Munich" --max-jobs 25
+# With anonymization disabled
+python -m src.scraper.search.linkedin_scraper_playwright "DevOps Engineer" "Berlin" --no-anonymize
+
+# With proxy
+python -m src.scraper.search.linkedin_scraper_playwright "ML Engineer" "London" --proxy http://proxy:8080
+```
+
+**Key Features:**
+- ✅ **Multi-browser support** (Chromium, Firefox, WebKit)
+- ✅ **Anonymization** (random user agents, timezone, WebGL blocking)
+- ✅ **Proxy support** (HTTP/SOCKS5)
+- ✅ **Robust data extraction** (job details, company info, hiring team)
+- ✅ **Rate limiting protection**
+
+### 🔐 **BugMeNot Scraper**
+Get login credentials for job sites:
+
+```bash
+# Basic usage
+python -m src.scraper.buggmenot --website economist.com
+
+# With browser visible
+python -m src.scraper.buggmenot --website nytimes.com --visible
+
+# With proxy
+python -m src.scraper.buggmenot --website wsj.com --proxy socks5://proxy:1080
+```
+
+### 🤖 **AI Job Processing**
+Generate CVs and cover letters (requires AI API key):
+
+```bash
+# Process job data and generate documents
+python main.py search "Frontend Developer" --locations "Berlin" --generate-cv --generate-cover-letter
+
+# Start API server
+python main_api.py
+# Visit http://localhost:8000/docs for API documentation
+```
+
+---
+
+## 📁 Project Structure
+
+```
+JobSearch-Agent/
+├── src/scraper/
+│   ├── search/linkedin_scraper_playwright/    # LinkedIn scraper
+│   └── buggmenot/                             # BugMeNot scraper
+├── src/agents/                                # AI agents
+├── output/                                    # Scraped data & generated files
+├── config/                                    # Configuration files
+└── docs/                                      # Detailed documentation
+```
+
+---
+
+## 📖 Documentation
+
+For detailed instructions and advanced features, see:
+
+- **[LinkedIn Scraper Guide](src/scraper/search/linkedin_scraper_playwright/README.md)** - Complete scraper documentation with API usage, CLI options, and performance tips
+- **[BugMeNot Scraper Guide](src/scraper/buggmenot/README.md)** - Credential scraper details  
+- **[API Documentation](docs/API.md)** - REST API reference
+- **[Advanced Configuration](docs/ADVANCED_CONFIGURATION.md)** - Production setup
+- **[Development Guide](docs/DEVELOPMENT.md)** - Contributing guidelines
+
+---
+
+## ⚡ Common Commands
+
+```bash
+# LinkedIn job search with 20 results
+python -m src.scraper.search.linkedin_scraper_playwright "Software Engineer" "Remote" --max-jobs 20
+
+# LinkedIn search with filters
+python -m src.scraper.search.linkedin_scraper_playwright "Data Scientist" "SF" --experience-levels "mid_senior" --date-posted "past_week"
+
+# Get job details from specific URL
+python -m src.scraper.search.linkedin_scraper_playwright --job-url "https://linkedin.com/jobs/view/4243594281/"
+
+# BugMeNot credentials
+python -m src.scraper.buggmenot --website glassdoor.com --output credentials.json
+
+# Links only (fast collection)
+python -m src.scraper.search.linkedin_scraper_playwright "Python" "NYC" --links-only --max-pages 3
+
+# Help for any tool
+python -m src.scraper.search.linkedin_scraper_playwright --help
+python -m src.scraper.buggmenot --help
+```
+
+---
+
+## 🛡️ Features
+
+- **🔒 Anonymization**: Random user agents, timezone/language randomization, WebGL/Canvas/WebRTC blocking
+- **🌐 Proxy Support**: HTTP and SOCKS5 proxy configuration for both scrapers  
+- **📊 Rich Data**: Complete job descriptions, company info, hiring team details, related jobs
+- **🚀 Fast & Robust**: Optimized selectors, retry logic, rate limiting protection
+- **🔧 Flexible**: CLI arguments, module execution, programmatic usage
+
+---
+
+## ⚠️ Important Notes
+
+- **LinkedIn Login**: Recommended for better scraping results and fewer rate limits
+- **Responsible Usage**: Respect rate limits, use delays between requests
+- **Browser Support**: Chromium recommended for LinkedIn (best compatibility)
+- **Proxy Usage**: For additional anonymization and geographic flexibility
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! See [DEVELOPMENT.md](docs/DEVELOPMENT.md) for guidelines.
+
+---
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
+---
+
+**Need Help?** 
+- Check the [troubleshooting section](docs/ADVANCED_CONFIGURATION.md#troubleshooting) 
+- Review [examples](examples/) for usage patterns
+- Open an [issue](https://github.com/sreekar2858/JobSearch-Agent/issues) for support
 ```
 
 **Single Job Mode:**

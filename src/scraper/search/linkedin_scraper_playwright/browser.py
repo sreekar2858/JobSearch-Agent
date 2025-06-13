@@ -4,6 +4,7 @@ Browser setup, navigation, retries, and scrolling functionality using Playwright
 
 import asyncio
 import logging
+import random
 from typing import Optional, List
 
 from playwright.async_api import async_playwright, Browser, BrowserContext, Page
@@ -19,7 +20,11 @@ from .config import (
     NAVIGATION_MIN_SLEEP,
     NAVIGATION_MAX_SLEEP,
     DEFAULT_TIMEOUT,
-    BROWSER_ARGS
+    BROWSER_ARGS,
+    ANONYMIZATION_CONFIG,
+    USER_AGENTS_POOL,
+    TIMEZONE_OPTIONS,
+    LANGUAGE_OPTIONS
 )
 from .utils import async_random_sleep
 from .extractors.selectors import JOB_LIST_CONTAINER_SELECTORS, JOB_CARD_SELECTORS
@@ -30,7 +35,8 @@ logger = logging.getLogger("linkedin_scraper")
 class BrowserManager:
     """Manages browser setup, navigation, and scrolling operations using Playwright."""
     
-    def __init__(self, browser: str = "chromium", headless: bool = False, timeout: int = DEFAULT_TIMEOUT):
+    def __init__(self, browser: str = "chromium", headless: bool = False, timeout: int = DEFAULT_TIMEOUT, 
+                 proxy: str = None, anonymize: bool = True):
         """
         Initialize browser manager.
         
@@ -38,10 +44,14 @@ class BrowserManager:
             browser: Browser type ('chromium', 'firefox', or 'webkit')
             headless: Whether to run in headless mode
             timeout: Default timeout for operations in milliseconds
+            proxy: Proxy string in format "http://host:port" or "socks5://host:port"
+            anonymize: Whether to enable anonymization features
         """
         self.browser = browser.lower()
         self.headless = headless
         self.timeout = timeout
+        self.proxy = proxy
+        self.anonymize = anonymize
         self.playwright = None
         self.browser_instance = None
         self.context = None
@@ -64,63 +74,201 @@ class BrowserManager:
         elif self.browser == "webkit":
             await self._setup_webkit_browser()
         else:
-            raise ValueError(f"Unsupported browser: {self.browser}")
-
-        # Common setup for all browsers
+            raise ValueError(f"Unsupported browser: {self.browser}")        # Common setup for all browsers
         await self.page.set_viewport_size({"width": 1920, "height": 1080})
 
     async def _setup_chromium_browser(self) -> None:
-        """Set up the Chromium browser."""
-        self.browser_instance = await self.playwright.chromium.launch(
-            headless=self.headless,
-            args=BROWSER_ARGS
-        )
+        """Set up the Chromium browser with anonymization and proxy support."""
+        # Prepare launch args
+        launch_args = BROWSER_ARGS.copy()
         
-        self.context = await self.browser_instance.new_context(
-            user_agent=CHROME_USER_AGENT,
-            viewport={"width": 1920, "height": 1080}
-        )
+        # Add proxy support if specified
+        launch_options = {
+            "headless": self.headless,
+            "args": launch_args
+        }
         
-        # Add script to remove webdriver property
-        await self.context.add_init_script("""
-            Object.defineProperty(navigator, 'webdriver', {
-                get: () => undefined,
-            });
-        """)
+        if self.proxy:
+            # Parse proxy format
+            if self.proxy.startswith(("http://", "https://", "socks5://")):
+                proxy_config = {"server": self.proxy}
+                logger.info(f"Using proxy: {self.proxy}")
+            else:
+                # Assume http if no protocol specified
+                proxy_config = {"server": f"http://{self.proxy}"}
+                logger.info(f"Using proxy: http://{self.proxy}")
+        else:
+            proxy_config = None
+        
+        self.browser_instance = await self.playwright.chromium.launch(**launch_options)
+        
+        # Prepare context options with anonymization
+        context_options = {
+            "viewport": {"width": 1920, "height": 1080}
+        }
+        
+        # Add proxy to context if specified
+        if proxy_config:
+            context_options["proxy"] = proxy_config
+        
+        # Anonymization features
+        if self.anonymize:
+            # Randomize user agent
+            if ANONYMIZATION_CONFIG.get("randomize_user_agent"):
+                context_options["user_agent"] = random.choice(USER_AGENTS_POOL)
+            else:
+                context_options["user_agent"] = CHROME_USER_AGENT
+                
+            # Randomize timezone
+            if ANONYMIZATION_CONFIG.get("randomize_timezone"):
+                context_options["timezone_id"] = random.choice(TIMEZONE_OPTIONS)
+                
+            # Randomize language
+            if ANONYMIZATION_CONFIG.get("randomize_language"):
+                context_options["locale"] = random.choice(LANGUAGE_OPTIONS).split(',')[0]
+        else:
+            context_options["user_agent"] = CHROME_USER_AGENT
+        
+        self.context = await self.browser_instance.new_context(**context_options)
+        
+        # Enhanced anonymization scripts
+        if self.anonymize:
+            await self._add_anonymization_scripts()
+        else:
+            # Basic webdriver removal
+            await self.context.add_init_script("""
+                Object.defineProperty(navigator, 'webdriver', {
+                    get: () => undefined,
+                });            """)
         
         self.page = await self.context.new_page()
 
     async def _setup_firefox_browser(self) -> None:
-        """Set up the Firefox browser."""
-        self.browser_instance = await self.playwright.firefox.launch(
-            headless=self.headless,
-            args=["--disable-blink-features=AutomationControlled"]
-        )
+        """Set up the Firefox browser with anonymization and proxy support."""
+        # Prepare launch args
+        launch_args = ["--disable-blink-features=AutomationControlled"]
         
-        self.context = await self.browser_instance.new_context(
-            user_agent=FIREFOX_USER_AGENT,
-            viewport={"width": 1920, "height": 1080}
-        )
+        # Add proxy support if specified
+        launch_options = {
+            "headless": self.headless,
+            "args": launch_args
+        }
         
-        # Add script to remove webdriver property
-        await self.context.add_init_script("""
-            Object.defineProperty(navigator, 'webdriver', {
-                get: () => undefined,
-            });
-        """)
+        if self.proxy:
+            # Parse proxy format
+            if self.proxy.startswith(("http://", "https://", "socks5://")):
+                proxy_config = {"server": self.proxy}
+                logger.info(f"Using proxy: {self.proxy}")
+            else:
+                # Assume http if no protocol specified
+                proxy_config = {"server": f"http://{self.proxy}"}
+                logger.info(f"Using proxy: http://{self.proxy}")
+        else:
+            proxy_config = None
+        
+        self.browser_instance = await self.playwright.firefox.launch(**launch_options)
+        
+        # Prepare context options with anonymization
+        context_options = {
+            "viewport": {"width": 1920, "height": 1080}
+        }
+        
+        # Add proxy to context if specified
+        if proxy_config:
+            context_options["proxy"] = proxy_config
+        
+        # Anonymization features
+        if self.anonymize:
+            # Randomize user agent
+            if ANONYMIZATION_CONFIG.get("randomize_user_agent"):
+                context_options["user_agent"] = random.choice(USER_AGENTS_POOL)
+            else:
+                context_options["user_agent"] = FIREFOX_USER_AGENT
+                
+            # Randomize timezone
+            if ANONYMIZATION_CONFIG.get("randomize_timezone"):
+                context_options["timezone_id"] = random.choice(TIMEZONE_OPTIONS)
+                
+            # Randomize language
+            if ANONYMIZATION_CONFIG.get("randomize_language"):
+                context_options["locale"] = random.choice(LANGUAGE_OPTIONS).split(',')[0]
+        else:
+            context_options["user_agent"] = FIREFOX_USER_AGENT
+        
+        self.context = await self.browser_instance.new_context(**context_options)
+        
+        # Enhanced anonymization scripts
+        if self.anonymize:
+            await self._add_anonymization_scripts()
+        else:
+            # Basic webdriver removal
+            await self.context.add_init_script("""
+                Object.defineProperty(navigator, 'webdriver', {
+                    get: () => undefined,
+                });            """)
         
         self.page = await self.context.new_page()
 
     async def _setup_webkit_browser(self) -> None:
-        """Set up the WebKit browser."""
-        self.browser_instance = await self.playwright.webkit.launch(
-            headless=self.headless
-        )
+        """Set up the WebKit browser with anonymization and proxy support."""
+        # Prepare launch options
+        launch_options = {
+            "headless": self.headless
+        }
         
-        self.context = await self.browser_instance.new_context(
-            user_agent=WEBKIT_USER_AGENT,
-            viewport={"width": 1920, "height": 1080}
-        )
+        if self.proxy:
+            # Parse proxy format
+            if self.proxy.startswith(("http://", "https://", "socks5://")):
+                proxy_config = {"server": self.proxy}
+                logger.info(f"Using proxy: {self.proxy}")
+            else:
+                # Assume http if no protocol specified
+                proxy_config = {"server": f"http://{self.proxy}"}
+                logger.info(f"Using proxy: http://{self.proxy}")
+        else:
+            proxy_config = None
+        
+        self.browser_instance = await self.playwright.webkit.launch(**launch_options)
+        
+        # Prepare context options with anonymization
+        context_options = {
+            "viewport": {"width": 1920, "height": 1080}
+        }
+        
+        # Add proxy to context if specified
+        if proxy_config:
+            context_options["proxy"] = proxy_config
+        
+        # Anonymization features
+        if self.anonymize:
+            # Randomize user agent
+            if ANONYMIZATION_CONFIG.get("randomize_user_agent"):
+                context_options["user_agent"] = random.choice(USER_AGENTS_POOL)
+            else:
+                context_options["user_agent"] = WEBKIT_USER_AGENT
+                
+            # Randomize timezone
+            if ANONYMIZATION_CONFIG.get("randomize_timezone"):
+                context_options["timezone_id"] = random.choice(TIMEZONE_OPTIONS)
+                
+            # Randomize language
+            if ANONYMIZATION_CONFIG.get("randomize_language"):
+                context_options["locale"] = random.choice(LANGUAGE_OPTIONS).split(',')[0]
+        else:
+            context_options["user_agent"] = WEBKIT_USER_AGENT
+        
+        self.context = await self.browser_instance.new_context(**context_options)
+        
+        # Enhanced anonymization scripts
+        if self.anonymize:
+            await self._add_anonymization_scripts()
+        else:
+            # Basic webdriver removal
+            await self.context.add_init_script("""
+                Object.defineProperty(navigator, 'webdriver', {
+                    get: () => undefined,
+                });
+            """)
         
         self.page = await self.context.new_page()
 
@@ -384,3 +532,66 @@ class BrowserManager:
 
         except Exception as e:
             logger.warning(f"Error in debug analysis: {e}")
+
+    async def _add_anonymization_scripts(self) -> None:
+        """Add comprehensive anonymization scripts to the browser context."""
+        anonymization_script = """
+        // Remove webdriver property
+        Object.defineProperty(navigator, 'webdriver', {
+            get: () => undefined,
+        });
+        
+        // Override navigator properties
+        Object.defineProperty(navigator, 'plugins', {
+            get: () => [1, 2, 3, 4, 5],
+        });
+        
+        Object.defineProperty(navigator, 'languages', {
+            get: () => ['en-US', 'en'],
+        });
+        
+        // Override chrome property
+        window.chrome = {
+            runtime: {},
+            loadTimes: function() {},
+            csi: function() {},
+            app: {}
+        };
+        
+        // Remove automation signals
+        const originalQuery = window.document.querySelector;
+        window.document.querySelector = function(selector) {
+            if (selector === 'script[src*="automation"]') {
+                return null;
+            }
+            return originalQuery.call(document, selector);
+        };
+        
+        // Disable WebGL fingerprinting if configured
+        if (""" + str(ANONYMIZATION_CONFIG.get("disable_webgl", False)).lower() + """) {
+            const getContext = HTMLCanvasElement.prototype.getContext;
+            HTMLCanvasElement.prototype.getContext = function(type) {
+                if (type === 'webgl' || type === 'webgl2') {
+                    return null;
+                }
+                return getContext.call(this, type);
+            };
+        }
+        
+        // Disable canvas fingerprinting if configured  
+        if (""" + str(ANONYMIZATION_CONFIG.get("disable_canvas_fingerprinting", False)).lower() + """) {
+            const toDataURL = HTMLCanvasElement.prototype.toDataURL;
+            HTMLCanvasElement.prototype.toDataURL = function() {
+                return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==';
+            };
+        }
+        
+        // Block WebRTC if configured
+        if (""" + str(ANONYMIZATION_CONFIG.get("block_webrtc", False)).lower() + """) {
+            window.RTCPeerConnection = undefined;
+            window.RTCDataChannel = undefined;
+            window.RTCSessionDescription = undefined;
+        }
+        """
+        
+        await self.context.add_init_script(anonymization_script)

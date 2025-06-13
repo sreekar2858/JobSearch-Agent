@@ -5,12 +5,17 @@ Command-line interface for scraping credentials from bugmenot.com
 Usage:
     python cli.py --website glassdoor.com --output latest.json
     python cli.py --website nytimes.com --visible
-    python cli.py  # Interactive mode
+    python -m src.scraper.buggmenot --website economist.com
 """
 
 import asyncio
 import argparse
-from bugmenot_scraper import BugMeNotScraper
+
+try:
+    from .bugmenot_scraper import BugMeNotScraper
+except ImportError:
+    # Fallback for direct script execution
+    from bugmenot_scraper import BugMeNotScraper
 
 def display_credentials(credentials):
     """Display credentials with metadata in a formatted way"""
@@ -26,18 +31,17 @@ def parse_args():
     """Parse command line arguments"""
     parser = argparse.ArgumentParser(
         description="BugMeNot Scraper - Get login credentials from bugmenot.com",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
+        formatter_class=argparse.RawDescriptionHelpFormatter,        epilog="""
 Examples:
   python cli.py --website glassdoor.com --output latest.json
   python cli.py --website nytimes.com --visible
-  python cli.py  # Interactive mode
-        """
+  python -m src.scraper.buggmenot --website economist.com  """
     )
     
     parser.add_argument(
         '--website', '-w',
         type=str,
+        required=True,
         help='Website to scrape credentials for (e.g., glassdoor.com)'
     )
     
@@ -54,6 +58,18 @@ Examples:
     )
     
     parser.add_argument(
+        '--proxy',
+        type=str,
+        help='Proxy server (e.g., http://proxy:port or socks5://proxy:port)'
+    )
+    
+    parser.add_argument(
+        '--no-anonymize',
+        action='store_true',
+        help='Disable anonymization features (user agent randomization, WebGL blocking, etc.)'
+    )
+    
+    parser.add_argument(
         '--no-save',
         action='store_true',
         help='Don\'t save results to file'
@@ -66,64 +82,53 @@ def main(args=None, **kwargs):
     print("🔍 BugMeNot Scraper")
     print("=" * 30)
     
-    # If args is provided (from CLI), use those; otherwise use kwargs or prompt
-    if args:
-        website = args.website
-        visible = args.visible
-        save = not args.no_save
-        filename = args.output
-    else:
-        # Get website from kwargs or user input
-        website = kwargs.get('website')
-        visible = kwargs.get('visible')
-        save = kwargs.get('save')
-        filename = kwargs.get('filename')
+    # Parse args if not provided
+    if args is None:
+        args = parse_args()
+      # Use provided args
+    website = args.website
+    visible = args.visible
+    proxy = getattr(args, 'proxy', None)
+    anonymize = not getattr(args, 'no_anonymize', False)
+    save = not args.no_save
+    filename = args.output
     
-    # Get website if not provided
-    if not website:
-        website = input("Enter website (e.g. nytimes.com): ").strip()
-        if not website:
-            website = "nytimes.com"
-            print(f"Using default: {website}")
-    else:
-        print(f"Using website: {website}")
+    # Override with kwargs if provided
+    website = kwargs.get('website', website)
+    visible = kwargs.get('visible', visible)
+    proxy = kwargs.get('proxy', proxy)
+    anonymize = kwargs.get('anonymize', anonymize)
+    save = kwargs.get('save', save)
+    filename = kwargs.get('filename', filename)
     
-    # Ask about browser visibility if not specified
-    if visible is None:
-        visible = input("Show browser? (y/n): ").strip().lower() == 'y'
+    print(f"Using website: {website}")
+    if proxy:
+        print(f"Using proxy: {proxy}")
+    print(f"Anonymization: {'enabled' if anonymize else 'disabled'}")
     
     async def scrape():
-        nonlocal save, filename  # Make these variables accessible in the nested function
-        
-        scraper = BugMeNotScraper(headless=not visible)
+        scraper = BugMeNotScraper(headless=not visible, proxy=proxy, anonymize=anonymize)
         print(f"\nScraping {website}...")
         credentials = await scraper.scrape(website)
         
         if credentials:
             display_credentials(credentials)
             
-            # Save option (or use kwargs/args)
-            if save is None:
-                save = input("\nSave to file? (y/n): ").strip().lower() == 'y'
             if save:
                 scraper.results = credentials
                 if filename:
                     scraper.save_json(filename)
+                    print(f"\n💾 Results saved to: {filename}")
                 else:
-                    scraper.save_json()
+                    saved_file = scraper.save_json()
+                    print(f"\n💾 Results saved to: {saved_file}")
         else:
             print("❌ No credentials found")
-      # Run the scraper
+    
+    # Run the scraper
     asyncio.run(scrape())
 
 if __name__ == "__main__":
-    import sys
-    
-    # Check if command-line arguments are provided
-    if len(sys.argv) > 1:
-        # Parse command-line arguments
-        args = parse_args()
-        main(args)
-    else:
-        # Interactive mode - no args
-        main()
+    # Always parse command-line arguments - no interactive mode
+    args = parse_args()
+    main(args)

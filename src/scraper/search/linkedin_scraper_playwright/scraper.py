@@ -45,11 +45,11 @@ class LinkedInScraper:
     - Search for jobs with keywords and location
     - Support for authenticated searches using LinkedIn credentials
     - Extraction of job titles, companies, locations, and URLs
-    - Support for Chromium, Firefox, and WebKit browsers
-    - Handling of common scraping challenges (captchas, rate limits)
+    - Support for Chromium, Firefox, and WebKit browsers    - Handling of common scraping challenges (captchas, rate limits)
     """
 
-    def __init__(self, headless: bool = False, timeout: int = DEFAULT_TIMEOUT, browser: str = "chromium"):
+    def __init__(self, headless: bool = False, timeout: int = DEFAULT_TIMEOUT, browser: str = "chromium", 
+                 proxy: Optional[str] = None, anonymize: bool = True):
         """
         Initialize the LinkedIn scraper.
 
@@ -60,10 +60,14 @@ class LinkedInScraper:
             headless: Whether to run the browser in headless mode
             timeout: Wait timeout in milliseconds for page loading
             browser: Browser to use ('chromium', 'firefox', or 'webkit')
+            proxy: Proxy string in format "http://host:port" or "socks5://host:port"
+            anonymize: Whether to enable anonymization features
         """
         self.timeout = timeout
         self.headless = headless
         self.browser = browser.lower()
+        self.proxy = proxy
+        self.anonymize = anonymize
         self.use_login = True  # Always use login - required for LinkedIn scraping
 
         # Load environment variables for login (always required)
@@ -78,9 +82,7 @@ class LinkedInScraper:
                 "LinkedIn scraping cannot work without proper authentication."
             )
 
-        logger.info("✅ LinkedIn credentials loaded successfully")
-
-        # Initialize components
+        logger.info("✅ LinkedIn credentials loaded successfully")        # Initialize components
         self.browser_manager = None
         self.auth_manager = None
         self.filter_manager = None
@@ -91,7 +93,7 @@ class LinkedInScraper:
     async def _ensure_setup(self):
         """Ensure all components are set up."""
         if not self._setup_complete:
-            self.browser_manager = BrowserManager(self.browser, self.headless, self.timeout)
+            self.browser_manager = BrowserManager(self.browser, self.headless, self.timeout, self.proxy, self.anonymize)
             await self.browser_manager.setup_driver()
             
             self.auth_manager = AuthManager(self.browser_manager.page, self.timeout)
@@ -514,8 +516,9 @@ class LinkedInScraper:
 class LinkedInScraperSync:
     """Synchronous wrapper for the async LinkedInScraper."""
     
-    def __init__(self, headless: bool = False, timeout: int = DEFAULT_TIMEOUT, browser: str = "chromium"):
-        self.scraper = LinkedInScraper(headless, timeout, browser)
+    def __init__(self, headless: bool = False, timeout: int = DEFAULT_TIMEOUT, browser: str = "chromium",
+                 proxy: Optional[str] = None, anonymize: bool = True):
+        self.scraper = LinkedInScraper(headless, timeout, browser, proxy, anonymize)
         self._loop = None
 
     def _run_async(self, coro):

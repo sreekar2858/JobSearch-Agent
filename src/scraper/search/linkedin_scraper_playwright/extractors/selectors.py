@@ -61,13 +61,17 @@ LOCATION_SELECTORS = [
     ".location",
 ]
 
-# Posted date selectors
+# Posted date selectors (prioritized for tertiary description container)
 POSTED_DATE_SELECTORS = [
+    ".job-details-jobs-unified-top-card__tertiary-description-container .tvm__text--low-emphasis:nth-child(3)",
+    ".job-details-jobs-unified-top-card__tertiary-description-container .tvm__text:nth-child(3) span",
     ".jobs-unified-top-card__posted-date",
     ".jobs-details-job-summary__text--ellipsis",
     "[data-test-job-posted-date]",
     ".job-card-container__posted-date",
     ".posted-date",
+    "time[datetime]",
+    ".jobs-unified-top-card__subtitle-secondary-grouping time",
 ]
 
 # Job description selectors

@@ -53,6 +53,10 @@ async def async_main():
     parser.add_argument('--job-url', help='Get details for a specific job URL')
     parser.add_argument('--sync', action='store_true', help='Use synchronous mode (backwards compatibility)')
     
+    # Proxy and anonymization arguments
+    parser.add_argument('--proxy', help='Proxy server (e.g., http://proxy:port or socks5://proxy:port)')
+    parser.add_argument('--no-anonymize', action='store_true', help='Disable anonymization features (user agent randomization, WebGL blocking, etc.)')
+    
     args = parser.parse_args()
     
     # Validate arguments
@@ -83,7 +87,9 @@ async def async_scrape(args, timeout_ms: int):
     async with LinkedInScraper(
         headless=args.headless,
         timeout=timeout_ms,
-        browser=args.browser
+        browser=args.browser,
+        proxy=args.proxy,
+        anonymize=not args.no_anonymize
     ) as scraper:
         
         if args.job_url:
@@ -181,7 +187,9 @@ async def async_scrape(args, timeout_ms: int):
                         "date_posted": args.date_posted,
                         "sort_by": args.sort_by,
                         "browser": args.browser,
-                        "headless": args.headless
+                        "headless": args.headless,
+                        "proxy": args.proxy,
+                        "anonymize": not args.no_anonymize
                     },
                     "total_jobs_found": len(detailed_jobs),
                     "jobs": detailed_jobs,
@@ -208,7 +216,9 @@ async def sync_scrape(args, timeout_ms: int):
     scraper = LinkedInScraperSync(
         headless=args.headless,
         timeout=timeout_ms,
-        browser=args.browser
+        browser=args.browser,
+        proxy=args.proxy,
+        anonymize=not args.no_anonymize
     )
     
     try:
@@ -307,7 +317,9 @@ async def sync_scrape(args, timeout_ms: int):
                         "date_posted": args.date_posted,
                         "sort_by": args.sort_by,
                         "browser": args.browser,
-                        "headless": args.headless
+                        "headless": args.headless,
+                        "proxy": args.proxy,
+                        "anonymize": not args.no_anonymize
                     },
                     "total_jobs_found": len(detailed_jobs),
                     "jobs": detailed_jobs,
@@ -391,6 +403,10 @@ def sync_main():
     # Action arguments
     parser.add_argument('--links-only', action='store_true', help='Only collect job links, not detailed information')
     parser.add_argument('--job-url', help='Get details for a specific job URL')
+    
+    # Proxy and anonymization arguments
+    parser.add_argument('--proxy', help='Proxy server (e.g., http://proxy:port or socks5://proxy:port)')
+    parser.add_argument('--no-anonymize', action='store_true', help='Disable anonymization features (user agent randomization, WebGL blocking, etc.)')
     
     args = parser.parse_args()
     args.sync = True  # Force sync mode

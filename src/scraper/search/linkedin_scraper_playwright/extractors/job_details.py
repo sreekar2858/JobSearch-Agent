@@ -64,8 +64,8 @@ class JobDetailsExtractor:
         if location:
             job_info["location"] = location
 
-        # Extract posted date
-        posted_date = await extract_text_by_selectors(page_or_element, POSTED_DATE_SELECTORS, "posted date")
+        # Extract posted date with priority for third span in tertiary description
+        posted_date = await self._extract_posted_date_priority(page_or_element)
         if posted_date:
             job_info["posted_date"] = posted_date
 
@@ -592,6 +592,90 @@ class JobDetailsExtractor:
         
         # Fallback to regular selectors
         return await extract_text_by_selectors(page_or_element, LOCATION_SELECTORS, "job location")
+
+    async def _extract_posted_date_priority(self, page_or_element) -> Optional[str]:
+        """
+        Extract posted date with priority for the 3rd span in tertiary description container.
+        
+        Based on LinkedIn's structure, the posted date is typically the 3rd span:
+        1st span: location (e.g., "San Francisco, CA")
+        2nd span: separator (e.g., " · ")  
+        3rd span: posted date (e.g., "1 month ago")
+        
+        Args:
+            page_or_element: Page or ElementHandle to search within
+            
+        Returns:
+            Posted date text or None if not found
+        """
+        # First try to get the 3rd span from tertiary description container
+        try:
+            tertiary_container = await page_or_element.query_selector(".job-details-jobs-unified-top-card__tertiary-description-container")
+            if tertiary_container:
+                # Look for all tvm__text--low-emphasis spans 
+                date_spans = await tertiary_container.query_selector_all(".tvm__text--low-emphasis")
+                
+                # The posted date is typically the 3rd span (index 2)
+                if len(date_spans) >= 3:
+                    third_span = date_spans[2]
+                    if await third_span.is_visible():
+                        text = await third_span.text_content()
+                        if text and text.strip():
+                            posted_date = text.strip()
+                            # Validate it looks like a date (contains time keywords)
+                            if any(keyword in posted_date.lower() for keyword in ["ago", "hour", "day", "week", "month", "year"]):
+                                logger.debug(f"Extracted posted date from 3rd span: {posted_date}")
+                                return posted_date
+                
+                # Alternative: search through all spans for date-like text
+                for span in date_spans:
+                    if await span.is_visible():
+                        text = await span.text_content()
+                        if text and text.strip():
+                            text = text.strip()
+                            # Check if this looks like a posted date
+                            if any(keyword in text.lower() for keyword in ["ago", "hour", "day", "week", "month", "year"]) and not any(keyword in text.lower() for keyword in ["clicked", "applied", "people"]):
+                                logger.debug(f"Found posted date in span: {text}")
+                                return text
+                
+                # Also check nested spans within tvm__text elements
+                tvm_elements = await tertiary_container.query_selector_all(".tvm__text")
+                for i, tvm_element in enumerate(tvm_elements):
+                    nested_spans = await tvm_element.query_selector_all("span")
+                    for span in nested_spans:
+                        if await span.is_visible():
+                            text = await span.text_content()
+                            if text and text.strip():
+                                text = text.strip()
+                                if any(keyword in text.lower() for keyword in ["ago", "hour", "day", "week", "month", "year"]) and not any(keyword in text.lower() for keyword in ["clicked", "applied", "people"]):
+                                    logger.debug(f"Found posted date in nested span (element {i}): {text}")
+                                    return text
+                                    
+        except Exception as e:
+            logger.debug(f"Error extracting posted date from tertiary container: {e}")
+        
+        # Try subtitle grouping as backup
+        try:
+            subtitle_grouping = await page_or_element.query_selector(".jobs-unified-top-card__subtitle-secondary-grouping")
+            if subtitle_grouping:
+                spans = await subtitle_grouping.query_selector_all("span")
+                for span in spans:
+                    if await span.is_visible():
+                        text = await span.text_content()
+                        if text and text.strip():
+                            text = text.strip()
+                            if any(keyword in text.lower() for keyword in ["ago", "hour", "day", "week", "month", "year"]):
+                                logger.debug(f"Found posted date in subtitle grouping: {text}")
+                                return text
+        except Exception as e:
+            logger.debug(f"Error extracting posted date from subtitle grouping: {e}")
+        
+        # Fallback to regular selectors
+        try:
+            return await extract_text_by_selectors(page_or_element, POSTED_DATE_SELECTORS, "posted date")
+        except Exception as e:
+            logger.debug(f"Error extracting posted date with fallback selectors: {e}")
+            return None
 
     async def _extract_job_insights_enhanced(self) -> List[str]:
         """
