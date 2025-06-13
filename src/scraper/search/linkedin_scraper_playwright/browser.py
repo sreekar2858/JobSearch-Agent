@@ -22,6 +22,7 @@ from .config import (
     BROWSER_ARGS
 )
 from .utils import async_random_sleep
+from .extractors.selectors import JOB_LIST_CONTAINER_SELECTORS, JOB_CARD_SELECTORS
 
 logger = logging.getLogger("linkedin_scraper")
 
@@ -227,17 +228,8 @@ class BrowserManager:
         Find the job list container element on the page.
 
         Returns:
-            ElementHandle: The job list container, or body element as fallback
-        """
-        job_list_selectors = [
-            "ul.scaffold-layout__list-container",
-            "ul.jobs-search-results__list",
-            ".scaffold-layout__list",
-            ".jobs-search-results-list",
-            ".jobs-search-results__list-container",
-            "ul li[data-occludable-job-id]",
-            "ul:has(li[data-occludable-job-id])",
-        ]
+            ElementHandle: The job list container, or body element as fallback        """
+        job_list_selectors = JOB_LIST_CONTAINER_SELECTORS
 
         for selector in job_list_selectors:
             try:
@@ -345,15 +337,8 @@ class BrowserManager:
             job_list_container: The container element to search in
 
         Returns:
-            List of ElementHandles representing job cards
-        """
-        job_cards_selectors = [
-            "li[data-occludable-job-id]",
-            "li.jobs-search-results__list-item",
-            "li.scaffold-layout__list-item",
-            ".job-card-container",
-            "[data-job-id]",
-        ]
+            List of ElementHandles representing job cards        """
+        job_cards_selectors = JOB_CARD_SELECTORS
         job_cards = []
 
         for selector in job_cards_selectors:

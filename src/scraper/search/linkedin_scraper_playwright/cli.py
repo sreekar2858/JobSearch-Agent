@@ -31,9 +31,9 @@ async def async_main():
     """Async main CLI function."""
     parser = argparse.ArgumentParser(description='LinkedIn Job Scraper (Playwright)')
     
-    # Required arguments
-    parser.add_argument('keywords', help='Job search keywords')
-    parser.add_argument('location', help='Job search location')
+    # Required arguments (made optional when using --job-url)
+    parser.add_argument('keywords', nargs='?', help='Job search keywords')
+    parser.add_argument('location', nargs='?', help='Job search location')
     
     # Optional arguments
     parser.add_argument('--max-pages', type=int, default=1, help='Maximum pages to scrape (default: 1)')
@@ -54,6 +54,18 @@ async def async_main():
     parser.add_argument('--sync', action='store_true', help='Use synchronous mode (backwards compatibility)')
     
     args = parser.parse_args()
+    
+    # Validate arguments
+    if args.job_url:
+        # When using --job-url, keywords and location are not required
+        if not args.keywords:
+            args.keywords = "N/A"
+        if not args.location:
+            args.location = "N/A"
+    else:
+        # When not using --job-url, keywords and location are required
+        if not args.keywords or not args.location:
+            parser.error("keywords and location are required when not using --job-url")
     
     # Convert timeout to milliseconds for Playwright
     timeout_ms = args.timeout * 1000

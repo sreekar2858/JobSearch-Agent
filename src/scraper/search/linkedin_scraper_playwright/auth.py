@@ -11,6 +11,7 @@ from datetime import datetime
 from playwright.async_api import Page, TimeoutError as PlaywrightTimeoutError
 
 from .utils import async_random_sleep, save_screenshot
+from .extractors.selectors import LOGIN_FORM_SELECTORS, LOGGED_IN_INDICATORS, JOB_LOADING_INDICATORS
 
 logger = logging.getLogger("linkedin_scraper")
 
@@ -78,12 +79,10 @@ class AuthManager:
 
             # Navigate to LinkedIn login page
             await self.page.goto("https://www.linkedin.com/login")
-            await async_random_sleep(2.0, 3.0)
-
-            # Wait for the login form
-            await self.page.wait_for_selector("#username", timeout=self.timeout)            # Fill in username and password
-            username_field = await self.page.query_selector("#username")
-            password_field = await self.page.query_selector("#password")
+            await async_random_sleep(2.0, 3.0)            # Wait for the login form
+            await self.page.wait_for_selector(LOGIN_FORM_SELECTORS["username"], timeout=self.timeout)            # Fill in username and password
+            username_field = await self.page.query_selector(LOGIN_FORM_SELECTORS["username"])
+            password_field = await self.page.query_selector(LOGIN_FORM_SELECTORS["password"])
 
             # Clear and type username
             await username_field.fill("")  # Clear the field
@@ -96,36 +95,30 @@ class AuthManager:
             await password_field.fill("")  # Clear the field
             for char in password:
                 await password_field.type(char)
-                await asyncio.sleep(random.uniform(0.05, 0.2))
-
-            # Click the login button
-            login_button = await self.page.query_selector("button[type='submit']")
+                await asyncio.sleep(random.uniform(0.05, 0.2))            # Click the login button
+            login_button = await self.page.query_selector(LOGIN_FORM_SELECTORS["submit"])
             await login_button.click()
 
             # Wait for the login to complete
             await async_random_sleep(3.0, 5.0)
 
             # Check if login was successful
-            try:
-                await self.page.wait_for_selector("#global-nav", timeout=self.timeout)
-                logger.info("Successfully logged in to LinkedIn")
-                return True
-            except PlaywrightTimeoutError:
-                # Try an alternative selector
+            for selector in LOGGED_IN_INDICATORS:
                 try:
-                    await self.page.wait_for_selector(".nav-main", timeout=self.timeout)
-                    logger.info("Successfully logged in to LinkedIn (alternative check)")
+                    await self.page.wait_for_selector(selector, timeout=self.timeout)
+                    logger.info("Successfully logged in to LinkedIn")
                     return True
                 except PlaywrightTimeoutError:
-                    logger.error("Failed to login - could not find post-login elements")
+                    continue            
+            logger.error("Failed to login - could not find post-login elements")
+            
+            # Check for security verification
+            if await self.check_for_captcha():
+                logger.warning(
+                    "Security verification required after login. Please check the browser."
+                )
 
-                    # Check for security verification
-                    if await self.check_for_captcha():
-                        logger.warning(
-                            "Security verification required after login. Please check the browser."
-                        )
-
-                    return False
+            return False
 
         except Exception as e:
             logger.error(f"Login failed: {str(e)}")
@@ -140,13 +133,7 @@ class AuthManager:
         """
         try:
             # First check: Look for job listing elements to verify we're on the results page
-            job_listing_selectors = [
-                ".jobs-search__results-list",
-                ".scaffold-layout__list",
-                ".job-search-results",
-                "ul.jobs-search-results__list",
-                ".jobs-search-results-list",
-            ]
+            job_listing_selectors = JOB_LOADING_INDICATORS
 
             for selector in job_listing_selectors:
                 element = await self.page.query_selector(selector)
@@ -186,12 +173,7 @@ class AuthManager:
                         return True
 
             # Check for LinkedIn main structure
-            linkedin_main_selectors = [
-                "#global-nav",
-                ".nav-main",
-                ".search-global-typeahead",
-                ".feed-identity-module",
-            ]
+            linkedin_main_selectors = LOGGED_IN_INDICATORS
 
             for selector in linkedin_main_selectors:
                 element = await self.page.query_selector(selector)

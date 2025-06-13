@@ -15,9 +15,8 @@ from .selectors import (
     SEE_MORE_BUTTON_SELECTORS, COMPANY_LOGO_SELECTORS, APPLY_BUTTON_SELECTORS,
     SKILLS_SELECTORS, JOB_INSIGHTS_SELECTORS, APPLICANT_COUNT_SELECTORS,
     CONTACT_INFO_SELECTORS, COMPANY_INFO_SELECTORS, COMPANY_WEBSITE_SELECTORS,
-    TERTIARY_DESCRIPTION_SELECTORS, TEXT_SPAN_SELECTORS,
-    HIRING_TEAM_SECTION_SELECTORS, HIRING_MEMBER_SELECTORS, HIRING_NAME_SELECTORS,
-    HIRING_TITLE_SELECTORS, RELATED_JOBS_SECTION_SELECTORS, RELATED_JOB_CARD_SELECTORS,
+    TERTIARY_DESCRIPTION_SELECTORS, TEXT_SPAN_SELECTORS,    HIRING_TEAM_SECTION_SELECTORS, HIRING_MEMBER_SELECTORS, HIRING_NAME_SELECTORS,
+    HIRING_TITLE_SELECTORS, HIRING_CONNECTION_SELECTORS, HIRING_PROFILE_LINK_SELECTORS,RELATED_JOBS_SECTION_SELECTORS, RELATED_JOB_CARD_SELECTORS,
     RELATED_JOB_TITLE_SELECTORS, RELATED_JOB_COMPANY_SELECTORS,
     RELATED_JOB_LOCATION_SELECTORS, RELATED_JOB_DATE_SELECTORS, RELATED_JOB_INSIGHT_SELECTORS
 )
@@ -424,9 +423,28 @@ class JobDetailsExtractor:
                                     # Extract title
                                     title = await extract_text_by_selectors(member, HIRING_TITLE_SELECTORS, "hiring member title")
                                     if title:
-                                        member_info["title"] = title
+                                        member_info["title"] = title                                    # Extract LinkedIn profile URL
+                                    try:
+                                        profile_link = await member.query_selector(HIRING_PROFILE_LINK_SELECTORS[0])
+                                        if profile_link:
+                                            href = await profile_link.get_attribute("href")
+                                            if href:
+                                                member_info["linkedin_url"] = href
+                                    except Exception:
+                                        pass
 
-                                    if member_info:
+                                    # Extract connection degree
+                                    try:
+                                        connection_elem = await member.query_selector(HIRING_CONNECTION_SELECTORS[0])
+                                        if connection_elem and await connection_elem.is_visible():
+                                            connection_text = await connection_elem.text_content()
+                                            if connection_text and connection_text.strip():
+                                                member_info["connection_degree"] = connection_text.strip()
+                                    except Exception:
+                                        pass
+
+                                    # Only add if we have at least a name
+                                    if member_info.get("name"):
                                         hiring_team.append(member_info)
 
                         except Exception as e:
@@ -443,7 +461,16 @@ class JobDetailsExtractor:
         except Exception as e:
             logger.error(f"Error extracting hiring team: {e}")
 
-        return hiring_team
+        # Remove duplicates based on name (same as original Selenium version)
+        seen_names = set()
+        unique_hiring_team = []
+        for member in hiring_team:
+            name = member.get("name", "")
+            if name and name not in seen_names:
+                seen_names.add(name)
+                unique_hiring_team.append(member)
+
+        return unique_hiring_team
 
     async def extract_related_jobs(self) -> List[Dict[str, str]]:
         """

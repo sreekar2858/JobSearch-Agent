@@ -16,202 +16,14 @@
   "total_jobs_found": 2,
   "jobs": [
     {
-      "url": "https://www.linkedin.com/jobs/view/4248024708/",
-      "source": "linkedin",
-      "scraped_at": "2025-06-13T11:30:05.388606",
-      "title": "CFD (HVAC/Wind/FSE/Datacenter) Engineer",
-      "company": "SIMSTUDIO International Consultants",
-      "description": "About the job\n            \n\n            \n                \n                  Ben jij een gepassioneerde CFD Engineer die klaar is voor een nieuwe uitdaging? Bij SIMSTUDIO krijg je de kans om je technische expertise in te zetten bij een dynamisch en groeiend bedrijf. Wij werken aan baanbrekende projecten op het gebied van datacenters, windklimaat, brandveiligheid, binnenklimaat en duurzaamheid. Dit doen we wereldwijd, van Canada tot Thailand, met een huidige focus op Europa en het Midden-Oosten. Wij zijn gespecialiseerd in het ondersteunen van ontwerpteams gebruikmakend van CFD simulaties. Wat kun je verwachten? Een stimulerende werkomgeving waar innovatie en ontwikkeling centraal staan. Je werkt met een team van gedreven professionals aan complexe simulaties die impact maken in de echte wereld. Of je nu een doorgewinterde specialist bent of een ambitieuze starter, bij ons krijg je de ruimte om te groeien en je carrière naar een hoger niveau te tillen. Wat bieden wij jou?      Uitdagende projecten in diverse sectorenAfwisselende projecten met een korte doorloopEen hecht team met volop ruimte voor eigen inbrengMogelijkheden voor persoonlijke en professionele ontwikkelingHybride werken (minimaal 2 dagen per week op kantoor)Mogelijkheid om parttime te werken (minimaal 32 uur)Een marktconform salaris en goede secundaire arbeidsvoorwaarden\n Wat vragen wij?      Een technische HBO/WO opleiding (bijv. werktuigbouw/luchtvaart)Kennis van CFD (ANSYS/FDS/OpenFoam/DCD)Ervaring met tekensoftware zoals AutoCad, Inventor of vergelijkbaarGoede basiskennis HVAC, thermodynamica, stromingsleer en mechanicaEen analytische mindset en oog voor detailEnthousiasme voor techniek en innovatieVermogen om aan meerdere projecten tegelijk te werkenFlexibele instellingGoede beheersing van de Nederlandse en Engelse taal, zowel mondeling als schriftelijkGoede communicatieve vaardigheden en een teamgerichte houding\n Klaar om de volgende stap te zetten in je carrière? Sluit je aan bij SIMSTUDIO en werk mee aan de oplossingen van morgen! Solliciteer nu en ontdek hoe jij het verschil kunt maken!",
-      "location": "Zoetermeer, South Holland, Netherlands",
-      "date_posted": "1 week ago",
-      "job_insights": [
-        "Hybrid",
-        "Full-time"
-      ],
-      "easy_apply": false,
-      "apply_info": "https://www.simstudio-ic.nl/nl/werken-bij/",
-      "company_info": "About the company\n        \n\n        \n          \n            \n              \n                \n              \n            \n\n            \n              \n                \n                  SIMSTUDIO International Consultants\n                \n              \n\n              \n                609 followers\n              \n            \n          \n\n          \n    \n          \n    \n    \n\n\n        Follow\n    \n  \n        \n\n        \n          Industrial Machinery Manufacturing\n            \n              2-10 employees\n            \n            \n              11 on LinkedIn",
-      "hiring_team": "NA",
-      "related_jobs": [
-        {
-          "title": "Spezialist:in industrielle Prozesssimulation in der Wasserversorgung (w/m/d)",
-          "company": "Berliner Wasserbetriebe",
-          "location": "Berlin, Berlin, Germany (On-site)",
-          "date": "1 week ago",
-          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "HVAC og Indeklima specialist - Høje Taastrup",
-          "company": "WSP Danmark",
-          "location": "Taastrup, Capital Region of Denmark, Denmark (On-site)",
-          "date": "2 weeks ago",
-          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "HVAC fagleder eller specialist til NIRAS i Allerød",
-          "company": "NIRAS",
-          "location": "Allerød Municipality, Capital Region of Denmark, Denmark (On-site)",
-          "date": "3 weeks ago",
-          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "Ploegbaas HVAC",
-          "company": "Mourik België",
-          "location": "Antwerp, Flemish Region, Belgium (On-site)",
-          "date": "2 weeks ago",
-          "insights": "2 weeks ago"
-        },
-        {
-          "title": "Experte für Kälte- und Wärmepumpenlösungen (m/w/d)",
-          "company": "ENGIE",
-          "location": "Lindau, Bavaria, Germany (On-site)",
-          "date": "2 weeks ago",
-          "insights": "7 school alumni work here7 Technical University of Munich school alumni work here"
-        },
-        {
-          "title": "Sachverständiger Brandschutz",
-          "company": "VdS Schadenverhütung GmbH",
-          "location": "Germany (Remote)",
-          "date": "3 weeks ago",
-          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "HVAC-Fagleder (+6 år)",
-          "company": "Artelia Denmark",
-          "location": "Copenhagen Municipality, Capital Region of Denmark, Denmark (On-site)",
-          "date": "2 days ago",
-          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "SHK Machbarkeitsuntersuchung einer elektromechanischen Deichsel für autonome Feldroboter",
-          "company": "Fraunhofer IVI",
-          "location": "Dresden, Saxony, Germany (Hybrid)",
-          "date": "1 week ago",
-          "insights": "5 school alumni work here5 Technical University of Munich school alumni work here"
-        },
-        {
-          "title": "Business Specialist - SHK Installations (m/w/d)",
-          "company": "thermondo",
-          "location": "Berlin, Berlin, Germany (On-site)",
-          "date": "2 weeks ago",
-          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "Apprenti(e) CVC (Chauffage, Ventilation, Climatisation) / Photovoltaïque (H/F)",
-          "company": "GE Vernova",
-          "location": "Belfort, Bourgogne-Franche-Comté, France",
-          "date": "1 week ago",
-          "insights": "25 school alumni work here25 Technical University of Munich school alumni work here"
-        },
-        {
-          "title": "HVAC Fachplaner (m/w/d) für Gebäudetechnik - Heizung, Lüftung, Klima (HLK)",
-          "company": "CUBIST GmbH",
-          "location": "Cologne, North Rhine-Westphalia, Germany (On-site)",
-          "date": "3 weeks ago",
-          "insights": "3 weeks ago"
-        },
-        {
-          "title": "HVAC Consulting Sales - Antwerpen",
-          "company": "Daikin Belux",
-          "location": "Antwerp, Flemish Region, Belgium (Hybrid)",
-          "date": "2 days ago",
-          "insights": "2 days ago"
-        },
-        {
-          "title": "Spezialist:in industrielle Prozesssimulation in der Wasserversorgung (w/m/d)",
-          "company": "Berliner Wasserbetriebe",
-          "location": "Berlin, Berlin, Germany (On-site)",
-          "date": "1 week ago",
-          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "HVAC og Indeklima specialist - Høje Taastrup",
-          "company": "WSP Danmark",
-          "location": "Taastrup, Capital Region of Denmark, Denmark (On-site)",
-          "date": "2 weeks ago",
-          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "HVAC fagleder eller specialist til NIRAS i Allerød",
-          "company": "NIRAS",
-          "location": "Allerød Municipality, Capital Region of Denmark, Denmark (On-site)",
-          "date": "3 weeks ago",
-          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "Ploegbaas HVAC",
-          "company": "Mourik België",
-          "location": "Antwerp, Flemish Region, Belgium (On-site)",
-          "date": "2 weeks ago",
-          "insights": "2 weeks ago"
-        },
-        {
-          "title": "Experte für Kälte- und Wärmepumpenlösungen (m/w/d)",
-          "company": "ENGIE",
-          "location": "Lindau, Bavaria, Germany (On-site)",
-          "date": "2 weeks ago",
-          "insights": "7 school alumni work here7 Technical University of Munich school alumni work here"
-        },
-        {
-          "title": "Sachverständiger Brandschutz",
-          "company": "VdS Schadenverhütung GmbH",
-          "location": "Germany (Remote)",
-          "date": "3 weeks ago",
-          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "HVAC-Fagleder (+6 år)",
-          "company": "Artelia Denmark",
-          "location": "Copenhagen Municipality, Capital Region of Denmark, Denmark (On-site)",
-          "date": "2 days ago",
-          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "SHK Machbarkeitsuntersuchung einer elektromechanischen Deichsel für autonome Feldroboter",
-          "company": "Fraunhofer IVI",
-          "location": "Dresden, Saxony, Germany (Hybrid)",
-          "date": "1 week ago",
-          "insights": "5 school alumni work here5 Technical University of Munich school alumni work here"
-        },
-        {
-          "title": "Business Specialist - SHK Installations (m/w/d)",
-          "company": "thermondo",
-          "location": "Berlin, Berlin, Germany (On-site)",
-          "date": "2 weeks ago",
-          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "Apprenti(e) CVC (Chauffage, Ventilation, Climatisation) / Photovoltaïque (H/F)",
-          "company": "GE Vernova",
-          "location": "Belfort, Bourgogne-Franche-Comté, France",
-          "date": "1 week ago",
-          "insights": "25 school alumni work here25 Technical University of Munich school alumni work here"
-        },
-        {
-          "title": "HVAC Fachplaner (m/w/d) für Gebäudetechnik - Heizung, Lüftung, Klima (HLK)",
-          "company": "CUBIST GmbH",
-          "location": "Cologne, North Rhine-Westphalia, Germany (On-site)",
-          "date": "3 weeks ago",
-          "insights": "3 weeks ago"
-        },
-        {
-          "title": "HVAC Consulting Sales - Antwerpen",
-          "company": "Daikin Belux",
-          "location": "Antwerp, Flemish Region, Belgium (Hybrid)",
-          "date": "2 days ago",
-          "insights": "2 days ago"
-        }
-      ]
-    },
-    {
       "url": "https://www.linkedin.com/jobs/view/4249017218/",
       "source": "linkedin",
-      "scraped_at": "2025-06-13T11:30:32.675903",
+      "scraped_at": "2025-06-13T14:52:30.507546",
       "title": "Structural Engineer - Offshore Heavy Lift",
       "company": "Middle Point",
       "description": "About the job\n            \n\n            \n                \n                  We are working with a globally renowned client in the world offshore service industry to recruit for a Structural Engineer to join their Heavy Lift Engineering team in South Holland. You'll work on all preparatory phases of single-lift platform installations and removals using one of the most advanced offshore vessels. Your role covers design, analysis, procedures, material planning, and offshore support across removal, transport, and load-in/load-out operations.Tasks      Conduct structural design studies and simulations across concept, basic, and detailed engineering phases.Plan and manage schedules and cost estimates related to structural scopes within the project.Define methodologies, structural scope, and deliverables, ensuring alignment with project objectives.Provide technical input and support during offshore execution, collaborating closely with operations teams.Coordinate the fabrication of custom installation or removal tools, whether in-house or via subcontractors.Oversee reviews of subcontractor designs and assess their proposed installation or removal methods.Develop and document operational procedures for installation/removal aids and share insights with the wider team.Generate material take-offs to support procurement and planning activities.Keep the the department unit head informed on task progress and key milestones.Support the preparation of the engineering close-out report with relevant structural data and insights.Contribute to the ongoing development of internal standards, best practices, and engineering guidelines.\nJob requirements      Bachelor’s or Master’s degree in Civil, Mechanical, or a related Engineering discipline4-7 years of relevant experience in a structural or heavy lift engineering role (mid to senior level)Proactive, hands-on mindset with a structured and self-driven approach to workFamiliarity with structural analysis tools (e.g., FEMAP, GeniE) is a plus but not essentialStrong command of English, both spoken and writtenEager to grow professionally and take on more responsibility over timeWillingness to travel and support offshore activities as neededInterest or experience in offshore or marine operations is beneficial\nConditionsCould this role be your next career step? Apply now and let's discuss the opportunity in detail. Depending on the professional and personal situation, the role comes with an attractive remuneration package. We would like to explain the offer in a personal conversation.Company ProfileOur client is a leading offshore contractor, specialized in offshore pipeline installation and subsea construction. The company has global experience in a wide array of subsea construction and offshore projects. Portfolio of their comprehensive services include project management as well as engineering, from conceptual design to installation and commissioning phase. The organization highly values technology and innovation and therefore continuously develops new concepts and applications. A daring company focused on challenging projects, a strong international orientation and a clear drive to remain in the forefront of offshore technology.",
       "location": "Delft, South Holland, Netherlands",
-      "date_posted": "1 week ago",
+      "date_posted": "1 day ago",
       "job_insights": [
         "On-site",
         "Full-time"
@@ -222,25 +34,11 @@
       "hiring_team": "NA",
       "related_jobs": [
         {
-          "title": "Mechanical Design Engineer",
-          "company": "Honeywell",
-          "location": "Delft, South Holland, Netherlands (On-site)",
-          "date": "1 week ago",
-          "insights": "38 school alumni work here38 Technical University of Munich school alumni work here"
-        },
-        {
           "title": "Design Engineer",
           "company": "Allseas",
           "location": "Delft, South Holland, Netherlands (On-site)",
           "date": "1 day ago",
           "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "Mechanical Engineer",
-          "company": "Fleet Robotics",
-          "location": "Delft, South Holland, Netherlands (On-site)",
-          "date": "3 weeks ago",
-          "insights": "Actively reviewing applicants"
         },
         {
           "title": "Chip Fabrication and Assembly Engineer",
@@ -257,11 +55,25 @@
           "insights": "Company review time is typically 1 week"
         },
         {
+          "title": "Senior stedenbouwkundige Delft West",
+          "company": "Gemeente Delft",
+          "location": "Delft, South Holland, Netherlands (Hybrid)",
+          "date": "2 weeks ago",
+          "insights": "2 weeks ago"
+        },
+        {
           "title": "Structural Engineer - Heavy Lift Engineering",
           "company": "Allseas",
           "location": "Delft, South Holland, Netherlands (On-site)",
           "date": "1 week ago",
           "insights": "1 school alum works here1 Technical University of Munich school alum works here"
+        },
+        {
+          "title": "Mechanical Test Engineer",
+          "company": "Honeywell",
+          "location": "Delft, South Holland, Netherlands (On-site)",
+          "date": "1 week ago",
+          "insights": "38 school alumni work here38 Technical University of Munich school alumni work here"
         },
         {
           "title": "Manufacturing Engineer",
@@ -271,46 +83,39 @@
           "insights": "38 school alumni work here38 Technical University of Munich school alumni work here"
         },
         {
-          "title": "Mechanical Engineering Technician",
-          "company": "Arctic Reflections",
-          "location": "Delft, South Holland, Netherlands (Hybrid)",
+          "title": "ROV Project Engineer",
+          "company": "Allseas",
+          "location": "Delft, South Holland, Netherlands (On-site)",
           "date": "1 day ago",
-          "insights": "Company review time is typically 1 week"
+          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
         },
         {
-          "title": "Mechanical Architect",
-          "company": "SWITCH",
-          "location": "Delft, South Holland, Netherlands (On-site)",
-          "date": "3 weeks ago",
-          "insights": "Company review time is typically 1 week"
-        },
-        {
-          "title": "Engineering Doctorate (EngD), Sustainable Wind Powered Desalination for Drinking Water Production",
-          "company": "Delft University of Technology",
-          "location": "Delft, South Holland, Netherlands (On-site)",
-          "date": "6 days ago",
-          "insights": "41 school alumni work here41 Technical University of Munich school alumni work here"
-        },
-        {
-          "title": "Ontwerper Civiele Techniek",
+          "title": "Process Engineer – Wastewater Treatment",
           "company": "Haskoning",
           "location": "Delft, South Holland, Netherlands (Hybrid)",
-          "date": "20 hours ago",
+          "date": "1 week ago",
           "insights": "2 school alumni work here2 Technical University of Munich school alumni work here"
         },
         {
-          "title": "Approval Expert Utilities",
-          "company": "NMi Group",
+          "title": "Senior Mechanical Engineer",
+          "company": "Haskoning",
           "location": "Delft, South Holland, Netherlands (Hybrid)",
-          "date": "1 day ago",
-          "insights": "1 day ago"
+          "date": "2 weeks ago",
+          "insights": "2 school alumni work here2 Technical University of Munich school alumni work here"
         },
         {
-          "title": "Mechanical Design Engineer",
-          "company": "Honeywell",
-          "location": "Delft, South Holland, Netherlands (On-site)",
+          "title": "Mechanical Engineering Technician",
+          "company": "Arctic Reflections",
+          "location": "Delft, South Holland, Netherlands (Hybrid)",
+          "date": "2 days ago",
+          "insights": "Company review time is typically 1 week"
+        },
+        {
+          "title": "Senior Project Engineer",
+          "company": "Stedin",
+          "location": "Delft, South Holland, Netherlands (Hybrid)",
           "date": "1 week ago",
-          "insights": "38 school alumni work here38 Technical University of Munich school alumni work here"
+          "insights": "4 school alumni work here4 Technical University of Munich school alumni work here"
         },
         {
           "title": "Design Engineer",
@@ -318,13 +123,6 @@
           "location": "Delft, South Holland, Netherlands (On-site)",
           "date": "1 day ago",
           "insights": "1 school alum works here1 Technical University of Munich school alum works here"
-        },
-        {
-          "title": "Mechanical Engineer",
-          "company": "Fleet Robotics",
-          "location": "Delft, South Holland, Netherlands (On-site)",
-          "date": "3 weeks ago",
-          "insights": "Actively reviewing applicants"
         },
         {
           "title": "Chip Fabrication and Assembly Engineer",
@@ -341,11 +139,25 @@
           "insights": "Company review time is typically 1 week"
         },
         {
+          "title": "Senior stedenbouwkundige Delft West",
+          "company": "Gemeente Delft",
+          "location": "Delft, South Holland, Netherlands (Hybrid)",
+          "date": "2 weeks ago",
+          "insights": "2 weeks ago"
+        },
+        {
           "title": "Structural Engineer - Heavy Lift Engineering",
           "company": "Allseas",
           "location": "Delft, South Holland, Netherlands (On-site)",
           "date": "1 week ago",
           "insights": "1 school alum works here1 Technical University of Munich school alum works here"
+        },
+        {
+          "title": "Mechanical Test Engineer",
+          "company": "Honeywell",
+          "location": "Delft, South Holland, Netherlands (On-site)",
+          "date": "1 week ago",
+          "insights": "38 school alumni work here38 Technical University of Munich school alumni work here"
         },
         {
           "title": "Manufacturing Engineer",
@@ -355,43 +167,231 @@
           "insights": "38 school alumni work here38 Technical University of Munich school alumni work here"
         },
         {
-          "title": "Mechanical Engineering Technician",
-          "company": "Arctic Reflections",
-          "location": "Delft, South Holland, Netherlands (Hybrid)",
+          "title": "ROV Project Engineer",
+          "company": "Allseas",
+          "location": "Delft, South Holland, Netherlands (On-site)",
           "date": "1 day ago",
-          "insights": "Company review time is typically 1 week"
+          "insights": "1 school alum works here1 Technical University of Munich school alum works here"
         },
         {
-          "title": "Mechanical Architect",
-          "company": "SWITCH",
-          "location": "Delft, South Holland, Netherlands (On-site)",
-          "date": "3 weeks ago",
-          "insights": "Company review time is typically 1 week"
-        },
-        {
-          "title": "Engineering Doctorate (EngD), Sustainable Wind Powered Desalination for Drinking Water Production",
-          "company": "Delft University of Technology",
-          "location": "Delft, South Holland, Netherlands (On-site)",
-          "date": "6 days ago",
-          "insights": "41 school alumni work here41 Technical University of Munich school alumni work here"
-        },
-        {
-          "title": "Ontwerper Civiele Techniek",
+          "title": "Process Engineer – Wastewater Treatment",
           "company": "Haskoning",
           "location": "Delft, South Holland, Netherlands (Hybrid)",
-          "date": "20 hours ago",
+          "date": "1 week ago",
           "insights": "2 school alumni work here2 Technical University of Munich school alumni work here"
         },
         {
-          "title": "Approval Expert Utilities",
-          "company": "NMi Group",
+          "title": "Senior Mechanical Engineer",
+          "company": "Haskoning",
           "location": "Delft, South Holland, Netherlands (Hybrid)",
-          "date": "1 day ago",
-          "insights": "1 day ago"
+          "date": "2 weeks ago",
+          "insights": "2 school alumni work here2 Technical University of Munich school alumni work here"
+        },
+        {
+          "title": "Mechanical Engineering Technician",
+          "company": "Arctic Reflections",
+          "location": "Delft, South Holland, Netherlands (Hybrid)",
+          "date": "2 days ago",
+          "insights": "Company review time is typically 1 week"
+        },
+        {
+          "title": "Senior Project Engineer",
+          "company": "Stedin",
+          "location": "Delft, South Holland, Netherlands (Hybrid)",
+          "date": "1 week ago",
+          "insights": "4 school alumni work here4 Technical University of Munich school alumni work here"
+        }
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/view/4248720339/",
+      "source": "linkedin",
+      "scraped_at": "2025-06-13T14:52:56.229564",
+      "title": "Senior Mechanical Engineer - YER",
+      "company": "Jobster",
+      "description": "About the job\n            \n\n            \n                \n                  Een perfecte balans tussen jouw rol als zowel Mechanical engineer als Projectmanager machinebouw. Een vrije en verantwoordelijke rol in een omgeving waar je omringt bent door moderne techniek!De functieJij maakt Quooker      Omdat jij met jouw ervaring machinebouwprojecten van A tot Z kunt begeleiden en het projectteam helder aanstuurt.Met jouw technisch inzicht waardoor jij functionele en maakbare machineontwerpen oplevert.Want als ervaren mentor die actief bijdraagt aan kennisdeling til jij het niveau van jouw collega engineers naar een hoger niveau!\nAls Senior mechanical engineer stuur jij zelfstandig machinebouwprojecten aan op basis van het eisenpakket en de risico-inventarisatie die je samen met de (interne) opdrachtgever hebt opgesteld. Binnen Quooker bedenken, bouwen en onderhouden we onze machines immers helemaal zelf!In deze functie heb jij een mooie balans tussen jouw rol als zowel Mechanical engineer als Projectmanager machinebouw. Op technisch vlak ben jij namelijk eindverantwoordelijk voor het functioneel ontwerpen en uittekenen van machineonderdelen met behulp van 3D CAD software (Solid works) en verantwoordelijk voor (de kwaliteit van) het technisch dossier. Je zorgt daarbij voor een heldere procesbeschrijving voor de Mechatronica en PLC engineers, zodat de besturing naadloos gaat aansluiten op jouw mechanisch ontwerp. Daarnaast zorg jij als Projectmanager voor een duidelijke opzet en opvolging van een projectplanning, ben jij verantwoordelijk voor projectgebonden inkoop en rapporteer je regelmatig over de voortgang. Als ervaren collega begeleid je de betrokken engineers en ben jij vraagbaak voor andere interne en externe stakeholders. Zo review jij tekeningen op basis van maakbaarheid en functionaliteit en adviseer jij collega’s bij onder andere het selecteren van leveranciers.Een vrije en verantwoordelijke positie in een omgeving waar je omringd bent door moderne technieken die grotendeels door Quooker collega’s zijn ontwikkeld en gebouwd. Wie weet train jij binnenkort Productiemedewerkers over het in gebruik nemen van jouw eigen ontworpen machine, die jij dagelijks ziet opereren in ons machinepark!Over het bedrijfWerken bij QuookerQuooker is op missie om de wereld te veroveren! Ze zijn vastberaden deze missie te laten slagen. Die vastberadenheid bevindt zich al in hun DNA sinds 1970: toen Henri Peteri de eerste kokendwaterkraan uitvond. Zijn idee moest en zou een succes worden. En dat lukte. Je past dus goed bij Quooker als je een aanpakker bent en doorzettingsvermogen hebt. De kraan die alles kan heeft zich ontwikkeld als een onmisbare tool in de keuken. Door hun ambitie om innovatief en orgineel te blijven, voorziet de kraan vandaag de dag niet alleen in 100c kokend water maar ook in gekoeld én bruisend water. Ze bedenken, produceren en verzenden de kraan hier, vanuit Nederland. Alles onder één dak. Ze zijn graag onafhankelijk, houden van korte lijnen en varen hun eigen koers. Iedere collega draagt op unieke wijze bij aan het succes. Ze doen compleet verschillende dingen, maar vormen samen een geheel. Benieuwd naar hun rol, drijfveren en ambities? Hier lees je hun verhalen. De Quooker kraan is uitgevonden om ons dagelijks leven, maar ook het milieu te dienen. Makkelijk voor de mens, vriendelijk voor de planeet. Ze kennen hun verantwoordelijkheid en nemen deze ook.Over jouw teamHet team Mechanical engineering bestaat uit 5 mechanical Engineers, 1 senior mechanical engineer en een Teamlead mechanical engineering. Het team Mechanical engineering is onderdeel van afdeling Engineering, die verantwoordelijk is voor het ontwikkelen, bouwen en verbeteren van de machines in de fabriek van Quooker. Naast je eigen team werk je ook nauw samen met de afdelingen Industrial Automation en Tool Machinery.AanbodWat mag je van ons verwachten?      Een cultuur waar jij centraal staat doordat we waardering feedback durven uit te spreken zodat je precies weet waar je aan toe bent.Investering in jouw ontwikkeling door opleidingen en maatwerk coaching.Hybride werken en dat betekent 4 dagen in Ridderkerk en 1 dag thuis.Een unieke werkomgeving waar je jouw ideeën in de praktijk werkelijkheid ziet worden.Werken met een duurzaam product en het recyclen van oude producten (tip: luister deze aflevering van ‘Op Stoom’ de podcast over onze uitdagingen op het gebied van circulariteit).Elke dag gratis vers fruit en gezonde, betaalbare bites in ons bedrijfsrestaurant.Borrels, uitjes en feesten.Vitaliteitsprogramma en sportvergoeding van €25,- per maand.27 vakantiedagen en een optie om 10 dagen jaarlijks bij te kopen zodat jij vitaal blijft.\nJouw profielWat verwachten wij van jou?      Je hebt minimaal een afgeronde hbo-opleiding in de richting van Werktuigbouw.Je hebt minimaal 10 jaar ervaring als werktuigbouwkundig ontwerper, de bedenker van slimme oplossingen.Je hebt ervaring met het ontwerpen in 3D- (bijvoorkeur Solid Works) en het maken van 2D-tekeningen.Je hebt minimaal 5 jaar ervaring als Projectlead/-manager binnen een technische functie.Je bent organisatorisch sterk, communicatief en daadkrachtig.Je hebt een uitstekende beheersing van de Nederlandse taal in woord en geschrift.",
+      "location": "Eindhoven, North Brabant, Netherlands",
+      "date_posted": "6 days ago",
+      "job_insights": [
+        "Hybrid",
+        "Full-time"
+      ],
+      "easy_apply": false,
+      "apply_info": "https://www.yer.nl/solliciteren/a15p500000bysvuial-a16p5000002f2wpias/?utm_campaign=YER+-+Engineering+-+Organic&utm_medium=cpc&utm_source=jobster_LinkedIn&jcc=eJwszUGOFDEMQNHbZOfpOE5iByniAog72I4zNNCqUncNXB-B2Pzd1_t2Xefr0-12PdV_xPPt_KnXPp6Pt--Hva54vvnxuH3WayLXwaMxS7KZfBpyI4kCy8yhlhygaziosNQWpaNH8v-j4EApyX1-_ZL8mFsWx1gEXZCgDlYQXwjmZBRsbeed_GPW7rtxEHihBTWzgZW-gGpZWXHs0Uby35PTuuaRtk9N739zn-n-D3vsmdM5rbuWXQK29gG1rAaG6rBXxtJ6axs1nc-Z02s-znRNP9LHvJ-wpVeuKkQ5xsIwMq1hwkRFhnD6NalvK5kDVusBlYqA9bwAxZnrGIE40uv-Pom0ZMvbDCUjqugwaoUsUEQ77U7SeY8WRNs1VmQuq_ifAAAA__9XKHbs",
+      "company_info": "About the company\n        \n\n        \n          \n            \n              \n                \n              \n            \n\n            \n              \n                \n                  Jobster\n                \n              \n\n              \n                6,392 followers\n              \n            \n          \n\n          \n    \n          \n    \n    \n\n\n        Follow\n    \n  \n        \n\n        \n          Software Development\n            \n              11-50 employees\n            \n            \n              21 on LinkedIn\n            \n        \n        \n          \n    \n\n        Employers, hiring managers, recruiters. Everyone has one thing on their mind. Finding talented people. But… everyone's looking in the same places. At the same time. In the same tiring way.Traditional job advertising always targets the same people. The ones that are actively looking for a new job. The only thing is; the best talent is often taken. But just because they're not searching for a new job, doesn't mean they're not looking for one.What if you knew who's eager to switch jobs before they start looking?Welcome to Jobster; the world’s first predictive job advertising platform. Open for early access registrations now.Reach active and passive job seekers on jobsites and beyond using real-time optimised campaigns in a cost-efficient manner. That’s Jobster in one sentence. - AI-driven candidate matching- Real time bidding- Programmatic distributionDo you want to learn more about Jobster? Request early access now at Jobster.com.Jobster. Predictive Job Advertising. Finally. \n      \n          \n              …\n            \n              show more",
+      "hiring_team": "NA",
+      "related_jobs": [
+        {
+          "title": "Engineer II, Manufacturing Engineering",
+          "company": "Thermo Fisher Scientific",
+          "location": "Eindhoven, North Brabant, Netherlands (On-site)",
+          "date": "6 days ago",
+          "insights": "99 school alumni work here99 Technical University of Munich school alumni work here"
+        },
+        {
+          "title": "Lead Mechanical Engineer",
+          "company": "Trinamics",
+          "location": "Eindhoven Area (On-site)",
+          "date": "45 minutes ago",
+          "insights": "Company review time is typically 1 week"
+        },
+        {
+          "title": "Lead Mechanical Engineer",
+          "company": "TSG Group",
+          "location": "Eindhoven, North Brabant, Netherlands (On-site)",
+          "date": "1 week ago",
+          "insights": "1 week ago"
+        },
+        {
+          "title": "Project Engineer",
+          "company": "GEA Group",
+          "location": "Bakel, North Brabant, Netherlands (On-site)",
+          "date": "6 days ago",
+          "insights": "39 school alumni work here39 Technical University of Munich school alumni work here"
+        },
+        {
+          "title": "Mechanical Project Engineer",
+          "company": "Orion Engineering",
+          "location": "Eindhoven, North Brabant, Netherlands (On-site)",
+          "date": "3 weeks ago",
+          "insights": "Actively reviewing applicants"
+        },
+        {
+          "title": "Senior Manufacturing Engineer Mechanical",
+          "company": "VDL ETG Eindhoven",
+          "location": "Eindhoven, North Brabant, Netherlands (On-site)",
+          "date": "2 hours ago",
+          "insights": "2 hours ago"
+        },
+        {
+          "title": "Senior Engineer Mechanical",
+          "company": "GE HealthCare",
+          "location": "Eindhoven, North Brabant, Netherlands (On-site)",
+          "date": "4 days ago",
+          "insights": "56 school alumni work here56 Technical University of Munich school alumni work here"
+        },
+        {
+          "title": "CAD/CAM Mechanical Design Engineer",
+          "company": "AME (Applied Micro Electronics)",
+          "location": "Eindhoven Area (On-site)",
+          "date": "1 week ago",
+          "insights": "1 week ago"
+        },
+        {
+          "title": "Mechanical Engineer",
+          "company": "Weheat",
+          "location": "Duizel, North Brabant, Netherlands (On-site)",
+          "date": "3 weeks ago",
+          "insights": "Actively reviewing applicants"
+        },
+        {
+          "title": "Electro Mechanical Engineer",
+          "company": "ALTEN Nederland",
+          "location": "Eindhoven Area (On-site)",
+          "date": "1 week ago",
+          "insights": "Actively reviewing applicants"
+        },
+        {
+          "title": "Mechanical Engineer",
+          "company": "Orcatech",
+          "location": "Eindhoven, North Brabant, Netherlands (On-site)",
+          "date": "3 weeks ago",
+          "insights": "3 weeks ago"
+        },
+        {
+          "title": "Senior Mechanical Engineer",
+          "company": "Haskoning",
+          "location": "Eindhoven, North Brabant, Netherlands (Hybrid)",
+          "date": "11 hours ago",
+          "insights": "2 school alumni work here2 Technical University of Munich school alumni work here"
+        },
+        {
+          "title": "Engineer II, Manufacturing Engineering",
+          "company": "Thermo Fisher Scientific",
+          "location": "Eindhoven, North Brabant, Netherlands (On-site)",
+          "date": "6 days ago",
+          "insights": "99 school alumni work here99 Technical University of Munich school alumni work here"
+        },
+        {
+          "title": "Lead Mechanical Engineer",
+          "company": "Trinamics",
+          "location": "Eindhoven Area (On-site)",
+          "date": "45 minutes ago",
+          "insights": "Company review time is typically 1 week"
+        },
+        {
+          "title": "Lead Mechanical Engineer",
+          "company": "TSG Group",
+          "location": "Eindhoven, North Brabant, Netherlands (On-site)",
+          "date": "1 week ago",
+          "insights": "1 week ago"
+        },
+        {
+          "title": "Project Engineer",
+          "company": "GEA Group",
+          "location": "Bakel, North Brabant, Netherlands (On-site)",
+          "date": "6 days ago",
+          "insights": "39 school alumni work here39 Technical University of Munich school alumni work here"
+        },
+        {
+          "title": "Mechanical Project Engineer",
+          "company": "Orion Engineering",
+          "location": "Eindhoven, North Brabant, Netherlands (On-site)",
+          "date": "3 weeks ago",
+          "insights": "Actively reviewing applicants"
+        },
+        {
+          "title": "Senior Manufacturing Engineer Mechanical",
+          "company": "VDL ETG Eindhoven",
+          "location": "Eindhoven, North Brabant, Netherlands (On-site)",
+          "date": "2 hours ago",
+          "insights": "2 hours ago"
+        },
+        {
+          "title": "Senior Engineer Mechanical",
+          "company": "GE HealthCare",
+          "location": "Eindhoven, North Brabant, Netherlands (On-site)",
+          "date": "4 days ago",
+          "insights": "56 school alumni work here56 Technical University of Munich school alumni work here"
+        },
+        {
+          "title": "CAD/CAM Mechanical Design Engineer",
+          "company": "AME (Applied Micro Electronics)",
+          "location": "Eindhoven Area (On-site)",
+          "date": "1 week ago",
+          "insights": "1 week ago"
+        },
+        {
+          "title": "Mechanical Engineer",
+          "company": "Weheat",
+          "location": "Duizel, North Brabant, Netherlands (On-site)",
+          "date": "3 weeks ago",
+          "insights": "Actively reviewing applicants"
+        },
+        {
+          "title": "Electro Mechanical Engineer",
+          "company": "ALTEN Nederland",
+          "location": "Eindhoven Area (On-site)",
+          "date": "1 week ago",
+          "insights": "Actively reviewing applicants"
+        },
+        {
+          "title": "Mechanical Engineer",
+          "company": "Orcatech",
+          "location": "Eindhoven, North Brabant, Netherlands (On-site)",
+          "date": "3 weeks ago",
+          "insights": "3 weeks ago"
+        },
+        {
+          "title": "Senior Mechanical Engineer",
+          "company": "Haskoning",
+          "location": "Eindhoven, North Brabant, Netherlands (Hybrid)",
+          "date": "11 hours ago",
+          "insights": "2 school alumni work here2 Technical University of Munich school alumni work here"
         }
       ]
     }
   ],
-  "scraped_at": "2025-06-13T11:30:51.436124",
+  "scraped_at": "2025-06-13T14:53:11.713590",
   "scraper_version": "playwright"
 }

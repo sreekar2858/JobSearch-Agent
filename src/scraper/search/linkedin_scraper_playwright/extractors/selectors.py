@@ -223,6 +223,16 @@ HIRING_TITLE_SELECTORS = [
     ".jobs-poster__title",
 ]
 
+# Connection degree selectors for hiring team
+HIRING_CONNECTION_SELECTORS = [
+    ".hirer-card__connection-degree",
+]
+
+# LinkedIn profile link selectors for hiring team
+HIRING_PROFILE_LINK_SELECTORS = [
+    "a[href*='/in/']",
+]
+
 # Related jobs selectors
 RELATED_JOBS_SECTION_SELECTORS = [
     "ul.card-list.card-list--tile.js-similar-jobs-list",
@@ -289,4 +299,94 @@ NEXT_BUTTON_SELECTORS = [
 PAGE_BUTTON_SELECTORS = [
     ".jobs-search-pagination__indicator-button",
     ".jobs-search-pagination__pages .jobs-search-pagination__indicator button",
+]
+
+# Authentication selectors
+LOGIN_FORM_SELECTORS = {
+    "username": "#username",
+    "password": "#password",
+    "submit": "button[type='submit']",
+}
+
+LOGGED_IN_INDICATORS = [
+    "#global-nav",
+    ".nav-main",
+    ".search-global-typeahead",
+    ".feed-identity-module",
+]
+
+# Job search result container selectors
+JOB_LIST_CONTAINER_SELECTORS = [
+    "ul.scaffold-layout__list-container",
+    "ul.jobs-search-results__list",
+    ".scaffold-layout__list",
+    ".jobs-search-results-list",
+    ".jobs-search-results__list-container",
+    "ul li[data-occludable-job-id]",
+    "ul:has(li[data-occludable-job-id])",
+]
+
+# Job loading indicators
+JOB_LOADING_INDICATORS = [
+    ".jobs-search__results-list",
+    ".scaffold-layout__list",
+    ".job-search-results",
+    ".jobs-search-results-list",
+]
+
+# Filter selectors
+EXPERIENCE_FILTER_SELECTOR = '.search-reusables__filter-trigger-and-dropdown[data-basic-filter-parameter-name="experience"] button'
+TIME_POSTED_FILTER_SELECTOR = '.search-reusables__filter-trigger-and-dropdown[data-basic-filter-parameter-name="timePostedRange"] button'
+
+# Additional date posted selectors
+ADDITIONAL_POSTED_DATE_SELECTORS = [
+    ".jobs-details-top-card__posted-date",
+    ".jobs-unified-top-card__subtitle-secondary-grouping time",
+    ".jobs-posted-date",
+    "[data-test-posted-date]",
+    ".jobs-unified-top-card__subtitle-secondary-grouping span:first-child",
+    ".jobs-details-top-card__subtitle-secondary-grouping time",
+    "time[datetime]",
+]
+
+# Additional job insights selectors
+ADDITIONAL_JOB_INSIGHTS_SELECTORS = [
+    ".jobs-details-top-card__job-insight",
+    ".jobs-unified-top-card__subtitle-secondary-grouping span",
+    ".job-insights__container",
+    ".jobs-unified-top-card__subtitle-secondary-grouping",
+    ".jobs-details-top-card__applicant-count",
+    ".jobs-unified-top-card__applicant-count",
+    ".job-details-fit-level-preferences button span",
+]
+
+# Additional apply button selectors
+ADDITIONAL_APPLY_BUTTON_SELECTORS = [
+    ".jobs-unified-top-card__apply-button",
+    ".jobs-details-top-card__apply-button",
+    "[data-test-apply-button]",
+    ".jobs-apply-button--top-card",
+    "button[aria-label*='pply']",
+    "a[aria-label*='pply']",
+]
+
+# Additional location selectors
+ADDITIONAL_LOCATION_SELECTORS = [
+    ".jobs-unified-top-card__subtitle-secondary-grouping span",
+    ".jobs-details-top-card__bullet",
+    ".job-details-job-summary__text--ellipsis",
+    "[data-test-job-location]",
+]
+
+# Skills and qualifications selectors
+SKILLS_SECTION_SELECTORS = [
+    ".jobs-description-details__list",
+    ".jobs-description-details__list li",
+]
+
+# Company website selectors (updated)
+ADDITIONAL_COMPANY_WEBSITE_SELECTORS = [
+    ".jobs-company__box a[href*='http']",
+    ".jobs-company__content a[href*='http']",
+    ".jobs-company-information a[href*='http']",
 ]

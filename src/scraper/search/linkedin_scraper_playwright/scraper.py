@@ -17,6 +17,18 @@ from .filters import FilterManager
 from .extractors import JobLinksExtractor, JobDetailsExtractor
 from .config import DEFAULT_TIMEOUT
 from .utils import async_random_sleep
+from .extractors.selectors import (
+    JOB_DESCRIPTION_SELECTORS,
+    ADDITIONAL_POSTED_DATE_SELECTORS,
+    JOB_INSIGHTS_SELECTORS,
+    ADDITIONAL_JOB_INSIGHTS_SELECTORS,
+    ADDITIONAL_APPLY_BUTTON_SELECTORS,
+    ADDITIONAL_LOCATION_SELECTORS,
+    APPLICANT_COUNT_SELECTORS,
+    CONTACT_INFO_SELECTORS,
+    ADDITIONAL_COMPANY_WEBSITE_SELECTORS,
+    SKILLS_SECTION_SELECTORS
+)
 
 # Configure logging
 logging.basicConfig(
@@ -199,23 +211,19 @@ class LinkedInScraper:
         Args:
             job_url: URL of the job posting
 
-        Returns:
-            Dictionary containing detailed job information
+        Returns:            Dictionary containing detailed job information
         """
         await self._ensure_setup()
+        
+        # Ensure we're logged in (same as collect_job_links method)
+        await self.auth_manager.ensure_login(self.username, self.password)
 
         try:
             # Navigate to job page
             await self.browser_manager.navigate_to(job_url, 3.0, 5.0)
 
             # Wait for job details to load
-            description_selectors = [
-                ".jobs-description",
-                ".jobs-description-content",
-                "#job-details",
-                ".jobs-box__html-content",
-                "[data-test-job-description]",
-            ]
+            description_selectors = JOB_DESCRIPTION_SELECTORS
 
             # Wait for page to load properly
             found_selector = False
@@ -254,16 +262,7 @@ class LinkedInScraper:
             job_details["description"] = await self.job_details_extractor.extract_complete_job_description()            # Extract date_posted if not already found in basic_info
             if job_details["date_posted"] == "NA":
                 try:
-                    date_selectors = [
-                        ".jobs-unified-top-card__posted-date",
-                        ".jobs-details-top-card__posted-date", 
-                        ".jobs-unified-top-card__subtitle-secondary-grouping time",
-                        ".jobs-posted-date",
-                        "[data-test-posted-date]",
-                        ".jobs-unified-top-card__subtitle-secondary-grouping span:first-child",
-                        ".jobs-details-top-card__subtitle-secondary-grouping time",
-                        "time[datetime]"
-                    ]
+                    date_selectors = ADDITIONAL_POSTED_DATE_SELECTORS
                     
                     for selector in date_selectors:
                         try:
@@ -292,18 +291,8 @@ class LinkedInScraper:
                                     insights.append(pref_text)
                 except Exception:
                     pass
-                
-                # Then try other insight selectors
-                insight_selectors = [
-                    ".jobs-unified-top-card__job-insight",
-                    ".jobs-details-top-card__job-insight", 
-                    ".jobs-unified-top-card__subtitle-secondary-grouping span",
-                    ".job-insights__container",
-                    ".jobs-unified-top-card__subtitle-secondary-grouping",
-                    ".jobs-details-top-card__applicant-count",
-                    ".jobs-unified-top-card__applicant-count",
-                    ".job-details-fit-level-preferences button span"
-                ]
+                  # Then try other insight selectors
+                insight_selectors = ADDITIONAL_JOB_INSIGHTS_SELECTORS
                 
                 for selector in insight_selectors:
                     try:
@@ -328,15 +317,7 @@ class LinkedInScraper:
             except Exception as e:
                 logger.debug(f"Could not extract job_insights: {e}")            # Extract easy_apply and apply_info
             try:
-                apply_button_selectors = [
-                    ".jobs-apply-button",
-                    ".jobs-unified-top-card__apply-button",
-                    ".jobs-details-top-card__apply-button",
-                    "[data-test-apply-button]",
-                    ".jobs-apply-button--top-card",
-                    "button[aria-label*='pply']",
-                    "a[aria-label*='pply']"
-                ]
+                apply_button_selectors = ADDITIONAL_APPLY_BUTTON_SELECTORS
                 
                 for selector in apply_button_selectors:
                     try:
@@ -384,17 +365,9 @@ class LinkedInScraper:
                                     not location_text.isdigit()):
                                     job_details["location"] = location_text
                                     break
-                    
-                    # If still not found, try other location selectors
+                      # If still not found, try other location selectors
                     if job_details["location"] == "NA":
-                        location_selectors = [
-                            ".jobs-unified-top-card__bullet",
-                            ".job-details-jobs-unified-top-card__bullet", 
-                            ".jobs-unified-top-card__workplace-type",
-                            ".jobs-details-top-card__bullet",
-                            ".job-details-job-summary__text--ellipsis",
-                            "[data-test-job-location]"
-                        ]
+                        location_selectors = ADDITIONAL_LOCATION_SELECTORS
                         
                         for selector in location_selectors:
                             try:
@@ -410,11 +383,9 @@ class LinkedInScraper:
                             except Exception:
                                 continue
                 except Exception as e:
-                    logger.debug(f"Could not extract additional location: {e}")
-
-            # Extract skills and qualifications if available
+                    logger.debug(f"Could not extract additional location: {e}")            # Extract skills and qualifications if available
             try:
-                skills_section = await self.browser_manager.page.query_selector(".jobs-description-details__list")
+                skills_section = await self.browser_manager.page.query_selector(SKILLS_SECTION_SELECTORS[0])
                 if skills_section:
                     skill_elements = await skills_section.query_selector_all("li")
                     skills = []
@@ -425,16 +396,8 @@ class LinkedInScraper:
                     if skills:
                         job_details["skills"] = skills
             except Exception as e:
-                logger.debug(f"Could not extract skills: {e}")
-
-            # Extract applicant count if available
-            applicant_selectors = [
-                ".jobs-unified-top-card__applicant-count",
-                ".jobs-details-top-card__applicant-count",
-                "[data-test-applicant-count]",
-                ".jobs-details__top-card-applicant-count",
-                ".jobs-unified-top-card__subtitle-secondary-grouping span[class*='applicant']",
-            ]
+                logger.debug(f"Could not extract skills: {e}")            # Extract applicant count if available
+            applicant_selectors = APPLICANT_COUNT_SELECTORS
 
             for selector in applicant_selectors:
                 try:
@@ -453,14 +416,8 @@ class LinkedInScraper:
                     if job_details.get("applicant_count"):
                         break
                 except Exception:
-                    continue
-
-            # Extract contact info if available
-            contact_selectors = [
-                ".jobs-unified-top-card__job-insight--recruiter",
-                ".jobs-details-top-card__job-posting-recruiter",
-                ".jobs-poster__details",
-            ]
+                    continue            # Extract contact info if available
+            contact_selectors = CONTACT_INFO_SELECTORS
 
             for selector in contact_selectors:
                 try:
@@ -482,14 +439,8 @@ class LinkedInScraper:
                 if company_info and company_info.strip():
                     job_details["company_info"] = company_info
             except Exception as e:
-                logger.debug(f"Could not extract company info: {e}")
-
-            # Try to get company website
-            company_website_selectors = [
-                ".jobs-company__box a[href*='http']",
-                ".jobs-company__content a[href*='http']",
-                ".jobs-company-information a[href*='http']",
-            ]
+                logger.debug(f"Could not extract company info: {e}")            # Try to get company website
+            company_website_selectors = ADDITIONAL_COMPANY_WEBSITE_SELECTORS
 
             for selector in company_website_selectors:
                 try:

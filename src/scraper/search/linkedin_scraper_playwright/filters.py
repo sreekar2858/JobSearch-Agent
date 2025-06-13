@@ -9,6 +9,7 @@ from playwright.async_api import Page, ElementHandle, TimeoutError as Playwright
 
 from .config import EXPERIENCE_LEVEL_MAPPING, DATE_POSTED_MAPPING, EXPERIENCE_DISPLAY_TEXT, DATE_DISPLAY_TEXT
 from .utils import async_random_sleep
+from .extractors.selectors import EXPERIENCE_FILTER_SELECTOR, TIME_POSTED_FILTER_SELECTOR
 
 logger = logging.getLogger("linkedin_scraper")
 
@@ -70,13 +71,11 @@ class FilterManager:
             return True
 
         try:
-            logger.info(f"Applying experience level filter: {experience_levels}")
-
-            # Find and click the experience level filter button
+            logger.info(f"Applying experience level filter: {experience_levels}")            # Find and click the experience level filter button
             experience_button_selectors = [
                 'button[id="searchFilter_experience"]',
                 'button[aria-label*="Experience level filter"]',
-                '.search-reusables__filter-trigger-and-dropdown[data-basic-filter-parameter-name="experience"] button',
+                EXPERIENCE_FILTER_SELECTOR,
             ]
 
             experience_button = None
@@ -150,13 +149,11 @@ class FilterManager:
             return True
 
         try:
-            logger.info(f"Applying date posted filter: {date_posted}")
-
-            # Find and click the date posted filter button
+            logger.info(f"Applying date posted filter: {date_posted}")            # Find and click the date posted filter button
             date_button_selectors = [
                 'button[id="searchFilter_timePostedRange"]',
                 'button[aria-label*="Date posted filter"]',
-                '.search-reusables__filter-trigger-and-dropdown[data-basic-filter-parameter-name="timePostedRange"] button',
+                TIME_POSTED_FILTER_SELECTOR,
             ]
 
             date_button = None
