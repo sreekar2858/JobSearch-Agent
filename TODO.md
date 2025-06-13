@@ -2,20 +2,23 @@ AGENT
 - Extract the messages of intermediate agents from outside the _run_async_impl function
 - Add a test to check that the messages are correctly extracted
 
+
+
 SCRAPER (LINKEDIN)
+- Concurrent
 - Extract
-    - source (already implemented)
-    - scraped_at (already implemented)
-    - job_title (already implemented)
-    - company_name (already implemented)
-    - url (already implemented)
-    - location (already implemented)
-    - date_posted (already implemented)
-    - job_type (already implemented)
-    - job_level (already implemented)
+    + source
+    + scraped_at
+    + job_title
+    + company_name
+    + url
+    + location
+    + date_posted
+    + job_type
+    + job_level
     - skills
-    - easy_apply (already implemented)
-    - about_job (already implemented)
-    - about_company (already implemented)
-    - related_jobs (already implemented)
-    - contact details (already implemented)
+    + easy_apply
+    + about_job
+    + about_company
+    + related_jobs
+    + contact details

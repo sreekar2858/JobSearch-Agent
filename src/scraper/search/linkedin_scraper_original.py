@@ -40,6 +40,17 @@ logger = logging.getLogger("linkedin_scraper")
 
 
 class LinkedInScraper:
+    """
+    A class to scrape job listings from LinkedIn using Chrome or Firefox and Selenium.
+
+    Features:
+    - Search for jobs with keywords and location
+    - Support for authenticated searches using LinkedIn credentials
+    - Extraction of job titles, companies, locations, and URLs
+    - Support for both Chrome and Firefox browsers
+    - Handling of common scraping challenges (captchas, rate limits)
+    """
+
     def collect_job_links(
         self,
         keywords: str,
@@ -101,346 +112,28 @@ class LinkedInScraper:
             logger.info("Analyzing page structure...")
             self._debug_page_structure()
 
-            # Try to find the total number of results
-            try:
-                total_jobs_element = self.driver.find_element(
-                    By.CSS_SELECTOR,
-                    ".jobs-search-results-list__title-heading .t-12, .jobs-search-results-list__subtitle",
-                )
-                if total_jobs_element:
-                    results_text = total_jobs_element.text.strip()
-                    if "results" in results_text:
-                        total_expected = int(
-                            "".join(
-                                filter(str.isdigit, results_text.split("results")[0])
-                            )
-                        )
-                        logger.info(
-                            f"Found {total_expected} total jobs according to LinkedIn"
-                        )
-                    else:
-                        total_expected = 0
-            except Exception as e:
-                logger.warning(f"Could not determine total job count: {e}")
-                total_expected = 0
+            # Get total job count for this search
+            total_expected = self._get_total_job_count()
 
-            # # Take a screenshot of the initial jobs page
-            # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            # screenshot_path = os.path.join("output", "linkedin", f"initial_jobs_page_{timestamp}.png")            # os.makedirs(os.path.dirname(screenshot_path), exist_ok=True)
-            # self.driver.save_screenshot(screenshot_path)
-            # logger.info(f"Saved initial page screenshot to {screenshot_path}")
+            # Find the job list container
+            job_list_container = self._find_job_list_container()
 
-            # Find the job list container - this is the left panel with job listings
-            job_list_container = None
-            job_list_selectors = [
-                "ul.scaffold-layout__list-container",  # Standard LinkedIn class for job list UL
-                "ul.jobs-search-results__list",  # Alternative class name
-                ".scaffold-layout__list",  # The left panel container
-                ".jobs-search-results-list",
-                ".jobs-search-results__list-container",
-                "ul li[data-occludable-job-id]",  # New structure - find parent UL of job cards
-                "ul:has(li[data-occludable-job-id])",  # CSS4 selector for UL containing job cards
-            ]
+            # Scroll through the job list to load all cards
+            self._scroll_job_list_container(job_list_container, total_expected)
 
-            for selector in job_list_selectors:
-                try:
-                    job_list_container = self.driver.find_element(
-                        By.CSS_SELECTOR, selector
-                    )
-                    if job_list_container:
-                        logger.info(
-                            f"Found job list container with selector: {selector}"
-                        )
-                        break
-                except:
-                    continue
-
-            # If no specific container found, try to find the UL that contains job cards
-            if not job_list_container:
-                try:
-                    # Find all ULs and check if they contain job cards
-                    uls = self.driver.find_elements(By.TAG_NAME, "ul")
-                    for ul in uls:
-                        job_cards_in_ul = ul.find_elements(
-                            By.CSS_SELECTOR, "li[data-occludable-job-id]"
-                        )
-                        if len(job_cards_in_ul) > 0:
-                            job_list_container = ul
-                            logger.info(
-                                f"Found job list container (UL with {len(job_cards_in_ul)} job cards)"
-                            )
-                            break
-                except Exception as e:
-                    logger.warning(f"Error finding UL with job cards: {e}")
-
-            if not job_list_container:
-                logger.warning("Could not find job list container, using body instead")
-                job_list_container = self.driver.find_element(By.TAG_NAME, "body")
-
-            # Now we'll scroll through the job list container to load all job cards
-            # This is different from scrolling the whole page - we're just scrolling the left panel
-            scroll_attempts = 0
-            max_scroll_attempts = 20  # Increase this to ensure we load all jobs
-            last_job_count = 0
-            stagnant_count = 0
-
-            while scroll_attempts < max_scroll_attempts:
-                logger.info(
-                    f"Scrolling job list container (attempt {scroll_attempts + 1}/{max_scroll_attempts})"
-                )
-                # Find all currently loaded job cards (both loaded and placeholder li elements)
-                job_card_selector = "li[data-occludable-job-id], li.jobs-search-results__list-item, li.scaffold-layout__list-item"
-                job_cards = job_list_container.find_elements(
-                    By.CSS_SELECTOR, job_card_selector
-                )
-                loaded_count = len(job_cards)
-
-                logger.info(
-                    f"Currently have {loaded_count} job card elements (loaded + placeholders)"
-                )
-
-                # If no cards found yet, try direct page scroll
-                if loaded_count == 0:
-                    self.driver.execute_script(
-                        "window.scrollTo(0, document.body.scrollHeight / 2);"
-                    )
-                    self._random_sleep(1.0, 2.0)
-                    job_cards = job_list_container.find_elements(
-                        By.CSS_SELECTOR, job_card_selector
-                    )
-                    loaded_count = len(job_cards)
-                    logger.info(
-                        f"After page scroll, found {loaded_count} job card elements"
-                    )
-
-                # If we've found cards, scroll to the last one to load more
-                if loaded_count > 0:
-                    # Scroll to the last job card to trigger loading more
-                    last_card = job_cards[-1]
-                    try:
-                        # First try scrolling the job card into view (this will scroll the left panel)
-                        self.driver.execute_script(
-                            "arguments[0].scrollIntoView({block: 'end', behavior: 'smooth'});",
-                            last_card,
-                        )
-                        logger.info(f"Scrolled to job card {loaded_count}")
-                    except Exception as e:
-                        logger.warning(f"Error scrolling to last job card: {e}")
-                        # Try a different scroll approach - scroll the list container itself
-                        try:
-                            # Scroll the list container directly
-                            scroll_script = """
-                                arguments[0].scrollTop = arguments[0].scrollHeight;
-                            """
-                            self.driver.execute_script(
-                                scroll_script, job_list_container
-                            )
-                            logger.info("Scrolled job list container directly")
-                        except Exception as container_scroll_error:
-                            logger.warning(
-                                f"Error scrolling container: {container_scroll_error}"
-                            )
-                            # Last resort: scroll the page
-                            self.driver.execute_script(
-                                "window.scrollTo(0, document.body.scrollHeight);"
-                            )
-
-                # Wait for new content to load
-                self._random_sleep(2.0, 3.0)
-                # Count job cards again
-                job_cards = job_list_container.find_elements(
-                    By.CSS_SELECTOR, job_card_selector
-                )
-                new_count = len(job_cards)
-                logger.info(f"After scrolling, now have {new_count} job card elements")
-
-                # If we're at the expected total or haven't loaded more in several attempts, stop scrolling
-                if (
-                    total_expected > 0 and new_count >= total_expected
-                ) or new_count >= 100:
-                    logger.info(
-                        f"Found all expected jobs: {new_count}/{total_expected}"
-                    )
-                    break
-
-                if new_count == last_job_count:
-                    stagnant_count += 1
-                    if stagnant_count >= 3:
-                        logger.info(
-                            f"Job count hasn't increased for 3 attempts, stopping at {new_count} jobs"
-                        )
-                        break
-                else:
-                    stagnant_count = 0  # Reset if we found more jobs
-
-                last_job_count = new_count
-                scroll_attempts += 1
-                # Wait for job cards to load after scrolling
-            job_cards_selectors = [
-                "li[data-occludable-job-id]",  # New primary selector
-                "li.jobs-search-results__list-item",
-                "li.scaffold-layout__list-item",
-                ".job-card-container",
-                "[data-job-id]",
-            ]
-            job_cards = []
-
-            # Try each selector to find job cards
-            for selector in job_cards_selectors:
-                try:
-                    cards = self.driver.find_elements(By.CSS_SELECTOR, selector)
-                    if len(cards) > len(job_cards):
-                        job_cards = cards
-                        logger.info(
-                            f"Found {len(job_cards)} job cards with selector: {selector}"
-                        )
-                except Exception as e:
-                    logger.debug(
-                        f"Failed to find job cards with selector {selector}: {e}"
-                    )
-                    continue
-
+            # Get all job cards from the page
+            job_cards = self._get_job_cards(job_list_container)
             if not job_cards:
                 logger.warning("No job cards found on this page.")
-                # # Take a screenshot to debug
-                # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                # screenshot_path = os.path.join("output", "linkedin", f"no_job_cards_{timestamp}.png")
-                # os.makedirs(os.path.dirname(screenshot_path), exist_ok=True)
-                # self.driver.save_screenshot(screenshot_path)
-                # logger.info(f"Saved screenshot to {screenshot_path}")
                 break
 
-            logger.info(f"Processing {len(job_cards)} job cards on page {current_page}")
-
             # Extract job links from all cards
-            processed = 0
-            for card in job_cards:
-                processed += 1
-                if processed % 5 == 0:
-                    logger.info(f"Processed {processed}/{len(job_cards)} job cards")
-
-                try:
-                    # *** KEY STEP: Make sure the card is in view to load its details ***
-                    try:
-                        # Scroll to the card to ensure its content is loaded
-                        self.driver.execute_script(
-                            "arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});",
-                            card,
-                        )
-                        # Give it a moment to load the content
-                        self._random_sleep(0.5, 1.0)
-                    except Exception as e:
-                        logger.debug(f"Error scrolling to job card {processed}: {e}")
-                    # Check if this card has data-occludable-job-id attribute
-                    job_id = None
-                    try:
-                        job_id = card.get_attribute("data-occludable-job-id")
-                        if job_id:
-                            logger.debug(f"Found card with job ID: {job_id}")
-                        else:
-                            logger.debug(
-                                f"Card {processed} has no data-occludable-job-id attribute"
-                            )
-                    except Exception as e:
-                        logger.debug(f"Error getting job ID from card {processed}: {e}")
-
-                    # Check if card has data-job-id attribute (alternative format)
-                    if not job_id:
-                        try:
-                            job_container = card.find_element(
-                                By.CSS_SELECTOR, "[data-job-id]"
-                            )
-                            job_id = job_container.get_attribute("data-job-id")
-                            if job_id:
-                                logger.debug(f"Found card with job-id: {job_id}")
-                        except:
-                            pass
-                    # Try to find the job link inside this card
-                    link_elements = []
-                    try:
-                        # Look for the title link with various selectors - prioritize new structure
-                        link_elements = card.find_elements(
-                            By.CSS_SELECTOR,
-                            "a.job-card-container__link, a[href*='/jobs/view/'], a[data-control-id], a.job-card-list__title-link, a.job-card-list__title--link",
-                        )
-
-                        # If we can't find with specific selectors, get all links
-                        if not link_elements:
-                            link_elements = card.find_elements(By.TAG_NAME, "a")
-                    except Exception as e:
-                        logger.debug(f"Error finding links in card {processed}: {e}")
-                    # Process all found links to get a job URL
-                    url = None
-                    logger.debug(
-                        f"Card {processed}: Found {len(link_elements)} link elements"
-                    )
-                    for i, link_element in enumerate(link_elements):
-                        try:
-                            href = link_element.get_attribute("href")
-                            logger.debug(f"  Link {i}: {href}")
-                            if href and "/jobs/view/" in href:
-                                url = href.split("?")[0]  # Remove query parameters
-                                logger.debug(f"Found job URL: {url}")
-                                break
-                        except Exception as e:
-                            logger.debug(f"  Error processing link {i}: {e}")
-                            continue
-                    # If we found a URL, add it to our collection
-                    if url:
-                        job_links.add(url)
-                        logger.debug(f"Added job URL to collection: {url}")
-                    # If we have a job ID but no URL, construct one
-                    elif job_id:
-                        constructed_url = (
-                            f"https://www.linkedin.com/jobs/view/{job_id}/"
-                        )
-                        logger.debug(f"Constructed job URL from ID: {constructed_url}")
-                        job_links.add(constructed_url)
-                    else:
-                        # Check if this is an empty placeholder card
-                        card_html = card.get_attribute("innerHTML") or ""
-                        if (
-                            len(card_html.strip()) < 50
-                        ):  # Very short content suggests placeholder
-                            logger.debug(
-                                f"Card {processed} appears to be a placeholder (short content)"
-                            )
-                        else:
-                            logger.warning(
-                                f"Could not extract job link from card {processed} (has content but no extractable URL)"
-                            )
-                            # Log some of the card's structure for debugging
-                            try:
-                                card_class = card.get_attribute("class") or "no-class"
-                                logger.debug(f"  Card class: {card_class}")
-                                all_links = card.find_elements(By.TAG_NAME, "a")
-                                logger.debug(f"  Total links in card: {len(all_links)}")
-                                for j, link in enumerate(
-                                    all_links[:3]
-                                ):  # Only show first 3
-                                    try:
-                                        href = link.get_attribute("href") or "no-href"
-                                        logger.debug(f"    Link {j}: {href}")
-                                    except:
-                                        pass
-                            except Exception as debug_e:
-                                logger.debug(
-                                    f"  Error debugging card {processed}: {debug_e}"
-                                )
-
-                except StaleElementReferenceException:
-                    logger.warning(
-                        f"Stale element reference when processing card {processed}/{len(job_cards)}. Skipping."
-                    )
-                    continue
-                except Exception as e:
-                    logger.debug(
-                        f"Error processing job card {processed}/{len(job_cards)}: {e}"
-                    )
-                    continue
+            page_links = self._extract_job_links_from_cards(job_cards, current_page)
+            job_links.update(page_links)
 
             logger.info(f"Collected {len(job_links)} unique job links so far.")
-            # Get pagination information before trying to navigate
+
+            # Check if we can go to next page
             pagination_info = self._get_pagination_info()
             logger.info(f"Pagination status: {pagination_info['page_state']}")
 
@@ -448,76 +141,12 @@ class LinkedInScraper:
                 logger.info("No next page available - reached end of results")
                 break
 
-            # Try to go to next page
-            try:
-                next_button_selectors = [
-                    "button.jobs-search-pagination__button--next",
-                    ".jobs-search-pagination__button--next",
-                    "button[aria-label='View next page']",
-                    "button.artdeco-button.jobs-search-pagination__button--next",
-                    ".jobs-search-pagination button[aria-label*='next']",
-                    "button.artdeco-pagination__button--next",  # fallback to old selector
-                    ".artdeco-pagination__button--next",  # fallback to old selector
-                ]
-
-                next_clicked = False
-                for selector in next_button_selectors:
-                    try:
-                        next_buttons = self.driver.find_elements(
-                            By.CSS_SELECTOR, selector
-                        )
-                        for next_button in next_buttons:
-                            if (
-                                next_button.is_displayed()
-                                and next_button.is_enabled()
-                                and "disabled" not in next_button.get_attribute("class")
-                            ):  # Scroll to make the button visible
-                                self.driver.execute_script(
-                                    "arguments[0].scrollIntoView({block: 'center'});",
-                                    next_button,
-                                )
-                                self._random_sleep(1.0, 2.0)
-
-                                next_button.click()
-                                logger.info("Clicked next page button")
-                                next_clicked = True
-                                self._random_sleep(3.0, 5.0)
-
-                                # Verify we're on the next page
-                                new_pagination_info = self._get_pagination_info()
-                                logger.info(
-                                    f"After navigation: {new_pagination_info['page_state']}"
-                                )
-                                break
-
-                        if next_clicked:
-                            break
-                    except Exception as e:
-                        logger.warning(
-                            f"Could not click next button with selector {selector}: {str(e)}"
-                        )
-                        continue
-
-                if not next_clicked:
-                    logger.info("No more pages available or could not find next button")
-                    break
-
-            except Exception as e:
-                logger.error(f"Error trying to navigate to next page: {str(e)}")
+            # Navigate to next page
+            if not self._go_to_next_page():
                 break
+
             current_page += 1
         return list(job_links)
-
-    """
-    A class to scrape job listings from LinkedIn using Chrome or Firefox and Selenium.
-
-    Features:
-    - Search for jobs with keywords and location
-    - Support for authenticated searches using LinkedIn credentials
-    - Extraction of job titles, companies, locations, and URLs
-    - Support for both Chrome and Firefox browsers
-    - Handling of common scraping challenges (captchas, rate limits)
-    """
 
     def __init__(
         self, headless: bool = False, timeout: int = 20, browser: str = "chrome"
@@ -2215,6 +1844,421 @@ class LinkedInScraper:
             # Take a screenshot for debugging
             # self._save_screenshot("next_page_error")
             return False
+
+    def _get_total_job_count(self) -> int:
+        """
+        Extract the total number of jobs from the search results page.
+
+        Returns:
+            int: Total expected job count, or 0 if not found
+        """
+        try:
+            total_jobs_element = self.driver.find_element(
+                By.CSS_SELECTOR,
+                ".jobs-search-results-list__title-heading .t-12, .jobs-search-results-list__subtitle",
+            )
+            if total_jobs_element:
+                results_text = total_jobs_element.text.strip()
+                if "results" in results_text:
+                    total_expected = int(
+                        "".join(filter(str.isdigit, results_text.split("results")[0]))
+                    )
+                    logger.info(
+                        f"Found {total_expected} total jobs according to LinkedIn"
+                    )
+                    return total_expected
+        except Exception as e:
+            logger.warning(f"Could not determine total job count: {e}")
+        return 0
+
+    def _find_job_list_container(self):
+        """
+        Find the job list container element on the page.
+
+        Returns:
+            WebElement: The job list container, or body element as fallback
+        """
+        job_list_selectors = [
+            "ul.scaffold-layout__list-container",  # Standard LinkedIn class for job list UL
+            "ul.jobs-search-results__list",  # Alternative class name
+            ".scaffold-layout__list",  # The left panel container
+            ".jobs-search-results-list",
+            ".jobs-search-results__list-container",
+            "ul li[data-occludable-job-id]",  # New structure - find parent UL of job cards
+            "ul:has(li[data-occludable-job-id])",  # CSS4 selector for UL containing job cards
+        ]
+
+        for selector in job_list_selectors:
+            try:
+                job_list_container = self.driver.find_element(By.CSS_SELECTOR, selector)
+                if job_list_container:
+                    logger.info(f"Found job list container with selector: {selector}")
+                    return job_list_container
+            except:
+                continue
+
+        # If no specific container found, try to find the UL that contains job cards
+        try:
+            # Find all ULs and check if they contain job cards
+            uls = self.driver.find_elements(By.TAG_NAME, "ul")
+            for ul in uls:
+                job_cards_in_ul = ul.find_elements(
+                    By.CSS_SELECTOR, "li[data-occludable-job-id]"
+                )
+                if len(job_cards_in_ul) > 0:
+                    logger.info(
+                        f"Found job list container (UL with {len(job_cards_in_ul)} job cards)"
+                    )
+                    return ul
+        except Exception as e:
+            logger.warning(f"Error finding UL with job cards: {e}")
+
+        logger.warning("Could not find job list container, using body instead")
+        return self.driver.find_element(By.TAG_NAME, "body")
+
+    def _scroll_job_list_container(
+        self, job_list_container, total_expected: int
+    ) -> None:
+        """
+        Scroll through the job list container to load all job cards.
+
+        Args:
+            job_list_container: The container element to scroll
+            total_expected: Expected total number of jobs
+        """
+        scroll_attempts = 0
+        max_scroll_attempts = 20  # Increase this to ensure we load all jobs
+        last_job_count = 0
+        stagnant_count = 0
+
+        while scroll_attempts < max_scroll_attempts:
+            logger.info(
+                f"Scrolling job list container (attempt {scroll_attempts + 1}/{max_scroll_attempts})"
+            )
+            # Find all currently loaded job cards (both loaded and placeholder li elements)
+            job_card_selector = "li[data-occludable-job-id], li.jobs-search-results__list-item, li.scaffold-layout__list-item"
+            job_cards = job_list_container.find_elements(
+                By.CSS_SELECTOR, job_card_selector
+            )
+            loaded_count = len(job_cards)
+
+            logger.info(
+                f"Currently have {loaded_count} job card elements (loaded + placeholders)"
+            )
+
+            # If no cards found yet, try direct page scroll
+            if loaded_count == 0:
+                self.driver.execute_script(
+                    "window.scrollTo(0, document.body.scrollHeight / 2);"
+                )
+                self._random_sleep(1.0, 2.0)
+                job_cards = job_list_container.find_elements(
+                    By.CSS_SELECTOR, job_card_selector
+                )
+                loaded_count = len(job_cards)
+                logger.info(
+                    f"After page scroll, found {loaded_count} job card elements"
+                )
+
+            # If we've found cards, scroll to the last one to load more
+            if loaded_count > 0:
+                # Scroll to the last job card to trigger loading more
+                last_card = job_cards[-1]
+                try:
+                    # First try scrolling the job card into view (this will scroll the left panel)
+                    self.driver.execute_script(
+                        "arguments[0].scrollIntoView({block: 'end', behavior: 'smooth'});",
+                        last_card,
+                    )
+                    logger.info(f"Scrolled to job card {loaded_count}")
+                except Exception as e:
+                    logger.warning(f"Error scrolling to last job card: {e}")
+                    # Try a different scroll approach - scroll the list container itself
+                    try:
+                        # Scroll the list container directly
+                        scroll_script = """
+                            arguments[0].scrollTop = arguments[0].scrollHeight;
+                        """
+                        self.driver.execute_script(scroll_script, job_list_container)
+                        logger.info("Scrolled job list container directly")
+                    except Exception as container_scroll_error:
+                        logger.warning(
+                            f"Error scrolling container: {container_scroll_error}"
+                        )
+                        # Last resort: scroll the page
+                        self.driver.execute_script(
+                            "window.scrollTo(0, document.body.scrollHeight);"
+                        )
+
+            # Wait for new content to load
+            self._random_sleep(2.0, 3.0)
+            # Count job cards again
+            job_cards = job_list_container.find_elements(
+                By.CSS_SELECTOR, job_card_selector
+            )
+            new_count = len(job_cards)
+            logger.info(f"After scrolling, now have {new_count} job card elements")
+
+            # If we're at the expected total or haven't loaded more in several attempts, stop scrolling
+            if (total_expected > 0 and new_count >= total_expected) or new_count >= 100:
+                logger.info(f"Found all expected jobs: {new_count}/{total_expected}")
+                break
+
+            if new_count == last_job_count:
+                stagnant_count += 1
+                if stagnant_count >= 3:
+                    logger.info(
+                        f"Job count hasn't increased for 3 attempts, stopping at {new_count} jobs"
+                    )
+                    break
+            else:
+                stagnant_count = 0  # Reset if we found more jobs
+
+            last_job_count = new_count
+            scroll_attempts += 1
+
+    def _get_job_cards(self, job_list_container):
+        """
+        Get all job cards from the page using various selectors.
+
+        Args:
+            job_list_container: The container element to search in
+
+        Returns:
+            List of WebElements representing job cards
+        """
+        job_cards_selectors = [
+            "li[data-occludable-job-id]",  # New primary selector
+            "li.jobs-search-results__list-item",
+            "li.scaffold-layout__list-item",
+            ".job-card-container",
+            "[data-job-id]",
+        ]
+        job_cards = []
+
+        # Try each selector to find job cards
+        for selector in job_cards_selectors:
+            try:
+                cards = self.driver.find_elements(By.CSS_SELECTOR, selector)
+                if len(cards) > len(job_cards):
+                    job_cards = cards
+                    logger.info(
+                        f"Found {len(job_cards)} job cards with selector: {selector}"
+                    )
+            except Exception as e:
+                logger.debug(f"Failed to find job cards with selector {selector}: {e}")
+                continue
+
+        return job_cards
+
+    def _extract_job_links_from_cards(self, job_cards, current_page: int) -> set:
+        """
+        Extract job links from a list of job card elements.
+
+        Args:
+            job_cards: List of job card WebElements
+            current_page: Current page number for logging
+
+        Returns:
+            Set of job URLs
+        """
+        job_links = set()
+        logger.info(f"Processing {len(job_cards)} job cards on page {current_page}")
+
+        # Extract job links from all cards
+        processed = 0
+        for card in job_cards:
+            processed += 1
+            if processed % 5 == 0:
+                logger.info(f"Processed {processed}/{len(job_cards)} job cards")
+
+            try:
+                # *** KEY STEP: Make sure the card is in view to load its details ***
+                try:
+                    # Scroll to the card to ensure its content is loaded
+                    self.driver.execute_script(
+                        "arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});",
+                        card,
+                    )
+                    # Give it a moment to load the content
+                    self._random_sleep(0.5, 1.0)
+                except Exception as e:
+                    logger.debug(f"Error scrolling to job card {processed}: {e}")
+
+                # Check if this card has data-occludable-job-id attribute
+                job_id = None
+                try:
+                    job_id = card.get_attribute("data-occludable-job-id")
+                    if job_id:
+                        logger.debug(f"Found card with job ID: {job_id}")
+                    else:
+                        logger.debug(
+                            f"Card {processed} has no data-occludable-job-id attribute"
+                        )
+                except Exception as e:
+                    logger.debug(f"Error getting job ID from card {processed}: {e}")
+
+                # Check if card has data-job-id attribute (alternative format)
+                if not job_id:
+                    try:
+                        job_container = card.find_element(
+                            By.CSS_SELECTOR, "[data-job-id]"
+                        )
+                        job_id = job_container.get_attribute("data-job-id")
+                        if job_id:
+                            logger.debug(f"Found card with job-id: {job_id}")
+                    except:
+                        pass
+
+                # Try to find the job link inside this card
+                link_elements = []
+                try:
+                    # Look for the title link with various selectors - prioritize new structure
+                    link_elements = card.find_elements(
+                        By.CSS_SELECTOR,
+                        "a.job-card-container__link, a[href*='/jobs/view/'], a[data-control-id], a.job-card-list__title-link, a.job-card-list__title--link",
+                    )
+
+                    # If we can't find with specific selectors, get all links
+                    if not link_elements:
+                        link_elements = card.find_elements(By.TAG_NAME, "a")
+                except Exception as e:
+                    logger.debug(f"Error finding links in card {processed}: {e}")
+
+                # Process all found links to get a job URL
+                url = None
+                logger.debug(
+                    f"Card {processed}: Found {len(link_elements)} link elements"
+                )
+                for i, link_element in enumerate(link_elements):
+                    try:
+                        href = link_element.get_attribute("href")
+                        logger.debug(f"  Link {i}: {href}")
+                        if href and "/jobs/view/" in href:
+                            url = href.split("?")[0]  # Remove query parameters
+                            logger.debug(f"Found job URL: {url}")
+                            break
+                    except Exception as e:
+                        logger.debug(f"  Error processing link {i}: {e}")
+                        continue
+
+                # If we found a URL, add it to our collection
+                if url:
+                    job_links.add(url)
+                    logger.debug(f"Added job URL to collection: {url}")
+                # If we have a job ID but no URL, construct one
+                elif job_id:
+                    constructed_url = f"https://www.linkedin.com/jobs/view/{job_id}/"
+                    logger.debug(f"Constructed job URL from ID: {constructed_url}")
+                    job_links.add(constructed_url)
+                else:
+                    # Check if this is an empty placeholder card
+                    card_html = card.get_attribute("innerHTML") or ""
+                    if (
+                        len(card_html.strip()) < 50
+                    ):  # Very short content suggests placeholder
+                        logger.debug(
+                            f"Card {processed} appears to be a placeholder (short content)"
+                        )
+                    else:
+                        logger.warning(
+                            f"Could not extract job link from card {processed} (has content but no extractable URL)"
+                        )
+                        # Log some of the card's structure for debugging
+                        try:
+                            card_class = card.get_attribute("class") or "no-class"
+                            logger.debug(f"  Card class: {card_class}")
+                            all_links = card.find_elements(By.TAG_NAME, "a")
+                            logger.debug(f"  Total links in card: {len(all_links)}")
+                            for j, link in enumerate(
+                                all_links[:3]
+                            ):  # Only show first 3
+                                try:
+                                    href = link.get_attribute("href") or "no-href"
+                                    logger.debug(f"    Link {j}: {href}")
+                                except:
+                                    pass
+                        except Exception as debug_e:
+                            logger.debug(
+                                f"  Error debugging card {processed}: {debug_e}"
+                            )
+
+            except StaleElementReferenceException:
+                logger.warning(
+                    f"Stale element reference when processing card {processed}/{len(job_cards)}. Skipping."
+                )
+                continue
+            except Exception as e:
+                logger.debug(
+                    f"Error processing job card {processed}/{len(job_cards)}: {e}"
+                )
+                continue
+
+        return job_links
+
+    def _go_to_next_page(self) -> bool:
+        """
+        Navigate to the next page of job results.
+
+        Returns:
+            bool: True if successfully navigated to next page, False otherwise
+        """
+        try:
+            next_button_selectors = [
+                "button.jobs-search-pagination__button--next",
+                ".jobs-search-pagination__button--next",
+                "button[aria-label='View next page']",
+                "button.artdeco-button.jobs-search-pagination__button--next",
+                ".jobs-search-pagination button[aria-label*='next']",
+                "button.artdeco-pagination__button--next",  # fallback to old selector
+                ".artdeco-pagination__button--next",  # fallback to old selector
+            ]
+
+            next_clicked = False
+            for selector in next_button_selectors:
+                try:
+                    next_buttons = self.driver.find_elements(By.CSS_SELECTOR, selector)
+                    for next_button in next_buttons:
+                        if (
+                            next_button.is_displayed()
+                            and next_button.is_enabled()
+                            and "disabled" not in next_button.get_attribute("class")
+                        ):  # Scroll to make the button visible
+                            self.driver.execute_script(
+                                "arguments[0].scrollIntoView({block: 'center'});",
+                                next_button,
+                            )
+                            self._random_sleep(1.0, 2.0)
+
+                            next_button.click()
+                            logger.info("Clicked next page button")
+                            next_clicked = True
+                            self._random_sleep(3.0, 5.0)
+
+                            # Verify we're on the next page
+                            new_pagination_info = self._get_pagination_info()
+                            logger.info(
+                                f"After navigation: {new_pagination_info['page_state']}"
+                            )
+                            break
+
+                    if next_clicked:
+                        break
+                except Exception as e:
+                    logger.warning(
+                        f"Could not click next button with selector {selector}: {str(e)}"
+                    )
+                    continue
+
+            if not next_clicked:
+                logger.info("No more pages available or could not find next button")
+                return False
+
+        except Exception as e:
+            logger.error(f"Error trying to navigate to next page: {str(e)}")
+            return False
+
+        return True
 
     def _extract_company_info(self) -> str:
         """
