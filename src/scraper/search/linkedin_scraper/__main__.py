@@ -1,6 +1,6 @@
 """
 Main entry point for LinkedIn Scraper CLI when run as a module.
-Usage: python -m src.scraper.search.linkedin_scraper_playwright
+Usage: python -m src.scraper.search.linkedin_scraper
 """
 
 from .cli import main

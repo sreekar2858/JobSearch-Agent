@@ -1,40 +1,38 @@
 """
-Authentication and CAPTCHA handling for LinkedIn.
+Authentication and CAPTCHA handling for LinkedIn using Playwright.
 """
 
-import time
+import asyncio
 import random
 import os
 import logging
 from datetime import datetime
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+from playwright.async_api import Page, TimeoutError as PlaywrightTimeoutError
 
-from .utils import random_sleep
+from .utils import async_random_sleep, save_screenshot
+from .extractors.selectors import LOGIN_FORM_SELECTORS, LOGGED_IN_INDICATORS, JOB_LOADING_INDICATORS
 
 logger = logging.getLogger("linkedin_scraper")
 
 
 class AuthManager:
-    """Handles LinkedIn authentication and CAPTCHA detection."""
+    """Handles LinkedIn authentication and CAPTCHA detection using Playwright."""
     
-    def __init__(self, driver, timeout: int = 20):
+    def __init__(self, page: Page, timeout: int = 20000):
         """
         Initialize authentication manager.
         
         Args:
-            driver: WebDriver instance
-            timeout: Timeout for authentication operations
+            page: Playwright Page instance
+            timeout: Timeout for authentication operations in milliseconds
         """
-        self.driver = driver
+        self.page = page
         self.timeout = timeout
         self._login_attempted = False
         self._login_successful = False
 
-    def ensure_login(self, username: str, password: str) -> bool:
+    async def ensure_login(self, username: str, password: str) -> bool:
         """
         Ensure user is logged in (always required for LinkedIn scraping).
         
@@ -47,7 +45,7 @@ class AuthManager:
         """
         if not self._login_attempted:
             logger.info("🔐 Attempting LinkedIn login (required for job scraping)...")
-            self._login_successful = self.login(username, password)
+            self._login_successful = await self.login(username, password)
             self._login_attempted = True
 
             if self._login_successful:
@@ -61,7 +59,7 @@ class AuthManager:
 
         return self._login_successful
 
-    def login(self, username: str, password: str) -> bool:
+    async def login(self, username: str, password: str) -> bool:
         """
         Log in to LinkedIn using credentials.
 
@@ -80,67 +78,53 @@ class AuthManager:
             logger.info(f"🔐 Attempting to login with username: {username}")
 
             # Navigate to LinkedIn login page
-            self.driver.get("https://www.linkedin.com/login")
-            random_sleep(2.0, 3.0)
+            await self.page.goto("https://www.linkedin.com/login")
+            await async_random_sleep(2.0, 3.0)            # Wait for the login form
+            await self.page.wait_for_selector(LOGIN_FORM_SELECTORS["username"], timeout=self.timeout)            # Fill in username and password
+            username_field = await self.page.query_selector(LOGIN_FORM_SELECTORS["username"])
+            password_field = await self.page.query_selector(LOGIN_FORM_SELECTORS["password"])
 
-            # Wait for the login form
-            WebDriverWait(self.driver, self.timeout).until(
-                EC.presence_of_element_located((By.ID, "username"))
-            )
-
-            # Fill in username and password
-            username_field = self.driver.find_element(By.ID, "username")
-            password_field = self.driver.find_element(By.ID, "password")
-
-            username_field.clear()
+            # Clear and type username
+            await username_field.fill("")  # Clear the field
             # Type like a human - character by character
             for char in username:
-                username_field.send_keys(char)
-                time.sleep(random.uniform(0.05, 0.2))
+                await username_field.type(char)
+                await asyncio.sleep(random.uniform(0.05, 0.2))
 
-            password_field.clear()
+            # Clear and type password
+            await password_field.fill("")  # Clear the field
             for char in password:
-                password_field.send_keys(char)
-                time.sleep(random.uniform(0.05, 0.2))
-
-            # Click the login button
-            login_button = self.driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
-            login_button.click()
+                await password_field.type(char)
+                await asyncio.sleep(random.uniform(0.05, 0.2))            # Click the login button
+            login_button = await self.page.query_selector(LOGIN_FORM_SELECTORS["submit"])
+            await login_button.click()
 
             # Wait for the login to complete
-            random_sleep(3.0, 5.0)
+            await async_random_sleep(3.0, 5.0)
 
             # Check if login was successful
-            try:
-                WebDriverWait(self.driver, self.timeout).until(
-                    EC.presence_of_element_located((By.ID, "global-nav"))
-                )
-                logger.info("Successfully logged in to LinkedIn")
-                return True
-            except TimeoutException:
-                # Try an alternative selector
+            for selector in LOGGED_IN_INDICATORS:
                 try:
-                    WebDriverWait(self.driver, self.timeout).until(
-                        EC.presence_of_element_located((By.CSS_SELECTOR, ".nav-main"))
-                    )
-                    logger.info("Successfully logged in to LinkedIn (alternative check)")
+                    await self.page.wait_for_selector(selector, timeout=self.timeout)
+                    logger.info("Successfully logged in to LinkedIn")
                     return True
-                except TimeoutException:
-                    logger.error("Failed to login - could not find post-login elements")
+                except PlaywrightTimeoutError:
+                    continue            
+            logger.error("Failed to login - could not find post-login elements")
+            
+            # Check for security verification
+            if await self.check_for_captcha():
+                logger.warning(
+                    "Security verification required after login. Please check the browser."
+                )
 
-                    # Check for security verification
-                    if self.check_for_captcha():
-                        logger.warning(
-                            "Security verification required after login. Please check the browser."
-                        )
-
-                    return False
+            return False
 
         except Exception as e:
             logger.error(f"Login failed: {str(e)}")
             return False
 
-    def check_for_captcha(self) -> bool:
+    async def check_for_captcha(self) -> bool:
         """
         Check if the page is showing a CAPTCHA or security verification.
         
@@ -149,46 +133,39 @@ class AuthManager:
         """
         try:
             # First check: Look for job listing elements to verify we're on the results page
-            job_listing_selectors = [
-                ".jobs-search__results-list",
-                ".scaffold-layout__list",
-                ".job-search-results",
-                "ul.jobs-search-results__list",
-                ".jobs-search-results-list",
-            ]
+            job_listing_selectors = JOB_LOADING_INDICATORS
 
             for selector in job_listing_selectors:
-                if self.driver.find_elements(By.CSS_SELECTOR, selector):
+                element = await self.page.query_selector(selector)
+                if element:
                     logger.info("Job listings found, definitely not a CAPTCHA page")
                     return False
 
             # Check for visible CAPTCHA indicators
-            captcha_indicators = [
-                "//h1[contains(text(), 'Security Verification') and not(ancestor::*[contains(@style,'display: none')])]",
-                "//div[contains(text(), 'CAPTCHA') and not(ancestor::*[contains(@style,'display: none')])]",
-                "//div[contains(text(), 'security check') and not(ancestor::*[contains(@style,'display: none')])]",
-                "//form[contains(@action, 'checkpoint') and not(ancestor::*[contains(@style,'display: none')])]",
-                "//input[@name='captcha' and not(ancestor::*[contains(@style,'display: none')])]",
-                "//img[contains(@src, 'captcha') and not(ancestor::*[contains(@style,'display: none')])]",
-                "//iframe[contains(@src, 'captcha') or contains(@src, 'recaptcha')]",
+            captcha_selectors = [
+                "h1:has-text('Security Verification')",
+                "div:has-text('CAPTCHA')",
+                "div:has-text('security check')",
+                "form[action*='checkpoint']",
+                "input[name='captcha']",
+                "img[src*='captcha']",
+                "iframe[src*='captcha'], iframe[src*='recaptcha']",
             ]
 
-            for indicator in captcha_indicators:
-                elements = self.driver.find_elements(By.XPATH, indicator)
+            for selector in captcha_selectors:
+                elements = await self.page.query_selector_all(selector)
                 for element in elements:
-                    if element.is_displayed():
+                    if await element.is_visible():
                         logger.warning("CAPTCHA or security verification detected and is visible")
-                        captcha_path = os.path.join(
-                            "output",
-                            "linkedin",
-                            f"captcha_confirmed_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
+                        await save_screenshot(
+                            self.page,
+                            f"captcha_confirmed_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
                         )
-                        os.makedirs(os.path.dirname(captcha_path), exist_ok=True)
-                        self.driver.save_screenshot(captcha_path)
 
                         # Try to get the text of the verification page
                         try:
-                            body_text = self.driver.find_element(By.TAG_NAME, "body").text
+                            body = await self.page.query_selector("body")
+                            body_text = await body.text_content()
                             logger.info(f"CAPTCHA page text: {body_text[:500]}...")
                         except:
                             pass
@@ -196,45 +173,38 @@ class AuthManager:
                         return True
 
             # Check for LinkedIn main structure
-            linkedin_main_elements = [
-                "#global-nav",
-                ".nav-main",
-                ".search-global-typeahead",
-                ".feed-identity-module",
-            ]
+            linkedin_main_selectors = LOGGED_IN_INDICATORS
 
-            for selector in linkedin_main_elements:
-                if self.driver.find_elements(By.CSS_SELECTOR, selector):
+            for selector in linkedin_main_selectors:
+                element = await self.page.query_selector(selector)
+                if element:
                     logger.info("LinkedIn main elements found, likely not a CAPTCHA page")
                     return False
 
             # Check for "No results found" message
             no_results_selectors = [
-                "//h1[contains(text(), 'No matching')]",
-                "//div[contains(text(), 'No matching')]",
-                "//p[contains(text(), 'No matching')]",
+                "h1:has-text('No matching')",
+                "div:has-text('No matching')",
+                "p:has-text('No matching')",
             ]
 
             for selector in no_results_selectors:
-                elements = self.driver.find_elements(By.XPATH, selector)
+                elements = await self.page.query_selector_all(selector)
                 for element in elements:
-                    if element.is_displayed():
+                    if await element.is_visible():
                         logger.info("'No results' message found, not a CAPTCHA page")
                         return False
 
             # Check page title
-            page_title = self.driver.title
+            page_title = await self.page.title()
             logger.info(f"Current page title: {page_title}")
 
             if "Security Verification" in page_title or "CAPTCHA" in page_title:
                 logger.warning("CAPTCHA detected from page title")
-                captcha_path = os.path.join(
-                    "output",
-                    "linkedin",
-                    f"captcha_from_title_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
+                await save_screenshot(
+                    self.page,
+                    f"captcha_from_title_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
                 )
-                os.makedirs(os.path.dirname(captcha_path), exist_ok=True)
-                self.driver.save_screenshot(captcha_path)
                 return True
 
             return False

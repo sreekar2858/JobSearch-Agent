@@ -1,5 +1,5 @@
 """
-Extractors package for LinkedIn job data extraction using Playwright.
+Extractors package for LinkedIn job data extraction.
 """
 
 from .job_links import JobLinksExtractor

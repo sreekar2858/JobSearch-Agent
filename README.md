@@ -39,13 +39,13 @@ GOOGLE_API_KEY=your_gemini_api_key
 ### 3. Start Scraping
 ```bash
 # LinkedIn job search
-python -m src.scraper.search.linkedin_scraper_playwright "Software Engineer" "San Francisco" --max-jobs 10
+python -m src.scraper.search.linkedin_scraper "Software Engineer" "San Francisco" --max-jobs 10
 
 # Get credentials for job sites
 python -m src.scraper.buggmenot --website glassdoor.com
 
 # Extract from specific job URL
-python -m src.scraper.search.linkedin_scraper_playwright --job-url "https://linkedin.com/jobs/view/123456789"
+python -m src.scraper.search.linkedin_scraper --job-url "https://linkedin.com/jobs/view/123456789"
 ```
 
 ---
@@ -57,16 +57,16 @@ Advanced LinkedIn job scraper with anonymization and proxy support:
 
 ```bash
 # Basic search
-python -m src.scraper.search.linkedin_scraper_playwright "Python Developer" "Remote" --max-jobs 5
+python -m src.scraper.search.linkedin_scraper "Python Developer" "Remote" --max-jobs 5
 
 # With browser options
-python -m src.scraper.search.linkedin_scraper_playwright "Data Scientist" "NYC" --browser firefox --headless
+python -m src.scraper.search.linkedin_scraper "Data Scientist" "NYC" --browser firefox --headless
 
 # With anonymization disabled
-python -m src.scraper.search.linkedin_scraper_playwright "DevOps Engineer" "Berlin" --no-anonymize
+python -m src.scraper.search.linkedin_scraper "DevOps Engineer" "Berlin" --no-anonymize
 
 # With proxy
-python -m src.scraper.search.linkedin_scraper_playwright "ML Engineer" "London" --proxy http://proxy:8080
+python -m src.scraper.search.linkedin_scraper "ML Engineer" "London" --proxy http://proxy:8080
 ```
 
 **Key Features:**
@@ -109,7 +109,7 @@ python main_api.py
 ```
 JobSearch-Agent/
 ├── src/scraper/
-│   ├── search/linkedin_scraper_playwright/    # LinkedIn scraper
+│   ├── search/linkedin_scraper/    # LinkedIn scraper
 │   └── buggmenot/                             # BugMeNot scraper
 ├── src/agents/                                # AI agents
 ├── output/                                    # Scraped data & generated files
@@ -123,7 +123,7 @@ JobSearch-Agent/
 
 For detailed instructions and advanced features, see:
 
-- **[LinkedIn Scraper Guide](src/scraper/search/linkedin_scraper_playwright/README.md)** - Complete scraper documentation with API usage, CLI options, and performance tips
+- **[LinkedIn Scraper Guide](src/scraper/search/linkedin_scraper/README.md)** - Complete scraper documentation with API usage, CLI options, and performance tips
 - **[BugMeNot Scraper Guide](src/scraper/buggmenot/README.md)** - Credential scraper details  
 - **[API Documentation](docs/API.md)** - REST API reference
 - **[Advanced Configuration](docs/ADVANCED_CONFIGURATION.md)** - Production setup
@@ -135,22 +135,22 @@ For detailed instructions and advanced features, see:
 
 ```bash
 # LinkedIn job search with 20 results
-python -m src.scraper.search.linkedin_scraper_playwright "Software Engineer" "Remote" --max-jobs 20
+python -m src.scraper.search.linkedin_scraper "Software Engineer" "Remote" --max-jobs 20
 
 # LinkedIn search with filters
-python -m src.scraper.search.linkedin_scraper_playwright "Data Scientist" "SF" --experience-levels "mid_senior" --date-posted "past_week"
+python -m src.scraper.search.linkedin_scraper "Data Scientist" "SF" --experience-levels "mid_senior" --date-posted "past_week"
 
 # Get job details from specific URL
-python -m src.scraper.search.linkedin_scraper_playwright --job-url "https://linkedin.com/jobs/view/4243594281/"
+python -m src.scraper.search.linkedin_scraper --job-url "https://linkedin.com/jobs/view/4243594281/"
 
 # BugMeNot credentials
 python -m src.scraper.buggmenot --website glassdoor.com --output credentials.json
 
 # Links only (fast collection)
-python -m src.scraper.search.linkedin_scraper_playwright "Python" "NYC" --links-only --max-pages 3
+python -m src.scraper.search.linkedin_scraper "Python" "NYC" --links-only --max-pages 3
 
 # Help for any tool
-python -m src.scraper.search.linkedin_scraper_playwright --help
+python -m src.scraper.search.linkedin_scraper --help
 python -m src.scraper.buggmenot --help
 ```
 
