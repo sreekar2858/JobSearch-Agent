@@ -4,6 +4,7 @@ BugMeNot Scraper - Gets login credentials from bugmenot.com
 
 import asyncio
 import json
+import os
 import random
 import re
 from datetime import datetime
@@ -242,10 +243,17 @@ class BugMeNotScraper:
         if not filename:
             filename = f"bugmenot_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         
-        with open(filename, 'w') as f:
+        folder = 'output/bugmenot'
+        if not os.path.exists(folder):
+            os.makedirs(folder, exist_ok=True)
+        filepath = os.path.join(folder, filename)
+        # Save results to JSON file
+        with open(filepath, 'w') as f:
             json.dump(self.results, f, indent=2)
         
-        print(f"Saved {len(self.results)} credentials to {filename}")
+        print(f"Saved {len(self.results)} credentials to {filepath}")
+
+        return filepath
     
     def print_results(self):
         """Print all results"""

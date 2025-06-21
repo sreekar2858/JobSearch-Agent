@@ -5,8 +5,10 @@ AGENT
 
 
 SCRAPER (LINKEDIN)
+- there are 2 date_posted and posted_date
 - Concurrent
 - Extract
+    - skills
     + source
     + scraped_at
     + job_title
@@ -16,7 +18,6 @@ SCRAPER (LINKEDIN)
     + date_posted
     + job_type
     + job_level
-    - skills
     + easy_apply
     + about_job
     + about_company

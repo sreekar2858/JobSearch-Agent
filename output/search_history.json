@@ -1,0 +1,104 @@
+[
+  {
+    "search_id": "job_search_20250621_152816",
+    "search_hash": "9a73ca2619a3ed87cff1885c57aa6c48",
+    "keywords": "javascript developer",
+    "locations": [
+      "New York"
+    ],
+    "job_type": "full-time",
+    "experience_level": "senior-level",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 2,
+    "timestamp": "2025-06-21T15:28:16.143946",
+    "status": "completed",
+    "job_count": 0
+  },
+  {
+    "search_id": "job_search_20250620_162437",
+    "search_hash": "9a73ca2619a3ed87cff1885c57aa6c48",
+    "keywords": "javascript developer",
+    "locations": [
+      "New York"
+    ],
+    "job_type": "full-time",
+    "experience_level": "senior-level",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 2,
+    "timestamp": "2025-06-20T16:24:37.541153",
+    "status": "completed",
+    "job_count": 0
+  },
+  {
+    "search_id": "job_search_20250620_161820",
+    "search_hash": "9a73ca2619a3ed87cff1885c57aa6c48",
+    "keywords": "javascript developer",
+    "locations": [
+      "New York"
+    ],
+    "job_type": "full-time",
+    "experience_level": "senior-level",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 2,
+    "timestamp": "2025-06-20T16:18:20.024523",
+    "status": "completed",
+    "job_count": 0
+  },
+  {
+    "search_id": "job_search_20250620_154849",
+    "search_hash": "9a73ca2619a3ed87cff1885c57aa6c48",
+    "keywords": "javascript developer",
+    "locations": [
+      "New York"
+    ],
+    "job_type": "full-time",
+    "experience_level": "senior-level",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 2,
+    "timestamp": "2025-06-20T15:48:49.556474",
+    "status": "completed",
+    "job_count": 0
+  },
+  {
+    "search_id": "job_search_20250620_154606",
+    "search_hash": "9a73ca2619a3ed87cff1885c57aa6c48",
+    "keywords": "javascript developer",
+    "locations": [
+      "New York"
+    ],
+    "job_type": "full-time",
+    "experience_level": "senior-level",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 2,
+    "timestamp": "2025-06-20T15:46:06.515982",
+    "status": "completed",
+    "job_count": 0
+  },
+  {
+    "search_id": "job_search_20250620_154600",
+    "search_hash": "734ad89780a564a23a220c0e20eae2b8",
+    "keywords": "python developer",
+    "locations": [
+      "Remote"
+    ],
+    "job_type": "full-time",
+    "experience_level": "mid-level",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 3,
+    "timestamp": "2025-06-20T15:46:00.360352",
+    "status": "completed",
+    "job_count": 0
+  }
+]

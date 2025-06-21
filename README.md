@@ -430,6 +430,6 @@ pip install -r dev-requirements.txt
 
 Special thanks to:
 - [Selenium](https://selenium.dev/) for browser automation
+- [Playwright](https://playwright.dev/) for browser automation
 - [FastAPI](https://fastapi.tiangolo.com/) for the API framework
 - [LinkedIn](https://linkedin.com/) for providing job data
-- All contributors and users who help improve this project

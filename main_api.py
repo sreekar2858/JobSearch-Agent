@@ -9,8 +9,10 @@ with the JobSearch-Agent system through HTTP endpoints and WebSocket connections
 import os
 import json
 import asyncio
+import hashlib
 from datetime import datetime
 from typing import Dict, List, Any, Optional
+from pathlib import Path
 
 import uvicorn
 from fastapi import FastAPI, WebSocket, BackgroundTasks, HTTPException, Depends, status
@@ -55,6 +57,7 @@ class JobSearchRequest(BaseModel):
     job_type: str = Field(default="full-time")
     experience_level: str = Field(default="mid-level")
     max_jobs: int = Field(default=3)
+    scrapers: List[str] = Field(default=["linkedin"])  # Scraper selection (only LinkedIn working currently)
 
 
 class JobParseRequest(BaseModel):
@@ -108,6 +111,95 @@ class ConnectionManager:
 manager = ConnectionManager()
 
 
+# Search history tracking
+search_history_file = os.path.join(output_dir, "search_history.json")
+
+def load_search_history() -> List[Dict[str, Any]]:
+    """Load search history from file"""
+    if os.path.exists(search_history_file):
+        try:
+            with open(search_history_file, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Error loading search history: {e}")
+            return []
+    return []
+
+def save_search_history(history: List[Dict[str, Any]]):
+    """Save search history to file"""
+    try:
+        with open(search_history_file, 'w', encoding='utf-8') as f:
+            json.dump(history, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"Error saving search history: {e}")
+
+def generate_search_hash(keywords: str, locations: List[str], job_type: str, 
+                        experience_level: str, scrapers: List[str]) -> str:
+    """Generate a hash for search parameters to identify duplicates"""
+    # Normalize parameters for consistent hashing
+    normalized_locations = sorted([loc.lower().strip() for loc in locations])
+    normalized_scrapers = sorted([s.lower().strip() for s in scrapers])
+    
+    search_string = f"{keywords.lower().strip()}|{','.join(normalized_locations)}|{job_type.lower().strip()}|{experience_level.lower().strip()}|{','.join(normalized_scrapers)}"
+    return hashlib.md5(search_string.encode()).hexdigest()
+
+def find_similar_searches(keywords: str, locations: List[str], job_type: str, 
+                         experience_level: str, scrapers: List[str]) -> Dict[str, List[Dict[str, Any]]]:
+    """Find similar searches in history"""
+    search_hash = generate_search_hash(keywords, locations, job_type, experience_level, scrapers)
+    history = load_search_history()
+    
+    # Find exact matches
+    exact_matches = [search for search in history if search.get('search_hash') == search_hash]
+    
+    # Find partial matches (same keywords and job type)
+    partial_matches = [search for search in history 
+                      if search.get('keywords', '').lower().strip() == keywords.lower().strip() 
+                      and search.get('job_type', '').lower().strip() == job_type.lower().strip()
+                      and search.get('search_hash') != search_hash]
+    
+    return {'exact': exact_matches, 'similar': partial_matches}
+
+def add_search_to_history(search_id: str, keywords: str, locations: List[str], 
+                         job_type: str, experience_level: str, scrapers: List[str], 
+                         max_jobs: int, status: str = "started"):
+    """Add a search to history"""
+    history = load_search_history()
+    search_hash = generate_search_hash(keywords, locations, job_type, experience_level, scrapers)
+    
+    search_entry = {
+        'search_id': search_id,
+        'search_hash': search_hash,
+        'keywords': keywords,
+        'locations': locations,
+        'job_type': job_type,
+        'experience_level': experience_level,
+        'scrapers': scrapers,
+        'max_jobs': max_jobs,
+        'timestamp': datetime.now().isoformat(),
+        'status': status
+    }
+    
+    # Add to beginning of history (most recent first)
+    history.insert(0, search_entry)
+    
+    # Keep only last 50 searches
+    history = history[:50]
+    
+    save_search_history(history)
+
+def update_search_status(search_id: str, status: str, job_count: int = None):
+    """Update search status in history"""
+    history = load_search_history()
+    for search in history:
+        if search.get('search_id') == search_id:
+            search['status'] = status
+            if job_count is not None:
+                search['job_count'] = job_count
+            break
+    save_search_history(history)
+
+
 # Define API endpoints
 @app.get("/")
 async def root():
@@ -123,9 +215,7 @@ async def search_jobs(request: JobSearchRequest, background_tasks: BackgroundTas
     try:
         # Generate unique ID for this search
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        search_id = f"job_search_{timestamp}"
-
-        # Run job search in background
+        search_id = f"job_search_{timestamp}"        # Run job search in background
         background_tasks.add_task(
             _run_job_search,
             search_id=search_id,
@@ -134,6 +224,19 @@ async def search_jobs(request: JobSearchRequest, background_tasks: BackgroundTas
             job_type=request.job_type,
             experience_level=request.experience_level,
             max_jobs=request.max_jobs,
+            scrapers=request.scrapers,
+        )
+
+        # Add search to history
+        add_search_to_history(
+            search_id=search_id,
+            keywords=request.keywords,
+            locations=request.locations,
+            job_type=request.job_type,
+            experience_level=request.experience_level,
+            scrapers=request.scrapers,
+            max_jobs=request.max_jobs,
+            status="started",
         )
 
         return {"search_id": search_id, "status": "Job search started"}
@@ -148,6 +251,7 @@ async def _run_job_search(
     job_type: str,
     experience_level: str,
     max_jobs: int,
+    scrapers: List[str],
 ):
     """Background task to run job search"""
     try:
@@ -158,21 +262,34 @@ async def _run_job_search(
             job_type=job_type,
             experience_level=experience_level,
             max_jobs=max_jobs,
+            scrapers=scrapers,
         )
 
         # Create results file with search_id
-        result_file = os.path.join(output_dir, f"{search_id}.json")
-
-        # Copy the output to the result file
+        result_file = os.path.join(output_dir, f"{search_id}.json")        # Copy the output to the result file
         with open(output_file, "r", encoding="utf-8") as src:
+            content = src.read()
             with open(result_file, "w", encoding="utf-8") as dst:
-                dst.write(src.read())
+                dst.write(content)
+        
+        # Get actual job count from results
+        try:
+            results = json.loads(content)
+            job_count = len(results) if isinstance(results, list) else 0
+        except:
+            job_count = 0
+
+        # Update search status in history
+        update_search_status(search_id, status="completed", job_count=job_count)
 
     except Exception as e:
         # Log the error
         error_file = os.path.join(output_dir, f"{search_id}_error.txt")
         with open(error_file, "w", encoding="utf-8") as f:
             f.write(str(e))
+
+        # Update search status to error
+        update_search_status(search_id, status="error")
 
 
 @app.get("/search/{search_id}")
@@ -387,249 +504,268 @@ async def get_process_results(process_id: str):
 # WebSocket endpoint for real-time interaction with agents
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
+    """WebSocket endpoint for real-time communication"""
     await manager.connect(websocket)
     try:
-        while True:
+        while True:            # Receive message from client
             data = await websocket.receive_text()
-            try:
-                # Parse the received message
-                message_data = json.loads(data)
-                action = message_data.get("action")
-
-                if action == "search":
-                    # Handle job search via WebSocket
-                    await handle_ws_search(websocket, message_data)
-                elif action == "parse":
-                    # Handle job parsing via WebSocket
-                    await handle_ws_parse(websocket, message_data)
-                elif action == "process":
-                    # Handle job processing via WebSocket
-                    await handle_ws_process(websocket, message_data)
-                else:
-                    await manager.send_error(websocket, f"Unknown action: {action}")
-
-            except json.JSONDecodeError:
-                await manager.send_error(websocket, "Invalid JSON format")
-            except Exception as e:
-                await manager.send_error(websocket, str(e))
-
+            message = json.loads(data)
+            
+            action = message.get("action")
+            
+            if action == "search":
+                await handle_ws_search(websocket, message)
+            else:
+                await manager.send_error(websocket, f"Unknown action: {action}")
+                
     except Exception as e:
         print(f"WebSocket error: {e}")
     finally:
         manager.disconnect(websocket)
 
-
 async def handle_ws_search(websocket: WebSocket, message_data: dict):
-    """Handle job search request via WebSocket"""
+    """Handle job search request via WebSocket with real-time progress"""
     try:
         data = message_data.get("data", {})
-
+        
+        # Extract search parameters
         keywords = data.get("keywords", "")
         locations = data.get("locations", ["Remote"])
         job_type = data.get("job_type", "full-time")
         experience_level = data.get("experience_level", "mid-level")
         max_jobs = data.get("max_jobs", 3)
+        scrapers = data.get("scrapers", ["linkedin"])
+        
+        if not keywords:
+            await manager.send_error(websocket, "Keywords are required")
+            return
+            
+        # Generate unique ID for this search
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        search_id = f"job_search_{timestamp}"
+        
+        await manager.send_progress(websocket, f"Starting job search: {keywords}")
+        
+        # Check for similar searches first
+        await manager.send_progress(websocket, "Checking for similar recent searches...")
+        similar_searches = find_similar_searches(
+            keywords=keywords,
+            locations=locations, 
+            job_type=job_type,
+            experience_level=experience_level,
+            scrapers=scrapers
+        )
+        
+        # Check if we have recent exact matches
+        now = datetime.now()
+        recent_exact = []
+        for search in similar_searches['exact']:
+            search_time = datetime.fromisoformat(search['timestamp'])
+            if (now - search_time).total_seconds() < 86400:  # 24 hours
+                result_file = os.path.join(output_dir, f"{search['search_id']}.json")
+                if os.path.exists(result_file):
+                    recent_exact.append(search)
+        
+        if recent_exact:
+            await manager.send_progress(websocket, "Found recent similar search results")
+            # Send the similar searches for user decision
+            await websocket.send_json({
+                "type": "similar_found",
+                "data": {
+                    "exact_matches": recent_exact,
+                    "similar_searches": similar_searches['similar'][:3],
+                    "search_id": search_id
+                }
+            })
+            return
+        
+        # No recent matches, proceed with new search
+        await manager.send_progress(websocket, "No recent similar searches found, starting new search...")
+        
+        # Add search to history
+        add_search_to_history(
+            search_id=search_id,
+            keywords=keywords,
+            locations=locations,
+            job_type=job_type,
+            experience_level=experience_level,
+            scrapers=scrapers,
+            max_jobs=max_jobs,
+            status="started",
+        )
+        
+        # Run job search with progress updates
+        await _run_job_search_with_websocket(
+            websocket,
+            search_id=search_id,
+            keywords=keywords,
+            locations=locations,
+            job_type=job_type,
+            experience_level=experience_level,
+            max_jobs=max_jobs,
+            scrapers=scrapers,
+        )
+        
+    except Exception as e:
+        await manager.send_error(websocket, str(e))
 
-        await manager.send_progress(websocket, f"Starting job search for: {keywords}")
-        await manager.send_progress(websocket, f"Locations: {', '.join(locations)}")
-
+async def _run_job_search_with_websocket(
+    websocket: WebSocket,
+    search_id: str,
+    keywords: str,
+    locations: List[str],
+    job_type: str,
+    experience_level: str,
+    max_jobs: int,
+    scrapers: List[str],
+):
+    """Background task to run job search with WebSocket progress updates"""
+    try:
+        await manager.send_progress(websocket, f"Initializing scrapers: {', '.join(scrapers)}")
+        
+        # Initialize progress tracking
+        progress_steps = [
+            "Setting up search parameters",
+            "Starting web scrapers",
+            "Scraping job listings",
+            "Processing job data",
+            "Filtering and cleaning results",
+            "Finalizing search results"
+        ]
+        
+        for i, step in enumerate(progress_steps):
+            await manager.send_progress(websocket, f"Step {i+1}/{len(progress_steps)}: {step}")
+            await asyncio.sleep(0.5)  # Small delay for realistic progress
+        
         # Run job search pipeline
+        await manager.send_progress(websocket, "Running job search pipeline...")
         output_file = run_job_search(
             keywords=keywords,
             locations=locations,
             job_type=job_type,
             experience_level=experience_level,
             max_jobs=max_jobs,
+            scrapers=scrapers,
         )
 
-        # Read results
-        with open(output_file, "r", encoding="utf-8") as f:
-            job_results = json.load(f)
+        # Create results file with search_id
+        result_file = os.path.join(output_dir, f"{search_id}.json")
+        
+        # Copy the output to the result file
+        with open(output_file, "r", encoding="utf-8") as src:
+            content = src.read()
+            with open(result_file, "w", encoding="utf-8") as dst:
+                dst.write(content)
+        
+        # Get actual job count from results
+        try:
+            results = json.loads(content)
+            job_count = len(results) if isinstance(results, list) else 0
+            await manager.send_progress(websocket, f"Search completed! Found {job_count} jobs")
+        except:
+            job_count = 0
+            results = []
 
-        await manager.send_progress(websocket, f"Found {len(job_results)} job postings")
-        await manager.send_result(websocket, job_results)
+        # Update search status in history
+        update_search_status(search_id, status="completed", job_count=job_count)
+        
+        # Send final results
+        await manager.send_result(websocket, {
+            "search_id": search_id,
+            "jobs": results,
+            "job_count": job_count,
+            "status": "completed"
+        })
 
     except Exception as e:
-        await manager.send_error(websocket, str(e))
+        # Log the error
+        error_file = os.path.join(output_dir, f"{search_id}_error.txt")
+        with open(error_file, "w", encoding="utf-8") as f:
+            f.write(str(e))
 
+        # Update search status to error
+        update_search_status(search_id, status="error")
+        await manager.send_error(websocket, f"Search failed: {str(e)}")
 
-async def handle_ws_parse(websocket: WebSocket, message_data: dict):
-    """Handle job parsing request via WebSocket"""
+@app.post("/search/check")
+async def check_similar_searches(request: JobSearchRequest):
+    """Check for existing/similar searches before starting a new one"""
     try:
-        data = message_data.get("data", {})
-        text = data.get("text", "")
-        file_content = data.get("file_content", "")
-        url = data.get("url", "")
-        extract_webpage = data.get("extract_webpage", False)
-
-        # Check if we have at least one input source
-        if not text and not file_content and not url:
-            await manager.send_error(
-                websocket, "No input provided for parsing (text, file content, or URL)"
-            )
-            return
-
-        # Handle URL with web extraction
-        if url and extract_webpage:
-            await manager.send_progress(
-                websocket, f"Extracting content from URL: {url}"
-            )
-
-            try:
-                import requests
-                from bs4 import BeautifulSoup
-            except ImportError:
-                await manager.send_error(
-                    websocket,
-                    "Web scraping libraries not installed. Install requests and beautifulsoup4.",
-                )
-                return
-
-            try:
-                # Fetch the webpage content
-                headers = {
-                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-                }
-                response = requests.get(url, headers=headers, timeout=10)
-                response.raise_for_status()
-
-                # Parse HTML content
-                soup = BeautifulSoup(response.text, "html.parser")
-
-                # Extract the main content
-                job_content = ""
-
-                # Try to find job description container
-                job_description = soup.find(
-                    "div", class_=["job-description", "description", "jobDescription"]
-                )
-                if job_description:
-                    job_content = job_description.get_text(separator="\n")
-                else:
-                    # If no specific job container found, extract main content
-                    main_content = (
-                        soup.find("main") or soup.find("article") or soup.find("body")
-                    )
-                    job_content = main_content.get_text(separator="\n")
-
-                # Add the URL as a source
-                job_content += f"\n\nSource URL: {url}"
-
-                await manager.send_progress(
-                    websocket, "Successfully extracted content from webpage"
-                )
-                text = job_content
-
-            except requests.RequestException as e:
-                await manager.send_error(
-                    websocket, f"Failed to fetch the webpage: {str(e)}"
-                )
-                return
-
-        # Use available content
-        if not text:
-            text = file_content
-
-        await manager.send_progress(websocket, "Parsing job details...")
-
-        # Call the job parser agent
-        parsed_data = call_job_parsr_agent(text)
-
-        await manager.send_progress(websocket, "Job details parsed successfully")
-        await manager.send_result(websocket, json.loads(parsed_data))
-
+        similar_searches = find_similar_searches(
+            keywords=request.keywords,
+            locations=request.locations,
+            job_type=request.job_type,
+            experience_level=request.experience_level,
+            scrapers=request.scrapers
+        )
+        
+        # Filter out old searches (older than 24 hours) for exact matches
+        now = datetime.now()
+        recent_exact = []
+        for search in similar_searches['exact']:
+            search_time = datetime.fromisoformat(search['timestamp'])
+            if (now - search_time).total_seconds() < 86400:  # 24 hours
+                # Check if results file exists
+                result_file = os.path.join(output_dir, f"{search['search_id']}.json")
+                if os.path.exists(result_file):
+                    # Add job count if available
+                    try:
+                        with open(result_file, 'r', encoding='utf-8') as f:
+                            results = json.load(f)
+                            search['job_count'] = len(results) if isinstance(results, list) else 0
+                    except:
+                        search['job_count'] = 0
+                    recent_exact.append(search)
+        
+        # Get recent similar searches (last 7 days)
+        recent_similar = []
+        for search in similar_searches['similar'][:5]:  # Limit to 5 most recent
+            search_time = datetime.fromisoformat(search['timestamp'])
+            if (now - search_time).total_seconds() < 604800:  # 7 days
+                result_file = os.path.join(output_dir, f"{search['search_id']}.json")
+                if os.path.exists(result_file):
+                    try:
+                        with open(result_file, 'r', encoding='utf-8') as f:
+                            results = json.load(f)
+                            search['job_count'] = len(results) if isinstance(results, list) else 0
+                    except:
+                        search['job_count'] = 0
+                    recent_similar.append(search)
+        
+        return {
+            "exact_matches": recent_exact,
+            "similar_searches": recent_similar,
+            "has_recent_exact": len(recent_exact) > 0
+        }
+        
     except Exception as e:
-        await manager.send_error(websocket, str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
-
-async def handle_ws_process(websocket: WebSocket, message_data: dict):
-    """Handle job processing request via WebSocket"""
+@app.get("/search/history")
+async def get_search_history(limit: int = 20):
+    """Get recent search history"""
     try:
-        data = message_data.get("data", {})
-        job_posting = data.get("job_posting", {})
-        generate_cv = data.get("generate_cv", True)
-        generate_cover_letter = data.get("generate_cover_letter", False)
-
-        if not job_posting:
-            await manager.send_error(websocket, "No job posting provided")
-            return
-
-        company = job_posting.get("company_name", "Unknown")
-        job_title = job_posting.get("job_title", "Unknown")
-
-        await manager.send_progress(
-            websocket, f"Processing job: {job_title} at {company}"
-        )
-
-        # Convert job posting to JSON string
-        job_details_str = json.dumps(job_posting)
-
-        results = {}
-
-        # Generate CV if requested
-        if generate_cv:
-            await manager.send_progress(websocket, "Generating customized CV...")
-            try:
-                cv_text, state_json, cv_path = call_cv_agent(job_details_str)
-                results["cv"] = cv_text
-                await manager.send_progress(websocket, "CV generated successfully")
-            except Exception as e:
-                await manager.send_progress(websocket, f"Error generating CV: {str(e)}")
-                results["cv_error"] = str(e)
-
-        # Generate cover letter if requested
-        if generate_cover_letter:
-            await manager.send_progress(websocket, "Generating cover letter...")
-            try:
-                cover_letter_text, cl_state_json, cl_path = call_cover_letter_agent(
-                    job_details_str
-                )
-                results["cover_letter"] = cover_letter_text
-                await manager.send_progress(
-                    websocket, "Cover letter generated successfully"
-                )
-            except Exception as e:
-                await manager.send_progress(
-                    websocket, f"Error generating cover letter: {str(e)}"
-                )
-                results["cover_letter_error"] = str(e)
-
-        # Create folder for results to save files
-        folder_name = os.path.join(output_dir, slugify(f"{company}_{job_title}"))
-        os.makedirs(folder_name, exist_ok=True)
-
-        # Save job metadata
-        metadata_path = os.path.join(
-            folder_name, f"{company}_{job_title}_metadata.json"
-        )
-        with open(metadata_path, "w", encoding="utf-8") as f:
-            json.dump(job_posting, f, indent=2)
-
-        # Save CV if generated
-        if "cv" in results:
-            cv_file_path = os.path.join(folder_name, f"{company}_{job_title}_cv.txt")
-            with open(cv_file_path, "w", encoding="utf-8") as f:
-                f.write(results["cv"])
-            # Add file path to results
-            results["cv_file"] = cv_file_path.replace(
-                os.path.normpath(output_dir), "output"
-            )
-
-        # Save cover letter if generated
-        if "cover_letter" in results:
-            cl_file_path = os.path.join(folder_name, f"{company}_{job_title}.txt")
-            with open(cl_file_path, "w", encoding="utf-8") as f:
-                f.write(results["cover_letter"])
-            # Add file path to results
-            results["cover_letter_file"] = cl_file_path.replace(
-                os.path.normpath(output_dir), "output"
-            )
-
-        await manager.send_progress(websocket, "Job processing completed")
-        await manager.send_result(websocket, results)
-
+        history = load_search_history()
+        
+        # Add job counts and filter valid searches
+        valid_history = []
+        for search in history[:limit]:
+            result_file = os.path.join(output_dir, f"{search['search_id']}.json")
+            if os.path.exists(result_file):
+                try:
+                    with open(result_file, 'r', encoding='utf-8') as f:
+                        results = json.load(f)
+                        search['job_count'] = len(results) if isinstance(results, list) else 0
+                        search['has_results'] = True
+                except:
+                    search['job_count'] = 0
+                    search['has_results'] = False
+                valid_history.append(search)
+        
+        return {"searches": valid_history}
+        
     except Exception as e:
-        await manager.send_error(websocket, str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 if __name__ == "__main__":
