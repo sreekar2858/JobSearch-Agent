@@ -4,18 +4,19 @@ user_id: "dev_user_01"
 session_id: "session_01"
 
 models:
-  gemini_2.5_flash: "gemini-2.5-flash-preview-04-17"
-  gemini_2.0_flash: "gemini-2.0-flash"
+  gemini_2.5_flash: "gemini-2.5-flash"
+  gemini_2.0_flash: "gemini-2.5-flash-lite"
   gpt_4o: "github/gpt-4o"
   gpt_41: "github/gpt-4.1"
+  gpt_5: "github/gpt-5"
 
 # Agent settings
-initial_draft_model: "gemini"  # Changed from gpt_41 to gemini
-critic_model: "gemini"  # Changed from gpt_4o to gemini
-fact_check_model: "gemini"
-reviser_model: "gemini"  # Changed from gpt_4o to gemini
-grammar_check_model: "gemini"
-final_draft_model: "gemini"  # Changed from gpt_41 to gemini
+initial_draft_model: "gpt_5"  # Changed from gpt_41 to gemini
+critic_model: "gpt_5"  # Changed from gpt_4o to gemini
+fact_check_model: "gpt_5"
+reviser_model: "gpt_5"  # Changed from gpt_4o to gemini
+grammar_check_model: "gpt_5"
+final_draft_model: "gpt_5"  # Changed from gpt_41 to gemini
 
 max_loop_iterations: 5
 logging_level: "WARNING"

@@ -1,5 +1,393 @@
 [
   {
+    "search_id": "job_search_20250718_172131",
+    "search_hash": "e7672f8ba7869c800c1944ba6b9c609d",
+    "keywords": "python",
+    "locations": [
+      "Remote"
+    ],
+    "job_type": "full-time",
+    "experience_level": "mid-level",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 3,
+    "timestamp": "2025-07-18T17:21:31.900470",
+    "status": "completed",
+    "job_count": 3
+  },
+  {
+    "search_id": "job_search_20250718_154456",
+    "search_hash": "d02d8cdd35f97dee1338658c75885a58",
+    "keywords": "Test Job",
+    "locations": [
+      "Netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "mid-level",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 1,
+    "timestamp": "2025-07-18T15:44:56.944251",
+    "status": "completed",
+    "job_count": 1
+  },
+  {
+    "search_id": "job_search_20250718_154141",
+    "search_hash": "6dd11e72fc5f04cc2112205df84e01eb",
+    "keywords": "Data Scientist",
+    "locations": [
+      "Netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "mid-level",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 1,
+    "timestamp": "2025-07-18T15:41:41.638099",
+    "status": "completed",
+    "job_count": 1
+  },
+  {
+    "search_id": "job_search_20250718_154043",
+    "search_hash": "38a8b445ae760a85003e733d37b46352",
+    "keywords": "Python Developer",
+    "locations": [
+      "Netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "mid-level",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 1,
+    "timestamp": "2025-07-18T15:40:43.342079",
+    "status": "completed",
+    "job_count": 1
+  },
+  {
+    "search_id": "job_search_20250718_153440",
+    "search_hash": "af329bb1ef092b127df4e75bbe49d0f4",
+    "keywords": "CAE Engineer",
+    "locations": [
+      "Netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 10,
+    "timestamp": "2025-07-18T15:34:40.114919",
+    "status": "completed",
+    "job_count": 10
+  },
+  {
+    "search_id": "job_search_20250717_205527",
+    "search_hash": "8d52fb242f3b21b29227f883c1e6ea74",
+    "keywords": "python developer",
+    "locations": [
+      "netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin",
+      "indeed",
+      "glassdoor"
+    ],
+    "max_jobs": 10,
+    "timestamp": "2025-07-17T20:55:27.959501",
+    "status": "completed",
+    "job_count": 10
+  },
+  {
+    "search_id": "job_search_20250717_205527",
+    "search_hash": "8d52fb242f3b21b29227f883c1e6ea74",
+    "keywords": "python developer",
+    "locations": [
+      "netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin",
+      "indeed",
+      "glassdoor"
+    ],
+    "max_jobs": 10,
+    "timestamp": "2025-07-17T20:55:27.929585",
+    "status": "started"
+  },
+  {
+    "search_id": "job_search_20250717_205457",
+    "search_hash": "587fbdd2cde660eaa4cb6a8d22039b59",
+    "keywords": "python developer",
+    "locations": [
+      "netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 10,
+    "timestamp": "2025-07-17T20:54:57.465835",
+    "status": "completed",
+    "job_count": 10
+  },
+  {
+    "search_id": "job_search_20250710_153803",
+    "search_hash": "88eb463b299e51d54deb521f6683392d",
+    "keywords": "CFD Engineer",
+    "locations": [
+      "Netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 10,
+    "timestamp": "2025-07-10T15:38:03.938308",
+    "status": "completed",
+    "job_count": 6
+  },
+  {
+    "search_id": "job_search_20250710_152245",
+    "search_hash": "88eb463b299e51d54deb521f6683392d",
+    "keywords": "CFD Engineer",
+    "locations": [
+      "Netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 10,
+    "timestamp": "2025-07-10T15:22:45.623253",
+    "status": "completed",
+    "job_count": 6
+  },
+  {
+    "search_id": "job_search_20250710_144345",
+    "search_hash": "88eb463b299e51d54deb521f6683392d",
+    "keywords": "CFD Engineer",
+    "locations": [
+      "Netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 10,
+    "timestamp": "2025-07-10T14:43:45.371255",
+    "status": "completed",
+    "job_count": 6
+  },
+  {
+    "search_id": "job_search_20250708_102906",
+    "search_hash": "3d8cc74941f126899927bf081ef0da59",
+    "keywords": "CFD Engineer",
+    "locations": [
+      "Netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "mid-level",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 2,
+    "timestamp": "2025-07-08T10:29:06.385556",
+    "status": "completed",
+    "job_count": 2
+  },
+  {
+    "search_id": "job_search_20250708_102524",
+    "search_hash": "3d8cc74941f126899927bf081ef0da59",
+    "keywords": "CFD Engineer",
+    "locations": [
+      "Netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "mid-level",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 2,
+    "timestamp": "2025-07-08T10:25:24.094105",
+    "status": "completed",
+    "job_count": 2
+  },
+  {
+    "search_id": "job_search_20250708_101309",
+    "search_hash": "88eb463b299e51d54deb521f6683392d",
+    "keywords": "CFD Engineer",
+    "locations": [
+      "Netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 10,
+    "timestamp": "2025-07-08T10:13:09.737349",
+    "status": "completed",
+    "job_count": 4
+  },
+  {
+    "search_id": "job_search_20250628_231836",
+    "search_hash": "88eb463b299e51d54deb521f6683392d",
+    "keywords": "CFD Engineer",
+    "locations": [
+      "Netherlands"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 10,
+    "timestamp": "2025-06-28T23:18:36.170363",
+    "status": "error"
+  },
+  {
+    "search_id": "job_search_20250622_163519",
+    "search_hash": "69aaecf56226eda1ce1f4e3c72dbd005",
+    "keywords": "Python Developer",
+    "locations": [
+      "Germany"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin",
+      "indeed",
+      "glassdoor"
+    ],
+    "max_jobs": 1,
+    "timestamp": "2025-06-22T16:35:19.730517",
+    "status": "completed",
+    "job_count": 0
+  },
+  {
+    "search_id": "job_search_20250622_163516",
+    "search_hash": "69aaecf56226eda1ce1f4e3c72dbd005",
+    "keywords": "Python Developer",
+    "locations": [
+      "Germany"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin",
+      "indeed",
+      "glassdoor"
+    ],
+    "max_jobs": 1,
+    "timestamp": "2025-06-22T16:35:16.683887",
+    "status": "completed",
+    "job_count": 0
+  },
+  {
+    "search_id": "job_search_20250622_163434",
+    "search_hash": "69aaecf56226eda1ce1f4e3c72dbd005",
+    "keywords": "Python Developer",
+    "locations": [
+      "Germany"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin",
+      "indeed",
+      "glassdoor"
+    ],
+    "max_jobs": 1,
+    "timestamp": "2025-06-22T16:34:34.308797",
+    "status": "completed",
+    "job_count": 0
+  },
+  {
+    "search_id": "job_search_20250622_163431",
+    "search_hash": "69aaecf56226eda1ce1f4e3c72dbd005",
+    "keywords": "Python Developer",
+    "locations": [
+      "Germany"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin",
+      "indeed",
+      "glassdoor"
+    ],
+    "max_jobs": 1,
+    "timestamp": "2025-06-22T16:34:31.219959",
+    "status": "completed",
+    "job_count": 0
+  },
+  {
+    "search_id": "job_search_20250622_163312",
+    "search_hash": "69aaecf56226eda1ce1f4e3c72dbd005",
+    "keywords": "Python Developer",
+    "locations": [
+      "Germany"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin",
+      "indeed",
+      "glassdoor"
+    ],
+    "max_jobs": 1,
+    "timestamp": "2025-06-22T16:33:12.663450",
+    "status": "completed",
+    "job_count": 0
+  },
+  {
+    "search_id": "job_search_20250622_163309",
+    "search_hash": "69aaecf56226eda1ce1f4e3c72dbd005",
+    "keywords": "Python Developer",
+    "locations": [
+      "Germany"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin",
+      "indeed",
+      "glassdoor"
+    ],
+    "max_jobs": 1,
+    "timestamp": "2025-06-22T16:33:09.634056",
+    "status": "completed",
+    "job_count": 0
+  },
+  {
+    "search_id": "job_search_20250622_163023",
+    "search_hash": "88fe2b2efc6da68f0580dedd8fce42d1",
+    "keywords": "Python Developer",
+    "locations": [
+      "Germany"
+    ],
+    "job_type": "full-time",
+    "experience_level": "entry",
+    "scrapers": [
+      "linkedin"
+    ],
+    "max_jobs": 1,
+    "timestamp": "2025-06-22T16:30:23.279209",
+    "status": "completed",
+    "job_count": 0
+  },
+  {
     "search_id": "job_search_20250621_152816",
     "search_hash": "9a73ca2619a3ed87cff1885c57aa6c48",
     "keywords": "javascript developer",

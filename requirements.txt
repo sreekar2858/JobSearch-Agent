@@ -17,8 +17,7 @@ beautifulsoup4
 lxml
 html5lib
 nest_asyncio
-selenium
-webdriver-manager
+playwright>=1.40.0
 
 # API requirements
 fastapi

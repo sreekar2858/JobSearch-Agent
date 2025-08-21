@@ -34,4 +34,4 @@ __all__ = [
 ]
 
 __version__ = "0.1.0"
-__author__ = "Sreekar Reddy, Sajjala"
+__author__ = "Sreekar Reddy Sajjala <sreekar2858@gmail.com>"

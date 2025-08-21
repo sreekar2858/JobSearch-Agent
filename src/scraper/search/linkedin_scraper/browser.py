@@ -5,6 +5,7 @@ Browser setup, navigation, retries, and scrolling functionality using Playwright
 import asyncio
 import logging
 import random
+import sys
 from typing import Optional, List
 
 from playwright.async_api import async_playwright, Browser, BrowserContext, Page
@@ -65,7 +66,21 @@ class BrowserManager:
     
     async def setup_driver(self) -> None:
         """Set up the browser based on the selected browser type."""
-        self.playwright = await async_playwright().start()
+        try:
+            # Apply Windows fix before starting Playwright
+            if sys.platform == "win32":
+                # Ensure ProactorEventLoop policy is set for subprocess compatibility
+                try:
+                    if not isinstance(asyncio.get_event_loop_policy(), asyncio.WindowsProactorEventLoopPolicy):
+                        asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+                except Exception:
+                    pass  # Policy might already be set
+            
+            self.playwright = await async_playwright().start()
+            logger.info("Playwright started successfully")
+        except Exception as e:
+            logger.error(f"Failed to start Playwright: {e}")
+            raise
         
         if self.browser == "chromium":
             await self._setup_chromium_browser()
@@ -74,7 +89,9 @@ class BrowserManager:
         elif self.browser == "webkit":
             await self._setup_webkit_browser()
         else:
-            raise ValueError(f"Unsupported browser: {self.browser}")        # Common setup for all browsers
+            raise ValueError(f"Unsupported browser: {self.browser}")
+        
+        # Common setup for all browsers
         await self.page.set_viewport_size({"width": 1920, "height": 1080})
 
     async def _setup_chromium_browser(self) -> None:

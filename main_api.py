@@ -7,6 +7,7 @@ with the JobSearch-Agent system through HTTP endpoints and WebSocket connections
 """
 
 import os
+import sys
 import json
 import asyncio
 import hashlib
@@ -21,12 +22,28 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+# Fix for Windows Playwright subprocess issue in async context
+if sys.platform == "win32":
+    # Set Windows ProactorEventLoop policy to fix subprocess NotImplementedError
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+    
+    # Additional Windows subprocess environment setup
+    os.environ["PLAYWRIGHT_BROWSERS_PATH"] = os.environ.get("PLAYWRIGHT_BROWSERS_PATH", "")
+    
+    # Ensure proper subprocess handling on Windows
+    import signal
+    if hasattr(signal, 'SIGBREAK'):
+        signal.signal(signal.SIGBREAK, signal.SIG_DFL)
+    if hasattr(signal, 'SIGINT'):
+        signal.signal(signal.SIGINT, signal.SIG_DFL)
+
 # Import agent functionality
 from src.agents.job_details_parser import call_job_parsr_agent
 from src.agents.cv_writer import call_cv_agent
 from src.agents.coverLetter_writer import call_cover_letter_agent
-from src.utils.job_search_pipeline import run_job_search
+from src.utils.job_search_pipeline import run_job_search, run_job_search_async
 from src.utils.file_utils import slugify, ensure_dir_exists
+from src.utils.job_database import JobDatabase
 
 # Create FastAPI app
 app = FastAPI(
@@ -255,29 +272,61 @@ async def _run_job_search(
 ):
     """Background task to run job search"""
     try:
-        # Run job search pipeline
-        output_file = run_job_search(
-            keywords=keywords,
-            locations=locations,
-            job_type=job_type,
-            experience_level=experience_level,
-            max_jobs=max_jobs,
-            scrapers=scrapers,
+        # Use synchronous version that works reliably on Windows
+        # Run in thread pool to avoid blocking the event loop
+        import asyncio
+        loop = asyncio.get_event_loop()
+        
+        output_file = await loop.run_in_executor(
+            None,
+            run_job_search,  # Use sync version
+            keywords,
+            locations,
+            job_type,
+            experience_level,
+            max_jobs,
+            scrapers,
         )
 
         # Create results file with search_id
-        result_file = os.path.join(output_dir, f"{search_id}.json")        # Copy the output to the result file
-        with open(output_file, "r", encoding="utf-8") as src:
-            content = src.read()
-            with open(result_file, "w", encoding="utf-8") as dst:
-                dst.write(content)
-        
-        # Get actual job count from results
-        try:
-            results = json.loads(content)
-            job_count = len(results) if isinstance(results, list) else 0
-        except:
-            job_count = 0
+        result_file = os.path.join(output_dir, f"{search_id}.json")
+
+        # If output_file is None (database-only mode), create an empty results file
+        if output_file is None:
+            # Get results from database
+            db = JobDatabase()
+            try:
+                jobs = db.get_jobs(limit=max_jobs)
+                results = []
+                for job in jobs:
+                    job_dict = dict(job)
+                    # Parse JSON fields back to objects
+                    for field in ['job_insights', 'apply_info', 'company_info', 'hiring_team', 'related_jobs']:
+                        if job_dict.get(field):
+                            try:
+                                job_dict[field] = json.loads(job_dict[field])
+                            except (json.JSONDecodeError, TypeError):
+                                pass
+                    results.append(job_dict)
+                
+                with open(result_file, "w", encoding="utf-8") as f:
+                    json.dump(results, f, indent=2, ensure_ascii=False)
+                job_count = len(results)
+            finally:
+                db.close()
+        else:
+            # Copy the output to the result file
+            with open(output_file, "r", encoding="utf-8") as src:
+                content = src.read()
+                with open(result_file, "w", encoding="utf-8") as dst:
+                    dst.write(content)
+            
+            # Get actual job count from results
+            try:
+                results = json.loads(content)
+                job_count = len(results) if isinstance(results, list) else 0
+            except:
+                job_count = 0
 
         # Update search status in history
         update_search_status(search_id, status="completed", job_count=job_count)
@@ -287,6 +336,11 @@ async def _run_job_search(
         error_file = os.path.join(output_dir, f"{search_id}_error.txt")
         with open(error_file, "w", encoding="utf-8") as f:
             f.write(str(e))
+
+        # Create empty results file to prevent returning old database jobs
+        result_file = os.path.join(output_dir, f"{search_id}.json")
+        with open(result_file, "w", encoding="utf-8") as f:
+            json.dump([], f)
 
         # Update search status to error
         update_search_status(search_id, status="error")
@@ -637,34 +691,63 @@ async def _run_job_search_with_websocket(
             await manager.send_progress(websocket, f"Step {i+1}/{len(progress_steps)}: {step}")
             await asyncio.sleep(0.5)  # Small delay for realistic progress
         
-        # Run job search pipeline
+        # Run job search pipeline using sync version in thread pool
         await manager.send_progress(websocket, "Running job search pipeline...")
-        output_file = run_job_search(
-            keywords=keywords,
-            locations=locations,
-            job_type=job_type,
-            experience_level=experience_level,
-            max_jobs=max_jobs,
-            scrapers=scrapers,
+        
+        loop = asyncio.get_event_loop()
+        output_file = await loop.run_in_executor(
+            None,
+            run_job_search,  # Use sync version
+            keywords,
+            locations,
+            job_type,
+            experience_level,
+            max_jobs,
+            scrapers,
         )
 
         # Create results file with search_id
         result_file = os.path.join(output_dir, f"{search_id}.json")
         
-        # Copy the output to the result file
-        with open(output_file, "r", encoding="utf-8") as src:
-            content = src.read()
-            with open(result_file, "w", encoding="utf-8") as dst:
-                dst.write(content)
-        
-        # Get actual job count from results
-        try:
-            results = json.loads(content)
-            job_count = len(results) if isinstance(results, list) else 0
-            await manager.send_progress(websocket, f"Search completed! Found {job_count} jobs")
-        except:
-            job_count = 0
-            results = []
+        # Handle both database-only and file output modes
+        if output_file is None:
+            # Get results from database
+            db = JobDatabase()
+            try:
+                jobs = db.get_jobs(limit=max_jobs)
+                results = []
+                for job in jobs:
+                    job_dict = dict(job)
+                    # Parse JSON fields back to objects
+                    for field in ['job_insights', 'apply_info', 'company_info', 'hiring_team', 'related_jobs']:
+                        if job_dict.get(field):
+                            try:
+                                job_dict[field] = json.loads(job_dict[field])
+                            except (json.JSONDecodeError, TypeError):
+                                pass
+                    results.append(job_dict)
+                
+                with open(result_file, "w", encoding="utf-8") as f:
+                    json.dump(results, f, indent=2, ensure_ascii=False)
+                job_count = len(results)
+            finally:
+                db.close()
+        else:
+            # Copy the output to the result file
+            with open(output_file, "r", encoding="utf-8") as src:
+                content = src.read()
+                with open(result_file, "w", encoding="utf-8") as dst:
+                    dst.write(content)
+            
+            # Get actual job count from results
+            try:
+                results = json.loads(content)
+                job_count = len(results) if isinstance(results, list) else 0
+            except:
+                job_count = 0
+                results = []
+
+        await manager.send_progress(websocket, f"Search completed! Found {job_count} jobs")
 
         # Update search status in history
         update_search_status(search_id, status="completed", job_count=job_count)
@@ -682,6 +765,11 @@ async def _run_job_search_with_websocket(
         error_file = os.path.join(output_dir, f"{search_id}_error.txt")
         with open(error_file, "w", encoding="utf-8") as f:
             f.write(str(e))
+
+        # Create empty results file to prevent returning old database jobs
+        result_file = os.path.join(output_dir, f"{search_id}.json")
+        with open(result_file, "w", encoding="utf-8") as f:
+            json.dump([], f)
 
         # Update search status to error
         update_search_status(search_id, status="error")
@@ -768,6 +856,86 @@ async def get_search_history(limit: int = 20):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# ============================================================================
+# DATABASE ENDPOINTS
+# ============================================================================
+
+@app.get("/jobs/stats")
+async def get_job_stats():
+    """Get database statistics"""
+    try:
+        db = JobDatabase()
+        stats = db.get_stats()
+        db.close()
+        return {"success": True, "data": stats}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/jobs")
+async def get_jobs(limit: int = 100, offset: int = 0):
+    """Get jobs from database with pagination"""
+    try:
+        db = JobDatabase()
+        jobs = db.get_jobs(limit=limit, offset=offset)
+        db.close()
+        return {"success": True, "data": jobs, "count": len(jobs)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/jobs/search")
+async def search_jobs(keyword: str = None, company: str = None, location: str = None):
+    """Search jobs in database"""
+    try:
+        db = JobDatabase()
+        jobs = db.search_jobs(keyword=keyword, company=company, location=location)
+        db.close()
+        return {"success": True, "data": jobs, "count": len(jobs)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/jobs/{job_id}")
+async def get_job(job_id: int):
+    """Get a specific job by ID"""
+    try:
+        db = JobDatabase()
+        job = db.get_job(job_id)        
+        db.close()
+        if not job:
+            raise HTTPException(status_code=404, detail="Job not found")
+        
+        return {"success": True, "data": job}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/jobs/migrate")
+async def migrate_jobs():
+    """Migrate existing JSON files to database"""
+    try:
+        import glob
+        
+        # Find all JSON files in jobs directory
+        json_files = glob.glob("jobs/*.json")
+        if not json_files:
+            return {"success": True, "message": "No JSON files found to migrate", "migrated": 0}
+        
+        db = JobDatabase()
+        migrated_count = db.migrate_from_json(json_files)
+        stats = db.get_stats()
+        db.close()
+        
+        return {
+            "success": True, 
+            "message": f"Migration completed. {migrated_count} jobs migrated.",
+            "migrated": migrated_count,
+            "total_in_db": stats["total_jobs"]
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 if __name__ == "__main__":
+    # Don't force Windows compatibility here - let the browser manager handle it
     # Run the FastAPI app with uvicorn
     uvicorn.run("main_api:app", host="0.0.0.0", port=8000, reload=True)

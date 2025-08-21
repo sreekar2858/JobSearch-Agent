@@ -1,0 +1,10 @@
+{
+  "job_title": "Software Developer",
+  "company_name": "Test Company",
+  "job_description": "A test job description",
+  "job_location": "New York",
+  "skills_required": [
+    "JavaScript",
+    "React"
+  ]
+}

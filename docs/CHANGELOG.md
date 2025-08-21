@@ -1,5 +1,33 @@
 # JobSearch Agent - Changelog
 
+## [2.1.0] - 2025-07-04
+
+### 🔄 Pipeline Architecture Consolidation
+- **MAJOR**: Unified job search pipeline architecture
+  - Consolidated `async_job_search_pipeline.py` into `job_search_pipeline.py`
+  - Single file now supports both synchronous and asynchronous execution modes
+  - Eliminated code duplication between sync and async implementations
+  - Maintained backward compatibility for all existing imports
+
+### ✨ Pipeline Enhancements  
+- **NEW**: `JobSearchPipeline` class with `async_mode` parameter
+- **NEW**: Unified convenience functions `run_job_search()` and `run_job_search_async()`
+- **IMPROVED**: Consistent behavior between CLI and API modes
+- **IMPROVED**: Single source of truth for all job search operations
+- **IMPROVED**: Automatic async scraper initialization in async mode
+
+### 🛠️ Technical Improvements
+- **UPDATED**: `main_api.py` imports simplified to single module
+- **REMOVED**: Duplicate `async_job_search_pipeline.py` file
+- **ENHANCED**: Code maintainability and testing coverage
+- **ADDED**: Better error handling and resource cleanup
+
+### 📚 Documentation Updates
+- **UPDATED**: README.md with unified pipeline information
+- **UPDATED**: API documentation to reflect architectural changes
+- **ADDED**: Pipeline architecture documentation in docs/README.md
+- **ENHANCED**: Project structure documentation
+
 ## [2.0.0] - 2025-06-11
 
 ### 🔄 Major Documentation Consolidation

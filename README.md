@@ -14,6 +14,20 @@
 
 An intelligent job search automation system with **LinkedIn scraping**, **AI-powered CV generation**, and **cover letter creation**. Extract detailed job data, company information, and hiring team details with advanced anonymization and proxy support.
 
+## 📋 Table of Contents
+
+- [🚀 Quick Start](#-quick-start)
+- [📖 Documentation](#-documentation)
+- [⚡ Common Commands](#-common-commands)
+- [📁 Project Structure](#-project-structure)
+- [⚙️ Configuration](#-configuration)
+- [📊 Output & Results](#-output--results)
+- [🚦 Best Practices & Guidelines](#-best-practices--guidelines)
+- [🔧 Troubleshooting](#-troubleshooting)
+- [📚 Documentation & Support](#-documentation--support)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license--disclaimer)
+
 ---
 
 ## 🚀 Quick Start
@@ -29,7 +43,7 @@ pip install -r requirements.txt
 Create a `.env` file for enhanced features:
 ```env
 # LinkedIn credentials (for better scraping results)
-LINKEDIN_USERNAME=your_email@example.com
+LINKEDIN_USERNAME=sreekar2858@gmail.com
 LINKEDIN_PASSWORD=your_password
 
 # AI API key (for CV/cover letter generation)  
@@ -90,44 +104,40 @@ python -m src.scraper.buggmenot --website nytimes.com --visible
 python -m src.scraper.buggmenot --website wsj.com --proxy socks5://proxy:1080
 ```
 
-### 🤖 **AI Job Processing**
-Generate CVs and cover letters (requires AI API key):
+### 🤖 **AI Job Processing & Pipeline**
+Unified job search pipeline with both synchronous and asynchronous support:
 
 ```bash
-# Process job data and generate documents
+# Complete job search workflow with AI processing
 python main.py search "Frontend Developer" --locations "Berlin" --generate-cv --generate-cover-letter
 
-# Start API server
+# Direct pipeline usage (sync mode for CLI)
+python -c "from src.utils.job_search_pipeline import run_job_search; run_job_search('Python Developer', max_jobs=5)"
+
+# Start API server (uses async pipeline for FastAPI)
 python main_api.py
 # Visit http://localhost:8000/docs for API documentation
 ```
 
----
-
-## 📁 Project Structure
-
-```
-JobSearch-Agent/
-├── src/scraper/
-│   ├── search/linkedin_scraper/    # LinkedIn scraper
-│   └── buggmenot/                             # BugMeNot scraper
-├── src/agents/                                # AI agents
-├── output/                                    # Scraped data & generated files
-├── config/                                    # Configuration files
-└── docs/                                      # Detailed documentation
-```
+**Key Pipeline Features:**
+- ✅ **Unified codebase** - Single file supports both sync and async modes
+- ✅ **Database integration** - SQLite storage with deduplication
+- ✅ **FastAPI compatibility** - Async pipeline for web services
+- ✅ **CLI compatibility** - Sync pipeline for scripts and standalone execution
+- ✅ **Export flexibility** - JSON output and database exports
 
 ---
 
 ## 📖 Documentation
 
-For detailed instructions and advanced features, see:
+📚 **Complete documentation is available in the [docs/](docs/) directory:**
 
-- **[LinkedIn Scraper Guide](src/scraper/search/linkedin_scraper/README.md)** - Complete scraper documentation with API usage, CLI options, and performance tips
-- **[BugMeNot Scraper Guide](src/scraper/buggmenot/README.md)** - Credential scraper details  
-- **[API Documentation](docs/API.md)** - REST API reference
-- **[Advanced Configuration](docs/ADVANCED_CONFIGURATION.md)** - Production setup
-- **[Development Guide](docs/DEVELOPMENT.md)** - Contributing guidelines
+- **[📋 Documentation Index](docs/README.md)** - Complete overview of all documentation
+- **[🔧 LinkedIn Scraper Guide](docs/LINKEDIN_SCRAPER.md)** - Complete scraper documentation  
+- **[⚙️ Advanced Configuration](docs/ADVANCED_CONFIGURATION.md)** - Production setup and optimization
+- **[🌐 API Reference](docs/API.md)** - REST API and WebSocket documentation
+- **[👨‍💻 Development Guide](docs/DEVELOPMENT.md)** - Contributing and development setup
+- **[🧪 Testing Guide](docs/TESTING.md)** - Testing procedures and comprehensive test suite
 
 ---
 
@@ -181,40 +191,44 @@ Contributions welcome! See [DEVELOPMENT.md](docs/DEVELOPMENT.md) for guidelines.
 
 ---
 
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) for details.
-
----
-
-**Need Help?** 
-- Check the [troubleshooting section](docs/ADVANCED_CONFIGURATION.md#troubleshooting) 
-- Review [examples](examples/) for usage patterns
-- Open an [issue](https://github.com/sreekar2858/JobSearch-Agent/issues) for support
-```
+## 🔧 Additional Command Examples
 
 **Single Job Mode:**
 ```bash
 # Extract from specific job URL
-python extract_linkedin_jobs.py --job-url "https://linkedin.com/jobs/view/123456789"
+python -m src.scraper.search.linkedin_scraper --job-url "https://linkedin.com/jobs/view/123456789"
 ```
 
 **Key Options:**
-- `--browser chrome|firefox` - Browser choice with fallback
-- `--sort relevance|recency` - Sort results
+- `--browser chromium|firefox|webkit` - Browser choice (chromium is default)
+- `--sort-by relevance|recent` - Sort results  
 - `--links-only` - Fast link collection without full details
 - `--headless` - Run without GUI
 
-### AI Job Processing
+### AI Job Processing & Pipeline
 
 **Complete Workflow:**
 ```bash
-# Search + generate documents
+# Unified pipeline - search + generate documents
 python main.py search "Frontend Developer" --locations "Berlin" --generate-cv --generate-cover-letter
 
 # Process existing job data
 python main.py process linkedin_jobs.json --generate-cv
+
+# Direct pipeline usage
+python -c "
+from src.utils.job_search_pipeline import run_job_search, run_job_search_async
+# Sync version (for CLI/scripts)
+result = run_job_search('Python Developer', max_jobs=5)
+# Async version (for FastAPI/web services) - use with await in async context
+"
 ```
+
+**Pipeline Architecture:**
+- **Sync mode**: For CLI tools and standalone scripts
+- **Async mode**: For FastAPI server and event loop integration  
+- **Database-first**: SQLite storage with JSON export options
+- **Deduplication**: Automatic prevention of duplicate job entries
 
 ### API Server
 
@@ -238,26 +252,32 @@ The project is organized for easy navigation and contribution:
 
 ```
 JobSearch-Agent/
-├── extract_linkedin_jobs.py          # Main LinkedIn scraper
-├── main_api.py                       # FastAPI server
 ├── main.py                           # CLI interface
+├── main_api.py                       # FastAPI server  
+├── test_comprehensive.py             # Consolidated test suite
+├── migrate_jobs_to_db.py             # Database migration utility
 ├── src/
 │   ├── agents/                       # AI agents (CV writer, cover letter, parser)
 │   ├── scraper/                      # Web scraping modules
 │   ├── prompts/                      # AI agent prompts
-│   └── utils/                        # Utilities and helpers
+│   └── utils/
+│       ├── job_search_pipeline.py    # 🔄 Unified sync/async pipeline
+│       ├── job_database.py           # SQLite database operations
+│       └── file_utils.py             # Utilities and helpers
 ├── config/                           # Configuration files
 ├── data/                             # Templates and samples
+├── jobs/                             # Job database and JSON exports
 ├── output/                           # Generated outputs
-├── docs/                             # Advanced documentation
-├── examples/                         # Usage examples
-└── tests/                            # Test files
+├── docs/                             # 📚 Complete documentation
+│   ├── README.md                     # Documentation index
+│   ├── API.md                        # API reference
+│   ├── ADVANCED_CONFIGURATION.md    # Production setup
+│   ├── DEVELOPMENT.md                # Development guide
+│   ├── TESTING.md                    # Testing procedures
+│   ├── CHANGELOG.md                  # Version history
+│   └── TODO.md                       # Roadmap
+└── examples/                         # Usage examples
 ```
-
-**📚 Detailed Documentation:**
-- [Scraper Technical Guide](src/scraper/search/README.md) - LinkedIn scraper deep dive
-- [Advanced Configuration](docs/ADVANCED_CONFIGURATION.md) - Production setup
-- [Development Guide](docs/DEVELOPMENT.md) - Contributing guidelines
 
 ---
 
@@ -268,7 +288,7 @@ JobSearch-Agent/
 Create `.env` file with your credentials:
 ```env
 # LinkedIn (recommended for better results)
-LINKEDIN_USERNAME=your_email@example.com
+LINKEDIN_USERNAME=sreekar2858@gmail.com
 LINKEDIN_PASSWORD=your_password
 
 # AI APIs (for CV/cover letter generation)
@@ -342,7 +362,7 @@ The scraper extracts comprehensive job information including:
 
 **🔍 Browser Problems**
 - Try switching browsers: `--browser firefox` or `--browser chrome`
-- Update browser drivers: `pip install --upgrade webdriver-manager`
+- Update Playwright: `pip install --upgrade playwright && playwright install`
 - Check browser installation and version compatibility
 
 **🔑 Authentication Issues**
@@ -372,19 +392,31 @@ The scraper extracts comprehensive job information including:
 
 ## 📚 Documentation & Support
 
+### 📖 Complete Documentation
+All detailed documentation is organized in the **[docs/](docs/)** directory:
+
+- **[📋 Documentation Index](docs/README.md)** - Complete guide to all documentation
+- **[🔧 Advanced Configuration](docs/ADVANCED_CONFIGURATION.md)** - Production setup and optimization  
+- **[🌐 API Reference](docs/API.md)** - REST API and WebSocket documentation
+- **[👨‍💻 Development Guide](docs/DEVELOPMENT.md)** - Contributing and development setup
+- **[🧪 Testing Guide](docs/TESTING.md)** - Testing procedures and comprehensive test suite
+
 ### Quick Reference
-- **Main Commands**: `python extract_linkedin_jobs.py --help`
-- **API Documentation**: Visit `http://localhost:8000/docs` when server is running
+- **Run Tests**: `python test_comprehensive.py`
+- **Start API Server**: `python main_api.py` → Visit `http://localhost:8000/docs`
+- **CLI Help**: `python main.py --help`
 - **Configuration**: See `config/` directory for all settings
 
 ### Additional Resources
-- **CHANGELOG.md** - Version history and updates
-- **TODO.md** - Planned features and roadmap
+- **[CHANGELOG](docs/CHANGELOG.md)** - Version history and updates
+- **[TODO & Roadmap](docs/TODO.md)** - Planned features and development roadmap
+- **[Testing Guide](docs/TESTING.md)** - Comprehensive testing documentation
+- **[WebSocket Guide](docs/WEBSOCKET_IMPROVEMENTS.md)** - Real-time API features
 - **examples/** - Sample usage and integration code
 
 ### Getting Help
-1. Check the troubleshooting section above
-2. Review the detailed documentation in `docs/`
+1. Check the [troubleshooting section](#-troubleshooting) above
+2. Review the detailed documentation in [docs/](docs/)
 3. Search existing issues on GitHub
 4. Create a new issue with detailed information
 
@@ -400,13 +432,17 @@ Contributions are welcome! Please see our [Development Guide](docs/DEVELOPMENT.m
 
 ### Quick Start for Contributors
 ```bash
-git clone https://github.com/your-username/JobSearch-Agent.git
+git clone https://github.com/sreekar2858/JobSearch-Agent.git
 cd JobSearch-Agent
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-pip install -r dev-requirements.txt
+
+# Run comprehensive tests
+python test_comprehensive.py
 ```
+
+See **[Testing Guide](docs/TESTING.md)** for complete testing documentation.
 
 ---
 
@@ -429,7 +465,7 @@ pip install -r dev-requirements.txt
 ## 🙏 Acknowledgments
 
 Special thanks to:
-- [Selenium](https://selenium.dev/) for browser automation
+- [Playwright](https://playwright.dev/) for browser automation
 - [Playwright](https://playwright.dev/) for browser automation
 - [FastAPI](https://fastapi.tiangolo.com/) for the API framework
 - [LinkedIn](https://linkedin.com/) for providing job data

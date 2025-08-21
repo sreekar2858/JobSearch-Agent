@@ -15,7 +15,7 @@ This guide helps contributors understand the codebase and contribute effectively
 
 1. **Clone and setup**:
 ```bash
-git clone https://github.com/your-username/JobSearch-Agent.git
+git clone https://github.com/sreekar2858/JobSearch-Agent.git
 cd JobSearch-Agent
 
 # Create virtual environment
@@ -46,6 +46,30 @@ python -m pytest --cov=src
 ```
 
 ## Project Architecture
+
+### Core Pipeline Architecture
+
+The project uses a **unified pipeline architecture** centered around `src/utils/job_search_pipeline.py`:
+
+```python
+# Single unified class supporting both execution modes
+class JobSearchPipeline:
+    def __init__(self, async_mode=False, ...):
+        # Initialize with sync or async scrapers based on mode
+        
+    def search_jobs(self):              # Synchronous execution
+    async def search_jobs_async(self):  # Asynchronous execution
+
+# Convenience functions for both modes
+def run_job_search(...):              # For CLI/scripts  
+async def run_job_search_async(...):  # For FastAPI/web services
+```
+
+**Key Benefits:**
+- Single source of truth eliminates code duplication
+- Consistent behavior between CLI and API modes  
+- Easier maintenance and testing
+- Backward compatibility maintained
 
 ### Directory Structure
 

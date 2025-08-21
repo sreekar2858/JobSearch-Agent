@@ -2,17 +2,12 @@
 Utility functions for setting up and validating web scraping dependencies.
 
 This module includes:
-- Checking if Firefox is installed
-- Checking if geckodriver is available
-- Validating Selenium installation
+- Checking if Playwright is available
+- Playwright installation validation
 """
 
-import os
-import sys
 import logging
 import subprocess
-from pathlib import Path
-import shutil
 from typing import Tuple, Optional
 
 # Configure logging
@@ -22,83 +17,94 @@ logging.basicConfig(
 logger = logging.getLogger("scraper_utils")
 
 
-def check_firefox_installation() -> bool:
+def check_playwright_installation() -> Tuple[bool, Optional[str]]:
     """
-    Check if Firefox is installed on the system.
-
-    Returns:
-        True if Firefox is installed, False otherwise
-    """
-    if sys.platform == "win32":
-        # Check common installation paths on Windows
-        firefox_paths = [
-            r"C:\Program Files\Mozilla Firefox\firefox.exe",
-            r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe",
-        ]
-        return any(os.path.exists(path) for path in firefox_paths)
-    elif sys.platform == "darwin":
-        # Check on macOS
-        return os.path.exists("/Applications/Firefox.app")
-    else:
-        # Check on Linux using which command
-        try:
-            result = subprocess.run(
-                ["which", "firefox"], capture_output=True, text=True, check=False
-            )
-            return result.returncode == 0
-        except Exception:
-            return False
-
-
-def check_geckodriver() -> Tuple[bool, Optional[str]]:
-    """
-    Check if geckodriver is installed and accessible in PATH.
+    Check if Playwright is installed and browsers are available.
 
     Returns:
         Tuple of (is_installed, version_or_none)
     """
     try:
-        # Check if geckodriver is in PATH
-        if sys.platform == "win32":
-            geckodriver = shutil.which("geckodriver.exe")
-        else:
-            geckodriver = shutil.which("geckodriver")
-
-        if not geckodriver:
-            return False, None
-
+        # Try to import playwright
+        import playwright
+        
         # Try to get version
         result = subprocess.run(
-            [geckodriver, "--version"], capture_output=True, text=True, check=False
+            ["playwright", "--version"], capture_output=True, text=True, check=False
         )
 
         if result.returncode == 0:
-            version = result.stdout.strip().split("\n")[0]
+            version = result.stdout.strip()
             return True, version
-        return True, None
+        else:
+            # Playwright is installed but CLI might not be available
+            return True, getattr(playwright, '__version__', 'unknown')
 
+    except ImportError:
+        logger.error("Playwright is not installed")
+        return False, None
     except Exception as e:
-        logger.error(f"Error checking geckodriver: {str(e)}")
+        logger.error(f"Error checking Playwright: {str(e)}")
         return False, None
 
 
-def check_selenium_dependencies() -> dict:
+def check_playwright_browsers() -> dict:
     """
-    Check all dependencies required for Selenium and web scraping.
+    Check if Playwright browsers are installed.
+
+    Returns:
+        Dictionary with status of each browser
+    """
+    browsers = {
+        "chromium": False,
+        "firefox": False,
+        "webkit": False
+    }
+    
+    try:
+        # Try to check browser installation
+        result = subprocess.run(
+            ["playwright", "install", "--dry-run"], 
+            capture_output=True, text=True, check=False
+        )
+        
+        if result.returncode == 0:
+            output = result.stdout.lower()
+            for browser in browsers:
+                if f"{browser} is already installed" in output or f"downloading {browser}" not in output:
+                    browsers[browser] = True
+                    
+    except Exception as e:
+        logger.warning(f"Could not check browser installation: {e}")
+        # Assume browsers are installed if we can't check
+        browsers = {browser: True for browser in browsers}
+    
+    return browsers
+
+
+def check_dependencies() -> dict:
+    """
+    Check all dependencies required for Playwright web scraping.
 
     Returns:
         Dictionary with status of each dependency
     """
+    playwright_installed, playwright_version = check_playwright_installation()
+    
     dependencies = {
-        "firefox": check_firefox_installation(),
-        "geckodriver": check_geckodriver()[0],
-        "selenium": True,  # We assume this since the code is running
+        "playwright": playwright_installed,
+        "playwright_version": playwright_version,
+        "browsers": check_playwright_browsers() if playwright_installed else {}
     }
 
     # Log the results
-    for dep, installed in dependencies.items():
-        status = "✅ Installed" if installed else "❌ Not found"
-        logger.info(f"{dep}: {status}")
+    if playwright_installed:
+        logger.info(f"✅ Playwright: Installed (version: {playwright_version})")
+        for browser, installed in dependencies["browsers"].items():
+            status = "✅ Available" if installed else "❌ Not installed"
+            logger.info(f"  {browser}: {status}")
+    else:
+        logger.error("❌ Playwright: Not installed")
 
     return dependencies
 
@@ -110,23 +116,27 @@ def setup_instructions() -> str:
     Returns:
         String with setup instructions
     """
-    dependencies = check_selenium_dependencies()
+    dependencies = check_dependencies()
     instructions = []
 
-    if not dependencies["firefox"]:
+    if not dependencies["playwright"]:
         instructions.append(
-            "Firefox is not installed. Please download and install from: "
-            "https://www.mozilla.org/firefox/new/"
+            "Playwright is not installed. Install using:\n"
+            "pip install playwright\n"
+            "playwright install"
         )
-
-    if not dependencies["geckodriver"]:
-        instructions.append(
-            "GeckoDriver is not installed or not in PATH. Install using:\n"
-            "1. Download from: https://github.com/mozilla/geckodriver/releases\n"
-            "2. Extract the executable to a directory in your PATH\n"
-            "3. On Windows, you can run: webdriver-manager firefox\n"
-            "4. On Linux/Mac: pip install webdriver-manager && webdriver-manager firefox"
-        )
+    else:
+        missing_browsers = [
+            browser for browser, installed in dependencies["browsers"].items() 
+            if not installed
+        ]
+        
+        if missing_browsers:
+            instructions.append(
+                f"Missing Playwright browsers: {', '.join(missing_browsers)}\n"
+                "Install missing browsers using:\n"
+                f"playwright install {' '.join(missing_browsers)}"
+            )
 
     if not instructions:
         return "All dependencies are correctly installed. The scraper should work properly."
@@ -137,7 +147,7 @@ def setup_instructions() -> str:
 if __name__ == "__main__":
     # When run directly, check dependencies and print instructions
     print("Checking scraper dependencies...\n")
-    deps = check_selenium_dependencies()
+    deps = check_dependencies()
 
     print("\nSetup instructions:")
     print(setup_instructions())

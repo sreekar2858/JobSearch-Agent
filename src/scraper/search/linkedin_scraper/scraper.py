@@ -82,7 +82,9 @@ class LinkedInScraper:
                 "LinkedIn scraping cannot work without proper authentication."
             )
 
-        logger.info("✅ LinkedIn credentials loaded successfully")        # Initialize components
+        logger.info("✅ LinkedIn credentials loaded successfully")
+
+        # Initialize components
         self.browser_manager = None
         self.auth_manager = None
         self.filter_manager = None
@@ -93,15 +95,25 @@ class LinkedInScraper:
     async def _ensure_setup(self):
         """Ensure all components are set up."""
         if not self._setup_complete:
-            self.browser_manager = BrowserManager(self.browser, self.headless, self.timeout, self.proxy, self.anonymize)
-            await self.browser_manager.setup_driver()
-            
-            self.auth_manager = AuthManager(self.browser_manager.page, self.timeout)
-            self.filter_manager = FilterManager(self.browser_manager.page, self.timeout)
-            self.job_links_extractor = JobLinksExtractor(self.browser_manager.page)
-            self.job_details_extractor = JobDetailsExtractor(self.browser_manager.page, self.timeout)
-            
-            self._setup_complete = True
+            try:
+                self.browser_manager = BrowserManager(self.browser, self.headless, self.timeout, self.proxy, self.anonymize)
+                await self.browser_manager.setup_driver()
+                
+                self.auth_manager = AuthManager(self.browser_manager.page, self.timeout)
+                self.filter_manager = FilterManager(self.browser_manager.page, self.timeout)
+                self.job_links_extractor = JobLinksExtractor(self.browser_manager.page)
+                self.job_details_extractor = JobDetailsExtractor(self.browser_manager.page, self.timeout)
+                
+                self._setup_complete = True
+            except RuntimeError as e:
+                if "Windows async incompatibility" in str(e):
+                    # Re-raise with more context for the job search pipeline to catch
+                    raise RuntimeError(
+                        "Windows async incompatibility detected during browser setup. "
+                        "Use synchronous scraper fallback."
+                    ) from e
+                else:
+                    raise
 
     @property
     async def page(self):
@@ -523,10 +535,33 @@ class LinkedInScraperSync:
 
     def _run_async(self, coro):
         """Run an async coroutine in sync context."""
-        if self._loop is None:
-            self._loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(self._loop)
-        return self._loop.run_until_complete(coro)
+        try:
+            # Check if there's already a running event loop
+            loop = asyncio.get_running_loop()
+            # If we're in an active event loop, we can't use run_until_complete
+            # This happens when called from FastAPI/async context
+            import threading
+            import concurrent.futures
+            
+            # Run the coroutine in a separate thread with its own event loop
+            def run_in_thread():
+                new_loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(new_loop)
+                try:
+                    return new_loop.run_until_complete(coro)
+                finally:
+                    new_loop.close()
+            
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(run_in_thread)
+                return future.result()
+                
+        except RuntimeError:
+            # No running event loop, safe to create our own
+            if self._loop is None:
+                self._loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(self._loop)
+            return self._loop.run_until_complete(coro)
 
     def collect_job_links(
         self,

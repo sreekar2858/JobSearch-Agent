@@ -8,6 +8,11 @@ import os
 import sys
 import subprocess
 import argparse
+import asyncio
+
+# Apply Windows async compatibility fix for Playwright
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
 
 def check_dependencies():
@@ -151,6 +156,10 @@ def start_server(host="0.0.0.0", port=8000, reload=True, debug=False, test=False
         server_process = subprocess.Popen([
             sys.executable, "-c",
             f"""
+import sys
+import asyncio
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 import uvicorn
 uvicorn.run("main_api:app", host="{host}", port={port}, log_level="{'debug' if debug else 'info'}")
 """
@@ -181,6 +190,10 @@ uvicorn.run("main_api:app", host="{host}", port={port}, log_level="{'debug' if d
             
     else:
         # Start server normally
+        # Apply Windows async fix before importing uvicorn
+        if sys.platform == "win32":
+            asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+            
         import uvicorn
         uvicorn.run(
             "main_api:app",

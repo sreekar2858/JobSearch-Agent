@@ -1,6 +1,15 @@
 # API Documentation
 
-The JobSearch Agent provides a REST API for integrating with external applications like React web apps.
+The JobSearch Agent provides a REST API for integrating with external applications like React web apps. The API is built on a unified pipeline architecture that supports both synchronous and asynchronous job search operations.
+
+## Pipeline Architecture
+
+The API uses a **unified job search pipeline** (`src/utils/job_search_pipeline.py`) that provides:
+
+- **Sync Mode**: For CLI tools and standalone scripts
+- **Async Mode**: For FastAPI server and real-time web services  
+- **Database Integration**: SQLite storage with automatic deduplication
+- **Export Flexibility**: JSON output and database export options
 
 ## Getting Started
 
@@ -16,6 +25,15 @@ The server runs on `http://localhost:8000` by default.
 
 - **Swagger UI**: http://localhost:8000/docs
 - **ReDoc**: http://localhost:8000/redoc
+
+## Architecture Benefits
+
+The unified pipeline architecture provides:
+- **Consistent behavior** between CLI and API modes
+- **No code duplication** - single source of truth
+- **Automatic deduplication** - prevents duplicate job entries
+- **Database-first approach** - persistent storage with optional JSON export
+- **Real-time updates** - WebSocket support for live progress tracking
 
 ## Authentication
 
