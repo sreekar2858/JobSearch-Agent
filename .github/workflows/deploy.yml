@@ -9,7 +9,7 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   SERVICE_NAME: jobsearch-api
-  REGION: eu-west4
+  REGION: europe-west4
 
 jobs:
   deploy:
