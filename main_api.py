@@ -58,6 +58,12 @@ app = FastAPI(
     version="1.0.0",
 )
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv(verbose=True)
+except:
+    pass
+
 # API Key Authentication
 API_KEY = os.getenv("API_KEY", "your-secret-api-key-change-this")  # Set in env vars
 api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)

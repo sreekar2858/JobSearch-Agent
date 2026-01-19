@@ -9,7 +9,10 @@ import asyncio
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 
-from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
+from playwright.async_api import (
+    async_playwright,
+    TimeoutError as PlaywrightTimeoutError,
+)
 
 from .browser import BrowserManager
 from .auth import AuthManager
@@ -27,7 +30,7 @@ from .extractors.selectors import (
     APPLICANT_COUNT_SELECTORS,
     CONTACT_INFO_SELECTORS,
     ADDITIONAL_COMPANY_WEBSITE_SELECTORS,
-    SKILLS_SECTION_SELECTORS
+    SKILLS_SECTION_SELECTORS,
 )
 
 # Configure logging
@@ -48,8 +51,14 @@ class LinkedInScraper:
     - Support for Chromium, Firefox, and WebKit browsers    - Handling of common scraping challenges (captchas, rate limits)
     """
 
-    def __init__(self, headless: bool = False, timeout: int = DEFAULT_TIMEOUT, browser: str = "chromium", 
-                 proxy: Optional[str] = None, anonymize: bool = True):
+    def __init__(
+        self,
+        headless: bool = False,
+        timeout: int = DEFAULT_TIMEOUT,
+        browser: str = "chromium",
+        proxy: Optional[str] = None,
+        anonymize: bool = True,
+    ):
         """
         Initialize the LinkedIn scraper.
 
@@ -96,14 +105,24 @@ class LinkedInScraper:
         """Ensure all components are set up."""
         if not self._setup_complete:
             try:
-                self.browser_manager = BrowserManager(self.browser, self.headless, self.timeout, self.proxy, self.anonymize)
+                self.browser_manager = BrowserManager(
+                    self.browser,
+                    self.headless,
+                    self.timeout,
+                    self.proxy,
+                    self.anonymize,
+                )
                 await self.browser_manager.setup_driver()
-                
+
                 self.auth_manager = AuthManager(self.browser_manager.page, self.timeout)
-                self.filter_manager = FilterManager(self.browser_manager.page, self.timeout)
+                self.filter_manager = FilterManager(
+                    self.browser_manager.page, self.timeout
+                )
                 self.job_links_extractor = JobLinksExtractor(self.browser_manager.page)
-                self.job_details_extractor = JobDetailsExtractor(self.browser_manager.page, self.timeout)
-                
+                self.job_details_extractor = JobDetailsExtractor(
+                    self.browser_manager.page, self.timeout
+                )
+
                 self._setup_complete = True
             except RuntimeError as e:
                 if "Windows async incompatibility" in str(e):
@@ -148,7 +167,7 @@ class LinkedInScraper:
             List of job URLs (strings).
         """
         await self._ensure_setup()
-        
+
         await self.auth_manager.ensure_login(self.username, self.password)
 
         search_url = f"https://www.linkedin.com/jobs/search/?keywords={keywords.replace(' ', '%20')}&location={location.replace(' ', '%20')}"
@@ -169,7 +188,9 @@ class LinkedInScraper:
         # Apply search filters if specified
         if experience_levels or date_posted:
             logger.info("Applying search filters...")
-            filter_success = await self.filter_manager.apply_search_filters(experience_levels, date_posted)
+            filter_success = await self.filter_manager.apply_search_filters(
+                experience_levels, date_posted
+            )
             if not filter_success:
                 logger.warning("Some filters may not have been applied correctly")
 
@@ -189,7 +210,9 @@ class LinkedInScraper:
             job_list_container = await self.browser_manager.find_job_list_container()
 
             # Scroll through the job list to load all cards
-            await self.browser_manager.scroll_job_list_container(job_list_container, total_expected)
+            await self.browser_manager.scroll_job_list_container(
+                job_list_container, total_expected
+            )
 
             # Get all job cards from the page
             job_cards = await self.browser_manager.get_job_cards(job_list_container)
@@ -198,7 +221,9 @@ class LinkedInScraper:
                 break
 
             # Extract job links from all cards
-            page_links = await self.job_links_extractor.extract_job_links_from_cards(job_cards, current_page)
+            page_links = await self.job_links_extractor.extract_job_links_from_cards(
+                job_cards, current_page
+            )
             job_links.update(page_links)
 
             logger.info(f"Collected {len(job_links)} unique job links so far.")
@@ -218,6 +243,540 @@ class LinkedInScraper:
             current_page += 1
         return list(job_links)
 
+    async def _extract_job_details_python(self, page, job_url: str) -> Dict[str, Any]:
+        """
+        Extract job details using Playwright Python API instead of JS evaluate.
+        Keeps same logic as previous JS implementation.
+        """
+        import re
+        from urllib.parse import urlparse, parse_qs
+
+        def clean_text(text: Optional[str]) -> Optional[str]:
+            """Helper to clean text"""
+            if not text:
+                return None
+            return re.sub(r"\s+", " ", text.strip())
+
+        result = {}
+
+        # Get title from h1 or page title
+        title = None
+        h1 = await page.query_selector("h1")
+        if h1:
+            title = clean_text(await h1.text_content())
+        if not title:
+            page_title = await page.title()
+            if "|" in page_title:
+                title = page_title.split("|")[0].strip()
+        result["title"] = title
+
+        # Get company from link or page title
+        company = None
+        company_links = await page.query_selector_all('a[href*="/company/"]')
+        for link in company_links:
+            text = clean_text(await link.text_content())
+            if text and 1 < len(text) < 100 and "Follow" not in text:
+                company = text
+                break
+        if not company:
+            page_title = await page.title()
+            if "|" in page_title:
+                parts = page_title.split("|")
+                if len(parts) > 1:
+                    company = parts[1].strip().replace(" | LinkedIn", "")
+        result["company"] = company
+
+        # Get description
+        description = None
+        article = await page.query_selector("article")
+        if article:
+            article_text = clean_text(await article.text_content())
+            if article_text and 100 < len(article_text) < 50000:
+                description = article_text
+
+        if not description or len(description) < 100:
+            # Look for div/section with job description keywords
+            keywords = [
+                "responsibilities",
+                "requirements",
+                "experience",
+                "qualifications",
+                "about the role",
+                "about the job",
+                "we are looking",
+                "you will",
+                "your role",
+                "what you",
+                "who you are",
+                "skills",
+                "duties",
+            ]
+            divs = await page.query_selector_all("div, section")
+            candidates = []
+
+            for div in divs:
+                # Skip nav/header/footer
+                parent_tag = await div.evaluate(
+                    'el => el.closest("nav, header, aside, footer") ? true : false'
+                )
+                if parent_tag:
+                    continue
+
+                full_text = await div.text_content()
+                if not full_text:
+                    continue
+
+                has_keywords = any(k in full_text.lower() for k in keywords)
+                if has_keywords and 200 < len(full_text) < 15000:
+                    candidates.append(
+                        {"text": clean_text(full_text), "length": len(full_text)}
+                    )
+
+            # Prefer moderate length (around 2500 chars)
+            candidates.sort(key=lambda c: abs(c["length"] - 2500))
+            if candidates:
+                description = candidates[0]["text"]
+
+        if description and len(description) > 10000:
+            description = description[:10000] + "..."
+        result["description"] = description
+
+        # Get location
+        location = None
+        all_spans = await page.query_selector_all("span")
+        for span in all_spans:
+            text = clean_text(await span.text_content())
+            if text and 3 < len(text) < 100:
+                if (
+                    re.match(r"[A-Z][a-z]+,\s*[A-Z][a-z]+", text)
+                    or "Germany" in text
+                    or "Berlin" in text
+                    or "Remote" in text
+                    or "Hybrid" in text
+                ):
+                    if "ago" not in text and "applicant" not in text:
+                        location = text
+                        break
+        result["location"] = location
+
+        # Get date posted
+        date_posted = None
+        for span in all_spans:
+            text = clean_text(await span.text_content())
+            if text and (
+                "ago" in text
+                or "hour" in text
+                or "day" in text
+                or "week" in text
+                or "month" in text
+            ):
+                if (
+                    "applicant" not in text
+                    and "reviewing" not in text
+                    and len(text) < 50
+                ):
+                    date_posted = text
+                    break
+        result["date_posted"] = date_posted
+
+        # Check Easy Apply
+        easy_apply_btn = await page.query_selector(
+            'button[id*="apply"], button[class*="apply"]'
+        )
+        body_text = await page.text_content("body")
+        easy_apply = bool(easy_apply_btn) or (
+            "Easy Apply" in body_text if body_text else False
+        )
+        result["easy_apply"] = easy_apply
+
+        # Extract hiring team
+        hiring_team = []
+        seen_urls = set()
+        profile_links = await page.query_selector_all('a[href*="/in/"]')
+
+        for link in profile_links:
+            if len(hiring_team) >= 5:
+                break
+            href = await link.get_attribute("href")
+            if not href or href in seen_urls:
+                continue
+            # Skip header/nav/footer
+            in_nav = await link.evaluate('el => !!el.closest("header, nav, footer")')
+            if in_nav:
+                continue
+
+            link_text = clean_text(await link.text_content())
+            name = None
+            title_text = None
+
+            # Try to find name in strong tag
+            strong_el = await link.query_selector("strong")
+            if strong_el:
+                name = clean_text(await strong_el.text_content())
+            elif link_text and 2 < len(link_text) < 80:
+                name = link_text.split("•")[0].strip()
+
+            # Look for title in sibling elements
+            if name:
+                parent = await link.evaluate("el => el.parentElement")
+                if parent:
+                    siblings = await link.evaluate("""el => {
+                        const parent = el.parentElement;
+                        if (!parent) return [];
+                        return Array.from(parent.querySelectorAll('span, div, p')).map(e => e.textContent.trim());
+                    }""")
+                    for text in siblings:
+                        text = clean_text(text)
+                        if (
+                            text
+                            and text != name
+                            and 3 < len(text) < 100
+                            and "•" not in text
+                            and "connection" not in text
+                            and not re.match(r"^(1st|2nd|3rd)", text)
+                            and "Message" not in text
+                        ):
+                            title_text = text
+                            break
+
+            if name and len(name) > 2 and "LinkedIn" not in name:
+                seen_urls.add(href)
+                member = {"name": name, "linkedin_url": href}
+                if title_text:
+                    member["title"] = title_text
+                hiring_team.append(member)
+
+        result["hiring_team"] = hiring_team
+
+        # Extract related jobs
+        related_jobs = []
+        seen_job_urls = set()
+        current_job_id = job_url.rstrip("/").split("/")[-1]
+
+        # Strategy 1: Look for ul.js-similar-jobs-list
+        similar_list = await page.query_selector("ul.js-similar-jobs-list")
+        if not similar_list:
+            similar_list = await page.query_selector(
+                "ul.card-list.js-similar-jobs-list"
+            )
+        if not similar_list:
+            all_uls = await page.query_selector_all("ul")
+            for ul in all_uls:
+                classes = await ul.get_attribute("class")
+                if classes and (
+                    "js-similar-jobs-list" in classes
+                    or (
+                        "card-list" in classes
+                        and await ul.query_selector(
+                            ".job-card-job-posting-card-wrapper"
+                        )
+                    )
+                ):
+                    similar_list = ul
+                    break
+
+        if similar_list:
+            items = await similar_list.query_selector_all("li")
+            logger.info(f"Found similar jobs list with {len(items)} items")
+
+            for li in items:
+                if len(related_jobs) >= 8:
+                    break
+
+                link = await li.query_selector(
+                    "a.job-card-job-posting-card-wrapper__card-link"
+                )
+                if not link:
+                    link = await li.query_selector('a[href*="jobs"]')
+                if not link:
+                    continue
+
+                href = await link.get_attribute("href")
+                if not href:
+                    continue
+
+                # Extract job ID from URL params
+                link_job_id = None
+                try:
+                    parsed = urlparse(href)
+                    params = parse_qs(parsed.query)
+                    link_job_id = (
+                        params.get("originToLandingJobPostings", [None])[0]
+                        or params.get("currentJobId", [None])[0]
+                        or params.get("referenceJobId", [None])[0]
+                    )
+                except:
+                    pass
+
+                if not link_job_id:
+                    match = re.search(r"/jobs/view/(\d+)", href)
+                    if match:
+                        link_job_id = match.group(1)
+
+                if (
+                    not link_job_id
+                    or link_job_id == current_job_id
+                    or link_job_id in seen_job_urls
+                ):
+                    continue
+                seen_job_urls.add(link_job_id)
+
+                # Get title
+                job_title = None
+                title_selectors = [
+                    ".artdeco-entity-lockup__title strong",
+                    ".job-card-job-posting-card-wrapper__title strong",
+                    ".artdeco-entity-lockup__title",
+                    ".job-card-job-posting-card-wrapper__title",
+                ]
+                for sel in title_selectors:
+                    title_el = await li.query_selector(sel)
+                    if title_el:
+                        job_title = clean_text(await title_el.text_content())
+                        if job_title:
+                            break
+
+                if not job_title:
+                    link_text = clean_text(await link.text_content())
+                    if link_text and 3 < len(link_text) < 200:
+                        job_title = link_text.split("\n")[0].strip()
+
+                if not job_title or len(job_title) < 3:
+                    continue
+
+                job = {"title": job_title, "job_url": href}
+
+                # Get company
+                company_selectors = [
+                    ".artdeco-entity-lockup__subtitle",
+                    ".job-card-job-posting-card-wrapper__subtitle",
+                ]
+                for sel in company_selectors:
+                    company_el = await li.query_selector(sel)
+                    if company_el:
+                        company_text = clean_text(await company_el.text_content())
+                        if company_text:
+                            job["company"] = company_text
+                            break
+
+                # Get location
+                loc_selectors = [
+                    ".artdeco-entity-lockup__caption",
+                    ".job-card-job-posting-card-wrapper__caption",
+                ]
+                for sel in loc_selectors:
+                    loc_el = await li.query_selector(sel)
+                    if loc_el:
+                        loc_text = clean_text(await loc_el.text_content())
+                        if loc_text:
+                            job["location"] = loc_text
+                            break
+
+                related_jobs.append(job)
+
+            logger.info(
+                f"Extracted {len(related_jobs)} related jobs from similar jobs list"
+            )
+        else:
+            logger.info(
+                "Similar jobs list (ul) not found, trying link-based extraction"
+            )
+
+        # Strategy 2: Find links to /jobs/collections/similar-jobs/
+        if len(related_jobs) == 0:
+            similar_job_links = await page.query_selector_all(
+                'a[href*="/jobs/collections/similar-jobs/"]'
+            )
+            logger.info(f"Found {len(similar_job_links)} similar job collection links")
+
+            for link in similar_job_links:
+                if len(related_jobs) >= 8:
+                    break
+
+                try:
+                    href = await link.get_attribute("href")
+                    if not href:
+                        continue
+
+                    parsed = urlparse(href)
+                    params = parse_qs(parsed.query)
+                    link_job_id = (
+                        params.get("currentJobId", [None])[0]
+                        or params.get("originToLandingJobPostings", [None])[0]
+                    )
+
+                    if (
+                        not link_job_id
+                        or link_job_id == current_job_id
+                        or link_job_id in seen_job_urls
+                    ):
+                        continue
+                    seen_job_urls.add(link_job_id)
+
+                    # Find container
+                    container = await link.evaluate("""el => {
+                        let c = el.closest('div[componentkey]') || el.parentElement;
+                        for (let i = 0; i < 5 && c; i++) {
+                            if (c.querySelector('p, h3, h4')) break;
+                            c = c.parentElement;
+                        }
+                        return c;
+                    }""")
+
+                    if not container:
+                        continue
+
+                    # Find title
+                    job_title = None
+                    container_text = await link.evaluate(
+                        'el => el.closest("div[componentkey]")?.textContent || el.parentElement?.textContent || ""'
+                    )
+                    possible_titles = await link.evaluate("""el => {
+                        const c = el.closest('div[componentkey]') || el.parentElement;
+                        if (!c) return [];
+                        return Array.from(c.querySelectorAll('p, h3, h4, span')).map(e => e.textContent.trim());
+                    }""")
+
+                    for text in possible_titles:
+                        text = clean_text(text)
+                        if (
+                            text
+                            and 10 < len(text) < 150
+                            and "ago" not in text
+                            and "Easy Apply" not in text
+                            and "€" not in text
+                            and "$" not in text
+                            and "linkedin" not in text.lower()
+                        ):
+                            job_title = text
+                            break
+
+                    if not job_title:
+                        continue
+
+                    job = {
+                        "title": job_title,
+                        "job_url": f"https://www.linkedin.com/jobs/view/{link_job_id}/",
+                    }
+
+                    # Find company and location from container text
+                    if container_text:
+                        lines = [
+                            l.strip() for l in container_text.split("\n") if l.strip()
+                        ]
+                        for line in lines:
+                            if line == job_title:
+                                continue
+                            # Location
+                            if (
+                                "Germany" in line
+                                or "Remote" in line
+                                or "Berlin" in line
+                                or re.match(r"[A-Z][a-z]+, [A-Z]", line)
+                            ):
+                                if "ago" not in line and len(line) < 100:
+                                    job["location"] = line
+                            # Company
+                            elif (
+                                "company" not in job
+                                and 2 < len(line) < 80
+                                and "€" not in line
+                                and "$" not in line
+                                and "ago" not in line
+                                and "Apply" not in line
+                            ):
+                                job["company"] = line
+
+                    related_jobs.append(job)
+                except Exception as e:
+                    logger.debug(f"Error processing similar job link: {e}")
+
+            logger.info(
+                f"Extracted {len(related_jobs)} related jobs from collection links"
+            )
+
+        # Strategy 3: Fallback - scan all /jobs/view/ links
+        if len(related_jobs) == 0:
+            job_view_links = await page.query_selector_all('a[href*="/jobs/view/"]')
+            for link in job_view_links:
+                if len(related_jobs) >= 8:
+                    break
+
+                href = await link.get_attribute("href")
+                if not href:
+                    continue
+
+                match = re.search(r"/jobs/view/(\d+)", href)
+                if not match:
+                    continue
+                link_job_id = match.group(1)
+
+                if link_job_id == current_job_id or link_job_id in seen_job_urls:
+                    continue
+                seen_job_urls.add(link_job_id)
+
+                # Get title
+                job_title = None
+                strong_in_link = await link.query_selector("strong")
+                if strong_in_link:
+                    job_title = clean_text(await strong_in_link.text_content())
+
+                if not job_title:
+                    link_text = clean_text(await link.text_content())
+                    if (
+                        link_text
+                        and 3 < len(link_text) < 150
+                        and "apply" not in link_text.lower()
+                        and "see all" not in link_text.lower()
+                        and "show more" not in link_text.lower()
+                    ):
+                        job_title = link_text
+
+                if not job_title or len(job_title) < 3:
+                    continue
+
+                job = {"title": job_title, "job_url": href}
+
+                # Try to find company and location in parent container
+                try:
+                    parent_info = await link.evaluate("""el => {
+                        let container = el.parentElement;
+                        for (let i = 0; i < 5 && container; i++) {
+                            if (container.tagName === 'LI' || container.tagName === 'ARTICLE') break;
+                            container = container.parentElement;
+                        }
+                        if (!container) container = el.parentElement;
+                        
+                        const companyLink = container?.querySelector('a[href*="/company/"]');
+                        const company = companyLink ? companyLink.textContent.trim() : null;
+                        
+                        const spans = container ? Array.from(container.querySelectorAll('span')) : [];
+                        let location = null;
+                        for (const span of spans) {
+                            const text = span.textContent.trim();
+                            if (text && (text.includes(',') || text.toLowerCase().includes('remote')) &&
+                                !text.includes('ago') && text.length < 100) {
+                                location = text;
+                                break;
+                            }
+                        }
+                        
+                        return {company, location};
+                    }""")
+
+                    if parent_info.get("company"):
+                        job["company"] = parent_info["company"]
+                    if parent_info.get("location"):
+                        job["location"] = parent_info["location"]
+                except:
+                    pass
+
+                related_jobs.append(job)
+
+        result["related_jobs"] = related_jobs
+
+        return result
+
     async def get_job_details(self, job_url: str) -> Dict[str, Any]:
         """
         Get detailed information about a specific job posting.
@@ -228,29 +787,89 @@ class LinkedInScraper:
         Returns:            Dictionary containing detailed job information
         """
         await self._ensure_setup()
-        
+
         # Ensure we're logged in (same as collect_job_links method)
         await self.auth_manager.ensure_login(self.username, self.password)
 
         try:
-            # Navigate to job page
-            await self.browser_manager.navigate_to(job_url, 3.0, 5.0)
+            # Navigate to job page and wait for DOM to be ready
+            await self.browser_manager.page.goto(
+                job_url, wait_until="domcontentloaded", timeout=self.timeout
+            )
+            logger.info(f"Navigated to {job_url}")
 
-            # Wait for job details to load
-            description_selectors = JOB_DESCRIPTION_SELECTORS
+            # Small wait for JS to hydrate the page
+            await asyncio.sleep(3)
 
-            # Wait for page to load properly
-            found_selector = False
-            for selector in description_selectors:
+            # Scroll multiple times to load all lazy content (hiring team, related jobs)
+            try:
+                # Scroll down in stages to trigger lazy loading
+                for _ in range(5):
+                    await self.browser_manager.page.evaluate(
+                        "window.scrollTo(0, document.body.scrollHeight)"
+                    )
+                    await asyncio.sleep(1.5)
+
+                # Scroll back up to ensure all sections are visible
+                await self.browser_manager.page.evaluate("window.scrollTo(0, 0)")
+                await asyncio.sleep(1)
+
+                # Try to click any "show more" or "see more jobs" buttons
+                show_more_selectors = [
+                    'button:has-text("Show more")',
+                    'button:has-text("See more")',
+                    'a:has-text("Show more jobs")',
+                    'a:has-text("See similar jobs")',
+                    '[aria-label*="Show more"]',
+                    '[aria-label*="similar jobs"]',
+                ]
+                for selector in show_more_selectors:
+                    try:
+                        btn = await self.browser_manager.page.query_selector(selector)
+                        if btn and await btn.is_visible():
+                            await btn.click()
+                            await asyncio.sleep(2)
+                    except Exception:
+                        pass
+
+                # Wait specifically for similar jobs section to appear (if it exists)
                 try:
-                    await self.browser_manager.page.wait_for_selector(selector, timeout=self.timeout)
-                    found_selector = True
-                    break
-                except PlaywrightTimeoutError:
-                    continue
+                    await self.browser_manager.page.wait_for_selector(
+                        'ul.js-similar-jobs-list, section:has-text("Similar jobs")',
+                        state="attached",
+                        timeout=3000,
+                    )
+                    logger.info("Similar jobs section found")
+                except Exception:
+                    logger.info("Similar jobs section not found (may not be present)")
+            except Exception as e:
+                logger.debug(f"Scrolling/waiting error: {e}")
 
-            if not found_selector:
-                logger.warning("No job description elements found on page")            # Initialize job details with all required fields and defaults
+            # Check if we're on the right page
+            if (
+                "login" in self.browser_manager.page.url.lower()
+                or "checkpoint" in self.browser_manager.page.url.lower()
+            ):
+                logger.warning("Redirected to login/checkpoint page!")
+                # Try logging in again
+                await self.auth_manager.ensure_login(self.username, self.password)
+                await self.browser_manager.page.goto(
+                    job_url, wait_until="domcontentloaded", timeout=self.timeout
+                )
+                await asyncio.sleep(3)
+
+            # Wait for structural elements to be attached to DOM
+            try:
+                # Wait for standard structural elements instead of specific classes which may be evaluated
+                await self.browser_manager.page.wait_for_selector(
+                    "h1, article, main", state="attached", timeout=5000
+                )
+            except PlaywrightTimeoutError:
+                logger.warning(
+                    "Structural elements not found, attempting extraction anyway"
+                )
+
+            # Initialize job details with all required fields and defaults
             job_details = {
                 "url": job_url,
                 "source": "linkedin",
@@ -265,226 +884,163 @@ class LinkedInScraper:
                 "apply_info": "NA",
                 "company_info": "NA",
                 "hiring_team": "NA",
-                "related_jobs": "NA"
-            }            # Extract basic job information
-            basic_info = await self.job_details_extractor.extract_job_basic_info(self.browser_manager.page)
-            job_details.update(basic_info)
-            
-            # Map basic_info fields to expected field names
-            if basic_info.get("posted_date") and job_details["date_posted"] == "NA":
-                job_details["date_posted"] = basic_info["posted_date"]# Extract job description with "See more" handling
-            job_details["description"] = await self.job_details_extractor.extract_complete_job_description()            # Extract date_posted if not already found in basic_info
-            if job_details["date_posted"] == "NA":
-                try:
-                    date_selectors = ADDITIONAL_POSTED_DATE_SELECTORS
-                    
-                    for selector in date_selectors:
-                        try:
-                            date_element = await self.browser_manager.page.query_selector(selector)
-                            if date_element and await date_element.is_visible():
-                                date_text = await date_element.text_content()
-                                if date_text and date_text.strip():
-                                    job_details["date_posted"] = date_text.strip()
-                                    break
-                        except Exception:
-                            continue
-                except Exception as e:
-                    logger.debug(f"Could not extract date_posted: {e}")            # Extract job_insights (applicant count, work preferences, hiring urgency, etc.)
+                "related_jobs": "NA",
+            }
+
+            # Try direct extraction using Playwright Python API
             try:
-                insights = []
-                
-                # First, try to get work type preferences (Remote, Full-time, etc.)
+                js_data = await self._extract_job_details_python(
+                    self.browser_manager.page, job_url
+                )
+
+                if js_data:
+                    logger.info(
+                        f"JS extraction result: title={js_data.get('title')}, company={js_data.get('company')}, hiring_team={len(js_data.get('hiring_team', []))}, related_jobs={len(js_data.get('related_jobs', []))}"
+                    )
+                    if js_data.get("title"):
+                        job_details["title"] = js_data["title"]
+                    if js_data.get("company"):
+                        job_details["company"] = js_data["company"]
+                    if js_data.get("location"):
+                        job_details["location"] = js_data["location"]
+                    if js_data.get("description"):
+                        job_details["description"] = js_data["description"]
+                    if js_data.get("date_posted"):
+                        job_details["date_posted"] = js_data["date_posted"]
+                    job_details["easy_apply"] = js_data.get("easy_apply", False)
+                    if js_data.get("hiring_team") and len(js_data["hiring_team"]) > 0:
+                        job_details["hiring_team"] = js_data["hiring_team"]
+                    if js_data.get("related_jobs") and len(js_data["related_jobs"]) > 0:
+                        job_details["related_jobs"] = js_data["related_jobs"]
+            except Exception as e:
+                logger.warning(f"JS extraction failed: {e}")
+
+            # --- Condensed Fallback Section ---
+
+            # 1. Basic Info (Title/Company/Location)
+            if any(
+                job_details.get(k) == "NA" for k in ["title", "company", "location"]
+            ):
                 try:
-                    work_prefs_elements = await self.browser_manager.page.query_selector_all(".job-details-fit-level-preferences .tvm__text--low-emphasis strong")
-                    for element in work_prefs_elements:
-                        if await element.is_visible():
-                            pref_text = await element.text_content()
-                            if pref_text and pref_text.strip():
-                                pref_text = pref_text.strip()
-                                if pref_text not in insights and len(pref_text) < 50:
-                                    insights.append(pref_text)
+                    basic_info = (
+                        await self.job_details_extractor.extract_job_basic_info(
+                            self.browser_manager.page
+                        )
+                    )
+                    for key in ["title", "company", "location"]:
+                        if job_details.get(key) == "NA" and basic_info.get(key):
+                            job_details[key] = basic_info[key]
+                    if (
+                        basic_info.get("posted_date")
+                        and job_details["date_posted"] == "NA"
+                    ):
+                        job_details["date_posted"] = basic_info["posted_date"]
                 except Exception:
                     pass
-                  # Then try other insight selectors
-                insight_selectors = ADDITIONAL_JOB_INSIGHTS_SELECTORS
-                
-                for selector in insight_selectors:
-                    try:
-                        insight_elements = await self.browser_manager.page.query_selector_all(selector)
-                        for element in insight_elements:
-                            if await element.is_visible():
-                                insight_text = await element.text_content()
-                                if insight_text and insight_text.strip():
-                                    insight_text = insight_text.strip()
-                                    # Filter out date information and common duplicates
-                                    if (insight_text not in insights and 
-                                        len(insight_text) < 200 and 
-                                        not any(word in insight_text.lower() for word in ['posted', 'ago', 'view job']) and
-                                        (any(word in insight_text.lower() for word in ['applicant', 'application', 'review', 'hiring', 'skill', 'match', 'remote', 'full-time', 'part-time', 'contract', 'hybrid']) or
-                                         insight_text.lower() in ['remote', 'full-time', 'part-time', 'contract', 'hybrid', 'on-site'])):
-                                        insights.append(insight_text)
-                    except Exception:
-                        continue
-                
-                if insights:
-                    job_details["job_insights"] = " | ".join(insights)
-            except Exception as e:
-                logger.debug(f"Could not extract job_insights: {e}")            # Extract easy_apply and apply_info
-            try:
-                apply_button_selectors = ADDITIONAL_APPLY_BUTTON_SELECTORS
-                
-                for selector in apply_button_selectors:
-                    try:
-                        apply_button = await self.browser_manager.page.query_selector(selector)
-                        if apply_button and await apply_button.is_visible():
-                            button_text = await apply_button.text_content()
-                            if button_text:
-                                button_text = button_text.strip()
-                                if "easy apply" in button_text.lower():
-                                    job_details["easy_apply"] = True
-                                    job_details["apply_info"] = "Easy Apply"
-                                elif any(word in button_text.lower() for word in ['apply', 'bewerben']):
-                                    # Check if it's an external apply
-                                    href = await apply_button.get_attribute("href")
-                                    if href and "linkedin.com" not in href:
-                                        # Direct external link
-                                        job_details["apply_info"] = href
-                                    else:
-                                        # Try to extract external URL by using the job_details_extractor
-                                        external_url = await self.job_details_extractor.extract_external_apply_url(apply_button)
-                                        if external_url:
-                                            job_details["apply_info"] = external_url
-                                        else:
-                                            job_details["apply_info"] = button_text
-                                break
-                    except Exception:
-                        continue
-            except Exception as e:
-                logger.debug(f"Could not extract apply info: {e}")# Extract metadata: location and other details
-            metadata = await self.job_details_extractor.extract_job_metadata()
-            job_details.update(metadata)
-              # Try additional location extraction if still "NA"
-            if job_details["location"] == "NA":
+
+            # 2. Description Fallback
+            if job_details["description"] == "NA":
+                job_details[
+                    "description"
+                ] = await self.job_details_extractor.extract_complete_job_description()
+
+            # 3. Date Posted Fallback
+            if job_details["date_posted"] == "NA":
                 try:
-                    # Try to get location from subtitle grouping (usually first element)
-                    subtitle_elements = await self.browser_manager.page.query_selector_all(".jobs-unified-top-card__subtitle-secondary-grouping span")
-                    for element in subtitle_elements:
-                        if await element.is_visible():
-                            location_text = await element.text_content()
-                            if location_text and location_text.strip():
-                                location_text = location_text.strip()
-                                # Filter out date/time information and check if it looks like a location
-                                if (not any(word in location_text.lower() for word in ['ago', 'posted', 'hour', 'day', 'week', 'month', 'applicant']) and
-                                    len(location_text) > 2 and 
-                                    not location_text.isdigit()):
-                                    job_details["location"] = location_text
-                                    break
-                      # If still not found, try other location selectors
-                    if job_details["location"] == "NA":
-                        location_selectors = ADDITIONAL_LOCATION_SELECTORS
-                        
-                        for selector in location_selectors:
-                            try:
-                                location_element = await self.browser_manager.page.query_selector(selector)
-                                if location_element and await location_element.is_visible():
-                                    location_text = await location_element.text_content()
-                                    if location_text and location_text.strip():
-                                        # Filter out date/time information
-                                        location_text = location_text.strip()
-                                        if not any(word in location_text.lower() for word in ['ago', 'posted', 'hour', 'day', 'week', 'month']):
-                                            job_details["location"] = location_text
-                                            break
-                            except Exception:
-                                continue
-                except Exception as e:
-                    logger.debug(f"Could not extract additional location: {e}")            # Extract skills and qualifications if available
+                    for selector in ADDITIONAL_POSTED_DATE_SELECTORS:
+                        element = await self.browser_manager.page.query_selector(
+                            selector
+                        )
+                        if element and await element.is_visible():
+                            text = await element.text_content()
+                            if text and any(
+                                w in text.lower()
+                                for w in ["ago", "hour", "day", "week", "month"]
+                            ):
+                                job_details["date_posted"] = text.strip()
+                                break
+                except Exception:
+                    pass
+
+            # 4. Job Insights (Work fit, skills, etc.)
             try:
-                skills_section = await self.browser_manager.page.query_selector(SKILLS_SECTION_SELECTORS[0])
+                insights = []
+                # Work prefs
+                elements = await self.browser_manager.page.query_selector_all(
+                    ".job-details-fit-level-preferences .tvm__text--low-emphasis strong"
+                )
+                for el in elements:
+                    if await el.is_visible():
+                        t = await el.text_content()
+                        if t and t.strip() and len(t) < 50:
+                            insights.append(t.strip())
+
+                # Metadata / Additional insights
+                metadata = await self.job_details_extractor.extract_job_metadata()
+                job_details.update({k: v for k, v in metadata.items() if v != "NA"})
+
+                if insights:
+                    current = job_details.get("job_insights", "NA")
+                    job_details["job_insights"] = (
+                        " | ".join(insights)
+                        if current == "NA"
+                        else f"{current} | {' | '.join(insights)}"
+                    )
+            except Exception as e:
+                logger.debug(f"Insight extraction error: {e}")
+
+            # 5. Apply info
+            if job_details["apply_info"] == "NA":
+                if job_details["easy_apply"]:
+                    job_details["apply_info"] = "Easy Apply"
+                else:
+                    # Try to find external link
+                    try:
+                        for selector in ADDITIONAL_APPLY_BUTTON_SELECTORS:
+                            btn = await self.browser_manager.page.query_selector(
+                                selector
+                            )
+                            if btn and await btn.is_visible():
+                                href = await btn.get_attribute("href")
+                                if href and "linkedin.com" not in href:
+                                    job_details["apply_info"] = href
+                                    break
+                    except Exception:
+                        pass
+
+            # 6. Skills
+            try:
+                skills_section = await self.browser_manager.page.query_selector(
+                    SKILLS_SECTION_SELECTORS[0]
+                )
                 if skills_section:
                     skill_elements = await skills_section.query_selector_all("li")
-                    skills = []
-                    for skill_element in skill_elements:
-                        skill_text = await skill_element.text_content()
-                        if skill_text and skill_text.strip():
-                            skills.append(skill_text.strip())
-                    if skills:
-                        job_details["skills"] = skills
-            except Exception as e:
-                logger.debug(f"Could not extract skills: {e}")            # Extract applicant count if available
-            applicant_selectors = APPLICANT_COUNT_SELECTORS
+                    skills = [await el.text_content() for el in skill_elements]
+                    job_details["skills"] = [
+                        s.strip() for s in skills if s and s.strip()
+                    ]
+            except Exception:
+                pass
 
-            for selector in applicant_selectors:
+            # 7. Hiring Team Fallback (if JS extraction missed it)
+            if job_details["hiring_team"] == "NA" or job_details["hiring_team"] == []:
                 try:
-                    applicant_elements = await self.browser_manager.page.query_selector_all(selector)
-                    for element in applicant_elements:
-                        if await element.is_visible():
-                            applicant_text = await element.text_content()
-                            if applicant_text and applicant_text.strip():
-                                applicant_text = applicant_text.strip()
-                                if (
-                                    "applicant" in applicant_text.lower()
-                                    or "application" in applicant_text.lower()
-                                ):
-                                    job_details["applicant_count"] = applicant_text
-                                    break
-                    if job_details.get("applicant_count"):
-                        break
-                except Exception:
-                    continue            # Extract contact info if available
-            contact_selectors = CONTACT_INFO_SELECTORS
+                    hiring_team = await self.job_details_extractor.extract_hiring_team()
+                    if hiring_team and len(hiring_team) > 0:
+                        job_details["hiring_team"] = hiring_team
+                except Exception as e:
+                    logger.debug(f"Hiring team extraction error: {e}")
 
-            for selector in contact_selectors:
+            # 8. Related Jobs Fallback (if JS extraction missed it)
+            if job_details["related_jobs"] == "NA" or job_details["related_jobs"] == []:
                 try:
-                    contact_elements = await self.browser_manager.page.query_selector_all(selector)
-                    for element in contact_elements:
-                        if await element.is_visible():
-                            contact_text = await element.text_content()
-                            if contact_text and contact_text.strip():
-                                contact_text = contact_text.strip()
-                                if "recruiter" in contact_text.lower():
-                                    job_details["contact_info"] = contact_text
-                                    break
-                    if job_details.get("contact_info"):
-                        break
-                except Exception:
-                    continue            # Extract company information if available
-            try:
-                company_info = await self.job_details_extractor.extract_company_info()
-                if company_info and company_info.strip():
-                    job_details["company_info"] = company_info
-            except Exception as e:
-                logger.debug(f"Could not extract company info: {e}")            # Try to get company website
-            company_website_selectors = ADDITIONAL_COMPANY_WEBSITE_SELECTORS
-
-            for selector in company_website_selectors:
-                try:
-                    website_elements = await self.browser_manager.page.query_selector_all(selector)
-                    for element in website_elements:
-                        if await element.is_visible():
-                            website_url = await element.get_attribute("href")
-                            if website_url and not ("linkedin.com" in website_url):
-                                job_details["company_website"] = website_url
-                                break
-                    if job_details.get("company_website"):
-                        break
-                except Exception:
-                    continue
-
-            # Extract hiring team information
-            try:
-                hiring_team = await self.job_details_extractor.extract_hiring_team()
-                if hiring_team and len(hiring_team) > 0:
-                    job_details["hiring_team"] = hiring_team
-            except Exception as e:
-                logger.debug(f"Could not extract hiring team: {e}")
-
-            # Extract related jobs
-            try:
-                related_jobs = await self.job_details_extractor.extract_related_jobs()
-                if related_jobs and len(related_jobs) > 0:
-                    job_details["related_jobs"] = related_jobs
-            except Exception as e:
-                logger.debug(f"Could not extract related jobs: {e}")
+                    related_jobs = (
+                        await self.job_details_extractor.extract_related_jobs()
+                    )
+                    if related_jobs and len(related_jobs) > 0:
+                        job_details["related_jobs"] = related_jobs
+                except Exception as e:
+                    logger.debug(f"Related jobs extraction error: {e}")
 
             return job_details
 
@@ -506,7 +1062,7 @@ class LinkedInScraper:
                 "apply_info": "NA",
                 "company_info": "NA",
                 "hiring_team": "NA",
-                "related_jobs": "NA"
+                "related_jobs": "NA",
             }
 
     async def close(self) -> None:
@@ -527,9 +1083,15 @@ class LinkedInScraper:
 # Synchronous wrapper for backwards compatibility
 class LinkedInScraperSync:
     """Synchronous wrapper for the async LinkedInScraper."""
-    
-    def __init__(self, headless: bool = False, timeout: int = DEFAULT_TIMEOUT, browser: str = "chromium",
-                 proxy: Optional[str] = None, anonymize: bool = True):
+
+    def __init__(
+        self,
+        headless: bool = False,
+        timeout: int = DEFAULT_TIMEOUT,
+        browser: str = "chromium",
+        proxy: Optional[str] = None,
+        anonymize: bool = True,
+    ):
         self.scraper = LinkedInScraper(headless, timeout, browser, proxy, anonymize)
         self._loop = None
 
@@ -542,7 +1104,7 @@ class LinkedInScraperSync:
             # This happens when called from FastAPI/async context
             import threading
             import concurrent.futures
-            
+
             # Run the coroutine in a separate thread with its own event loop
             def run_in_thread():
                 new_loop = asyncio.new_event_loop()
@@ -551,11 +1113,11 @@ class LinkedInScraperSync:
                     return new_loop.run_until_complete(coro)
                 finally:
                     new_loop.close()
-            
+
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 future = executor.submit(run_in_thread)
                 return future.result()
-                
+
         except RuntimeError:
             # No running event loop, safe to create our own
             if self._loop is None:
