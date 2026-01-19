@@ -9,7 +9,7 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   SERVICE_NAME: toolssreekar2858
-  REGION: europe-west4
+  REGION: eu-west4
 
 jobs:
   deploy:
