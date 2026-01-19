@@ -259,25 +259,57 @@ class LinkedInScraper:
 
         result = {}
 
-        # Get title from h1 or page title
+        # Get title - prioritize specific job title selectors
         title = None
-        h1 = await page.query_selector("h1")
-        if h1:
-            title = clean_text(await h1.text_content())
-        if not title:
+        title_selectors = [
+            ".job-details-jobs-unified-top-card__job-title h1",
+            ".jobs-unified-top-card__job-title h1",
+            "h1.t-24",
+            "main h1",
+        ]
+        for selector in title_selectors:
+            h1 = await page.query_selector(selector)
+            if h1:
+                title = clean_text(await h1.text_content())
+                if (
+                    title
+                    and len(title) > 3
+                    and title not in ["Home", "Jobs", "LinkedIn"]
+                ):
+                    break
+
+        if not title or title in ["Home", "Jobs", "LinkedIn"]:
             page_title = await page.title()
             if "|" in page_title:
                 title = page_title.split("|")[0].strip()
         result["title"] = title
 
-        # Get company from link or page title
+        # Get company - avoid navigation links
         company = None
-        company_links = await page.query_selector_all('a[href*="/company/"]')
-        for link in company_links:
-            text = clean_text(await link.text_content())
-            if text and 1 < len(text) < 100 and "Follow" not in text:
-                company = text
-                break
+        company_selectors = [
+            ".job-details-jobs-unified-top-card__company-name a",
+            ".jobs-unified-top-card__company-name a",
+            'a.ember-view[href*="/company/"]',
+        ]
+
+        for selector in company_selectors:
+            company_link = await page.query_selector(selector)
+            if company_link:
+                # Check if it's in the main job content area, not navigation
+                in_nav = await company_link.evaluate(
+                    'el => !!el.closest("header, nav, aside")'
+                )
+                if not in_nav:
+                    text = clean_text(await company_link.text_content())
+                    if (
+                        text
+                        and 2 < len(text) < 100
+                        and text
+                        not in ["Home", "Jobs", "Network", "Messaging", "Notifications"]
+                    ):
+                        company = text
+                        break
+
         if not company:
             page_title = await page.title()
             if "|" in page_title:
@@ -286,16 +318,26 @@ class LinkedInScraper:
                     company = parts[1].strip().replace(" | LinkedIn", "")
         result["company"] = company
 
-        # Get description
+        # Get description - use specific job description selectors
         description = None
-        article = await page.query_selector("article")
-        if article:
-            article_text = clean_text(await article.text_content())
-            if article_text and 100 < len(article_text) < 50000:
-                description = article_text
+        description_selectors = [
+            ".jobs-description__content",
+            ".jobs-box__html-content",
+            "article.jobs-description",
+            ".job-details-jobs-unified-top-card__job-description",
+            'div[class*="description"] article',
+        ]
+
+        for selector in description_selectors:
+            desc_element = await page.query_selector(selector)
+            if desc_element:
+                desc_text = clean_text(await desc_element.text_content())
+                if desc_text and 100 < len(desc_text) < 50000:
+                    description = desc_text
+                    break
 
         if not description or len(description) < 100:
-            # Look for div/section with job description keywords
+            # Fallback: Look for div with job description keywords
             keywords = [
                 "responsibilities",
                 "requirements",
@@ -331,88 +373,180 @@ class LinkedInScraper:
                     candidates.append(
                         {"text": clean_text(full_text), "length": len(full_text)}
                     )
-
-            # Prefer moderate length (around 2500 chars)
-            candidates.sort(key=lambda c: abs(c["length"] - 2500))
-            if candidates:
-                description = candidates[0]["text"]
-
-        if description and len(description) > 10000:
-            description = description[:10000] + "..."
-        result["description"] = description
-
-        # Get location
+        #  - use specific selectors first
         location = None
-        all_spans = await page.query_selector_all("span")
-        for span in all_spans:
-            text = clean_text(await span.text_content())
-            if text and 3 < len(text) < 100:
-                if (
-                    re.match(r"[A-Z][a-z]+,\s*[A-Z][a-z]+", text)
-                    or "Germany" in text
-                    or "Berlin" in text
-                    or "Remote" in text
-                    or "Hybrid" in text
-                ):
-                    if "ago" not in text and "applicant" not in text:
-                        location = text
-                        break
+        location_selectors = [
+            ".job-details-jobs-unified-top-card__bullet",
+            ".jobs-unified-top-card__bullet",
+            "span.jobs-unified-top-card__workplace-type",
+        ]
+
+        for selector in location_selectors:
+            loc_element = await page.query_selector(selector)
+            if loc_element:
+                text = clean_text(await loc_element.text_content())
+                if text and 3 < len(text) < 100:
+                    # Exclude date/time patterns
+                    if not re.search(
+                        r"\d{4}|ago|applicant|visible", text, re.IGNORECASE
+                    ):
+                        if (
+                            any(
+                                keyword in text
+                                for keyword in ["Remote", "Hybrid", "On-site"]
+                            )
+                            or "," in text
+                        ):
+                            location = text
+                            break
+
+        if not location:
+            # Fallback to span scanning
+            all_spans = await page.query_selector_all("span.t-black--light, span")
+            for span in all_spans[:100]:  # Limit to first 100 spans
+                in_nav = await span.evaluate('el => !!el.closest("header, nav, aside")')
+                if in_nav:
+                    continue
+                text = clean_text(await span.text_content())
+                if text and 3 < len(text) < 100:
+                    if re.match(r"[A-Z][a-z]+,\s*[A-Z]", text) or any(
+                        loc in text
+                        for loc in [
+                            "Germany",
+                            "Berlin",
+                            "Remote",
+                            "Hybrid",
+                            "United States",
+                            "London",
+                        ]
+                    ):
+                        if not re.search(
+                            r"\d{4}|ago|applicant|visible|reviewing|alum",
+                            text,
+                            re.IGNORECASE,
+                        ):
+                            location = text
+                            break
         result["location"] = location
 
-        # Get date posted
+        # Get date posted - be more specific
         date_posted = None
-        for span in all_spans:
-            text = clean_text(await span.text_content())
-            if text and (
-                "ago" in text
-                or "hour" in text
-                or "day" in text
-                or "week" in text
-                or "month" in text
-            ):
-                if (
-                    "applicant" not in text
-                    and "reviewing" not in text
-                    and len(text) < 50
+        date_selectors = [
+            "span.jobs-unified-top-card__posted-date",
+            'span[class*="posted"]',
+        ]
+
+        for selector in date_selectors:
+            date_element = await page.query_selector(selector)
+            if date_element:
+                text = clean_text(await date_element.text_content())
+                if text and re.search(
+                    r"\d+\s+(hour|day|week|month)s?\s+ago", text, re.IGNORECASE
                 ):
-                    date_posted = text
-                    break
-        result["date_posted"] = date_posted
+                    # Extract just the "X days ago" part
+                    match = re.search(
+                        r"\d+\s+(hour|day|week|month)s?\s+ago", text, re.IGNORECASE
+                    )
+                    if match:
+                        date_posted = match.group(0)
+                        break
 
-        # Check Easy Apply
-        easy_apply_btn = await page.query_selector(
-            'button[id*="apply"], button[class*="apply"]'
-        )
-        body_text = await page.text_content("body")
-        easy_apply = bool(easy_apply_btn) or (
-            "Easy Apply" in body_text if body_text else False
-        )
-        result["easy_apply"] = easy_apply
-
-        # Extract hiring team
+        if not date_posted:
+            # Fallback span search
+            all_spans = await page.query_selector_all("span")
+            # for span in all_s - be more careful with name extraction
         hiring_team = []
         seen_urls = set()
-        profile_links = await page.query_selector_all('a[href*="/in/"]')
 
-        for link in profile_links:
+        # Look specifically in hiring team section
+        hiring_section = await page.query_selector(
+            'section:has-text("Meet the hiring team")'
+        )
+        if hiring_section:
+            profile_links = await hiring_section.query_selector_all('a[href*="/in/"]')
+        else:
+            profile_links = await page.query_selector_all('a[href*="/in/"]')
+
+        for link in profile_links[:20]:  # Limit to first 20 profile links
             if len(hiring_team) >= 5:
                 break
             href = await link.get_attribute("href")
             if not href or href in seen_urls:
                 continue
             # Skip header/nav/footer
-            in_nav = await link.evaluate('el => !!el.closest("header, nav, footer")')
+            in_nav = await link.evaluate(
+                'el => !!el.closest("header, nav, footer, aside")'
+            )
             if in_nav:
                 continue
 
-            link_text = clean_text(await link.text_content())
             name = None
             title_text = None
 
-            # Try to find name in strong tag
-            strong_el = await link.query_selector("strong")
+            # Try to find name in strong tag within the link
+            strong_el = await link.query_selector("strong, span.t-bold")
             if strong_el:
                 name = clean_text(await strong_el.text_content())
+                # Clean up - remove trailing metadata like "1 company alum"
+                if name:
+                    name = re.sub(
+                        r"\s*\d+\s+(company\s+alum|mutual connection).*$",
+                        "",
+                        name,
+                        flags=re.IGNORECASE,
+                    ).strip()
+
+            if not name:
+                link_text = clean_text(await link.text_content())
+                if link_text and 2 < len(link_text) < 80:
+                    # Split by bullet point or newline
+                    name = link_text.split("•")[0].split("\n")[0].strip()
+                    # Clean up
+                    name = re.sub(
+                        r"\s*\d+\s+(company\s+alum|mutual connection).*$",
+                        "",
+                        name,
+                        flags=re.IGNORECASE,
+                    ).strip()
+
+            # Look for title in parent container
+            if name and len(name) > 2:
+                try:
+                    parent_data = await link.evaluate("""el => {
+                        const container = el.closest('li, div[class*="card"]') || el.parentElement;
+                        if (!container) return null;
+                        
+                        // Look for title in spans/divs
+                        const textElements = Array.from(container.querySelectorAll('span, div, p'));
+                        for (const elem of textElements) {
+                            const text = elem.textContent.trim();
+                            // Skip if it's the name or metadata
+                            if (text && text.length > 5 && text.length < 100 &&
+                                !text.includes('company alum') && 
+                                !text.includes('mutual connection') &&
+                                !text.match(/^\d+(st|nd|rd|th)/) &&
+                                !text.includes('Message') &&
+                                !text.includes('Follow')) {
+                                return text;
+                            }
+                        }
+                        return null;
+                    }""")
+                    if parent_data and parent_data != name:
+                        title_text = clean_text(parent_data)
+                except:
+                    pass
+
+            if (
+                name
+                and len(name) > 2
+                and "LinkedIn" not in name
+                and name not in ["Home", "Jobs", "Network"]
+            ):
+                seen_urls.add(href)
+                member = {"name": name, "linkedin_url": href}
+                if title_text and title_text != name:
+                    name = clean_text(await strong_el.text_content())
             elif link_text and 2 < len(link_text) < 80:
                 name = link_text.split("•")[0].strip()
 
@@ -814,22 +948,45 @@ class LinkedInScraper:
                 await self.browser_manager.page.evaluate("window.scrollTo(0, 0)")
                 await asyncio.sleep(1)
 
-                # Try to click any "show more" or "see more jobs" buttons
+                # Try to click any "show more" or "see more jobs" buttons - be very specific to avoid navigation
+                # Only click buttons, not links, and check we stay on the same page
                 show_more_selectors = [
                     'button:has-text("Show more")',
                     'button:has-text("See more")',
-                    'a:has-text("Show more jobs")',
-                    'a:has-text("See similar jobs")',
-                    '[aria-label*="Show more"]',
-                    '[aria-label*="similar jobs"]',
+                    'button[aria-label*="Show more"]',
+                    "button.jobs-description__footer-button",
                 ]
                 for selector in show_more_selectors:
                     try:
+                        # Store current URL to verify we don't navigate away
+                        current_url = self.browser_manager.page.url
+
                         btn = await self.browser_manager.page.query_selector(selector)
                         if btn and await btn.is_visible():
-                            await btn.click()
-                            await asyncio.sleep(2)
-                    except Exception:
+                            # Only click if it's actually a button element, not a link
+                            tag_name = await btn.evaluate(
+                                "el => el.tagName.toLowerCase()"
+                            )
+                            if tag_name == "button":
+                                await btn.click()
+                                await asyncio.sleep(2)
+
+                                # Check if we got redirected
+                                if (
+                                    self.browser_manager.page.url != current_url
+                                    and "/company/" in self.browser_manager.page.url
+                                ):
+                                    logger.warning(
+                                        "Accidentally navigated to company page, going back"
+                                    )
+                                    await self.browser_manager.page.goto(
+                                        current_url,
+                                        wait_until="domcontentloaded",
+                                        timeout=self.timeout,
+                                    )
+                                    await asyncio.sleep(2)
+                    except Exception as e:
+                        logger.debug(f"Show more button interaction: {e}")
                         pass
 
                 # Wait specifically for similar jobs section to appear (if it exists)
