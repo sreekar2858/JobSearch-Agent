@@ -51,7 +51,8 @@ jobs:
             --cpu 2 \
             --timeout 300 \
             --max-instances 10 \
-            --set-env-vars="PLAYWRIGHT_BROWSERS_PATH=/ms-playwright"
+            --set-env-vars="PLAYWRIGHT_BROWSERS_PATH=/ms-playwright" \
+            --set-secrets="API_KEY=API_KEY:latest,GOOGLE_API_KEY=GOOGLE_API_KEY:latest,LINKEDIN_USERNAME=LINKEDIN_USERNAME:latest,LINKEDIN_PASSWORD=LINKEDIN_PASSWORD:latest,TAVILY_API_KEY=TAVILY_API_KEY:latest"
 
       - name: Show deployment URL
         run: |

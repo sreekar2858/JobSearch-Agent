@@ -20,6 +20,7 @@ from fastapi import FastAPI, WebSocket, BackgroundTasks, HTTPException, Depends,
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.security import APIKeyHeader
 from pydantic import BaseModel, Field
 
 # Fix for Windows Playwright subprocess issue in async context
@@ -57,10 +58,27 @@ app = FastAPI(
     version="1.0.0",
 )
 
+# API Key Authentication
+API_KEY = os.getenv("API_KEY", "your-secret-api-key-change-this")  # Set in env vars
+api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
+
+
+async def verify_api_key(api_key: str = Depends(api_key_header)):
+    """Verify API key from request header"""
+    if api_key != API_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or missing API Key",
+        )
+    return api_key
+
+
 # Add CORS middleware for React frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific domains
+    allow_origins=[
+        os.getenv("ALLOWED_ORIGIN", "*")  # Set specific domains in production
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -262,7 +280,7 @@ async def root():
     return {"message": "JobSearch API is running. Access /docs for API documentation."}
 
 
-@app.post("/search")
+@app.post("/search", dependencies=[Depends(verify_api_key)])
 async def search_jobs(request: JobSearchRequest, background_tasks: BackgroundTasks):
     """
     Search for jobs based on provided criteria.
