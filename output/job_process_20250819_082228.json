@@ -1,8 +1,0 @@
-{
-  "status": "completed",
-  "files": {
-    "metadata": "output\\Test_Company_Software_Developer\\Test Company_Software Developer_metadata.json",
-    "cv": "output\\Test_Company_Software_Developer\\Test Company_Software Developer_cv.txt",
-    "cover_letter": "output\\Test_Company_Software_Developer\\Test Company_Software Developer.txt"
-  }
-}

@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Tests
+tests/
+*.ipynb
+
+# Output and data (will be recreated)
+output/
+jobs/*.json
+.pytest_cache/
+
+# Environment files
+.env
+.env.local
+
+# Archives
+archive/
+
+# Examples
+examples/
+
+# GitHub
+.github/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
