@@ -8,8 +8,8 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  SERVICE_NAME: jobsearch-api
-  REGION: us-central1 # Change to your preferred region
+  SERVICE_NAME: toolssreekar2858
+  REGION: europe-west4
 
 jobs:
   deploy:
